@@ -21,8 +21,25 @@ void init_bar(void) {
 void display_menu(void) {
 	printf("\n\nStart program ...\n");
 	printf("\n\t\t\t\tMAIN MENU\n");
-	printf(BLUE"\n1)-Home\n2)-Settings\n3)-Exit\n"RESET);
+	printf(BLUE"\n1)-Home\n2)-Settings\n"RESET""RED"8)-Exit\n"RESET);
 }
+
+/*
+ * Display the home menu
+ */
+void display_home(void) {
+	printf("\n\t\t\t\tWELCOME TO HOME\n");
+        printf(BLUE"\n3)-Account management\n4)-Administration\n"RESET""RED"8)-Exit\n"RESET);
+}
+	
+/*
+ * Display the settings menu
+ */
+void display_settings() {
+	printf("\n\t\t\t\tSETTINGS\n");
+        printf(BLUE"\n5)-Account management\n6)-Customer management\n7)-Administration\n"RESET""RED"8)-Exit\n"RESET);
+}
+
 
 /*
  * Display the end bar

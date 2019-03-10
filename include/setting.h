@@ -6,4 +6,9 @@
  */
 int quit(int *flag); 
 
+/*
+ * Define the function handling the main menu
+ */
+int handle_menu(int *flag);
+
 #endif
