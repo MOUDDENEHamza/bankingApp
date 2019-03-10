@@ -47,9 +47,12 @@ void handle_menu(int *flag, int *exit) {
  */
 void handle_client_menu(int *flag, int *exit) {
        	switch(*flag) {
-                case 1 :
-                case 2 :
-                        printf("\n%d\n", *flag);
+                case 1 : 
+			printf("\nAccount management :\n\t\t- check your account balance\n\t\t- check your transaction list on a chososen periode\n\t\t- transfer\n");
+			break;
+
+		case 2 :
+		       	printf("\nAdministration :\n\t\t- change your password\n\t\t- create a new account\n\t\t- delete an account\n");
             		break;
 		case 3 :
 			back(flag, exit);
@@ -63,9 +66,12 @@ void handle_client_menu(int *flag, int *exit) {
 void handle_administrator_menu(int *flag, int *exit) {
         switch(*flag) {
                 case 1 :
-                case 2 :
+			printf("\nAccount management :\n\t\t- create an account\n\t\t- modify an account\n\t\t- delete an account\n\t\t- display the account list by type of account\n");
+			break;
+		case 2 :printf("\nClient management :\n\t\t- add a client\n\t\t- modify clients coordinates_n- display the list of holders of the account\n");
+			break;
 		case 3 :
-                        printf("\n%d\n", *flag);
+                        printf("\nAdministration :\n\t\t- Change password\n");
                         break;
                 case 4 :
                         back(flag, exit);
