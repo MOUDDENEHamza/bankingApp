@@ -12,14 +12,14 @@
 void init_bar(void) {
 	printf("\n******************************************************************************\n");
 	printf("\n\t\t\t\t"GREEN"  BANK"RESET"\t\t\t\n");
-	printf("\n******************************************************************************\n");
+	printf("\n******************************************************************************\n\n\nStart program ...\n");
 }
 
 /*
  * Display the main menu
  */
 void display_menu(int *exit) {
-	printf("\n\nStart program ...\n");
+	*exit = 3;
 	printf("\n\t\t\t\tMAIN MENU\n");
 	printf(BLUE"\n1)-Client area\n2)-Adminstrator area\n"RESET""RED"%d)-Exit"RESET"\n\nIf you are a client type 1, If you are an administrator type 2, if you want to exit type %d.\n", *exit, *exit);
 }
@@ -28,17 +28,18 @@ void display_menu(int *exit) {
  * Display the client menu
  */
 void display_client(int *exit) {
+	*exit = 4;
 	printf("\n\t\t\t\tCLIENT AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Administration\n"RESET""RED"%d)-Exit\n"RESET, *exit);
+        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Back\n"RESET""RED"%d)-Exit\n"RESET, *exit);
 }
 	
 /*
  * Display the administrator menu
  */
 void display_administrator(int *exit) {
-	*exit = 4;
+	*exit = 5;
 	printf("\n\t\t\t\tADMINISTRATOR AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n"RESET""RED"4)-Exit\n"RESET);
+        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n4)-Back\n"RESET""RED"%d)-Exit\n"RESET, *exit);
 }
 
 
