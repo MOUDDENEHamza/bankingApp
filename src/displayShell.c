@@ -18,26 +18,27 @@ void init_bar(void) {
 /*
  * Display the main menu
  */
-void display_menu(void) {
+void display_menu(int *exit) {
 	printf("\n\nStart program ...\n");
 	printf("\n\t\t\t\tMAIN MENU\n");
-	printf(BLUE"\n1)-Home\n2)-Settings\n"RESET""RED"8)-Exit\n"RESET);
+	printf(BLUE"\n1)-Client area\n2)-Adminstrator area\n"RESET""RED"%d)-Exit"RESET"\n\nIf you are a client type 1, If you are an administrator type 2, if you want to exit type %d.\n", *exit, *exit);
 }
 
 /*
- * Display the home menu
+ * Display the client menu
  */
-void display_home(void) {
-	printf("\n\t\t\t\tWELCOME TO HOME\n");
-        printf(BLUE"\n3)-Account management\n4)-Administration\n"RESET""RED"8)-Exit\n"RESET);
+void display_client(int *exit) {
+	printf("\n\t\t\t\tCLIENT AREA\n");
+        printf(BLUE"\n1)-Account management\n2)-Administration\n"RESET""RED"%d)-Exit\n"RESET, *exit);
 }
 	
 /*
- * Display the settings menu
+ * Display the administrator menu
  */
-void display_settings() {
-	printf("\n\t\t\t\tSETTINGS\n");
-        printf(BLUE"\n5)-Account management\n6)-Customer management\n7)-Administration\n"RESET""RED"8)-Exit\n"RESET);
+void display_administrator(int *exit) {
+	*exit = 4;
+	printf("\n\t\t\t\tADMINISTRATOR AREA\n");
+        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n"RESET""RED"4)-Exit\n"RESET);
 }
 
 

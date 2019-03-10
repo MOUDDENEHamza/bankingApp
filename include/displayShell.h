@@ -9,17 +9,17 @@ void init_bar(void);
 /*
  * Display the main menu
  */
-void display_menu(void);
+void display_menu(int *exit);
 
 /*
  * Display the home menu
  */
-void display_home(void);
+void display_client(int *exit);
 
 /*
  * Display the settings menu
  */
-void display_settings(void);
+void display_administrator(int *exit);
 
 /*
  * Display the end bar
