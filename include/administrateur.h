@@ -3,6 +3,7 @@
 
 typedef struct _coordonnees* coordonnees;
 typedef struct _donnees_perso* donnees_perso;
+typedef struct _identifient* identifient;
 typedef struct _Compte* Compte;
 typedef struct _Titulaire_Compte* Titulaire_Comptes;
 void creer_compte(Titulaire_Comptes t);

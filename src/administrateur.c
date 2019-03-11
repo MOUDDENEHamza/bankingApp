@@ -17,9 +17,15 @@ typedef struct _donnees_perso
     _coordonnees* coordonnees;
 }_donnees_perso;
 
+typedef struct _identifient
+{
+    int id;
+}_identifient;
+
 
 typedef struct _Compte
 {
+    identifient id;
     char* type;
     char* intitule;
     _donnees_perso* titulaires;
