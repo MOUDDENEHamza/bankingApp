@@ -30,7 +30,7 @@ void display_menu(int *exit) {
 void display_client(int *exit) {
 	*exit = 4;
 	printf("\n\t\t\t\tCLIENT AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Back\n"RESET""RED"%d)-Exit\n"RESET, *exit);
+        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Back\n"RESET""RED"%d)-Exit\n"RESET,*exit);
 }
 	
 /*

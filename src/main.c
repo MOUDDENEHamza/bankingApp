@@ -5,16 +5,14 @@
 
 /*Main function*/
 int main(int argc, char *argv[]) {
-	/*Initialize variables*/
- 	int flag = 0;
-	int exit;
 
 	/*Start program*/	
-        init_bar();//Display the init bar.
-	display_menu(&exit);//Display the main menu.
-	choose_feature(&flag);//Choose the feature you want to run
-	while (quit(&flag, &exit)) {//Check if the user want to quit the program
-		handle_menu(&flag, &exit);//Define the function handling the main menu 
+ 	Symbol s = symbol();//Constructor of the symbol structure
+ 	init_bar();//Display the init bar.
+	display_menu(s->exit);//Display the main menu.
+	choose_feature(s->flag);//Choose the feature you want to run
+	while (s->exit){
+		handle_menu(s);//Define the function handling the main menu
 		continue;
 	}
 

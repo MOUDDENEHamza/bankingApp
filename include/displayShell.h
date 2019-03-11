@@ -1,6 +1,8 @@
 #ifndef _DISPLAYSHELL_H_
 #define _DISPLAYSHELL_H_
 
+#include "setting.h"
+
 /*
  * Display the init bar
  */
