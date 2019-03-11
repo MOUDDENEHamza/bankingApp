@@ -4,6 +4,12 @@
 /*
  * Introduce a simple structre handling the index of menu
  */
+struct symbol{
+	int flag;
+        int exit;
+	int index;
+};
+
 typedef struct symbol *Symbol;
 
 /*

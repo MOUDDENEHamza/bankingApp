@@ -1,17 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "displayShell.h"
-#include "input.h"
-#include "setting.h"
+#include "../include/displayShell.h"
+#include "../include/input.h"
+#include "../include/setting.h"
 
 /*
  * Introduce a simple structre handling the index of menu
  */
-struct symbol{
-	int flag;
-        int exit;
-	int index;
-};
+
 
 /*
  * Constructor of symbol structure
