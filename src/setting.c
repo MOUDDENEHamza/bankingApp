@@ -7,7 +7,7 @@
 /*
  * Introduce a simple structre handling the index of menu
  */
-struct symbol {
+struct symbol{
 	int flag;
         int exit;
 	int index;
@@ -17,8 +17,7 @@ struct symbol {
  * Constructor of symbol structure
  */
 Symbol new_symbol(void) {
-	Symbol s = malloc(sizeof(Symbol));
-	s->exit = 1;
+	Symbol s = (Symbol) malloc(sizeof(Symbol));
 	return s;
 }
 

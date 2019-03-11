@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
 	int value = 1;
 	/*Start program*/	
  	Symbol s = new_symbol();
+	s->exit = 1;
 	printf("\nOKKKKKKKKKK : %d\n", s->exit);
 	init_bar();//Display the init bar.
 	display_menu(s->exit);//Display the main menu.
