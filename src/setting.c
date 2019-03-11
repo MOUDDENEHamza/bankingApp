@@ -16,9 +16,9 @@ struct symbol {
 /*
  * Constructor of symbol structure
  */
-Symbol symbol(void) {
+Symbol symbol(int *value) {
 	Symbol s = (Symbol) malloc(sizeof(Symbol));
-	s->exit = 1;
+	s->exit = *value;
 	return s;
 }
 

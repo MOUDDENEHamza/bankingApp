@@ -5,10 +5,10 @@
 
 /*Main function*/
 int main(int argc, char *argv[]) {
-
+	int value = 1;
 	/*Start program*/	
- 	Symbol s = symbol();//Constructor of the symbol structure
- 	init_bar();//Display the init bar.
+ 	Symbol s = symbol(&value);
+	init_bar();//Display the init bar.
 	display_menu(s->exit);//Display the main menu.
 	choose_feature(s->flag);//Choose the feature you want to run
 	while (s->exit){
