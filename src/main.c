@@ -7,7 +7,8 @@
 int main(int argc, char *argv[]) {
 	int value = 1;
 	/*Start program*/	
- 	Symbol s = symbol(&value);
+ 	Symbol s = new_symbol();
+	printf("\nOKKKKKKKKKK : %d\n", s->exit);
 	init_bar();//Display the init bar.
 	display_menu(s->exit);//Display the main menu.
 	choose_feature(s->flag);//Choose the feature you want to run

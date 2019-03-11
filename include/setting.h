@@ -9,7 +9,7 @@ typedef struct symbol *Symbol;
 /*
  * Constructor of symbol structure
  */
-Symbol symbol(int *value);
+Symbol new_symbol(void);
 
 /*
  * Define the exit feature
