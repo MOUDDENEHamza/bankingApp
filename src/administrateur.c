@@ -68,4 +68,3 @@ void afficher_list_titulaires(Compte c){
 void changer_mot(Compte c){
     
 }
-
