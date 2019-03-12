@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "../include/displayShell.h"
-#include "../include/input.h"
-#include "../include/setting.h"
+#include "displayShell.h"
+#include "input.h"
+#include "setting.h"
 
 
 /*Main function*/
@@ -14,11 +14,8 @@ int main(int argc, char *argv[]) {
 	set_flag(s,&value2);
 	int texit = get_exit(s);
 	int tflag = get_flag(s);
-	printf("\nOKKKKKKKKKK : %d\n", get_exit(s));
 	init_bar();//Display the init bar.
-	printf("nada");
 	display_menu(&texit);//Display the main menu.
-	printf("nada");
 	choose_feature(&tflag);//Choose the feature you want to run
 	while (get_flag(s)){
 		handle_menu(s);//Define the function handling the main menu

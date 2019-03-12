@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/administrateur.h"
+#include "administrator.h"
 
 typedef struct _coordonnees
 {

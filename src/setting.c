@@ -1,17 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/displayShell.h"
-#include "../include/input.h"
-#include "../include/setting.h"
+#include "displayShell.h"
+#include "input.h"
+#include "setting.h"
+
+/*-----------------------------------Structure--------------------------------*/
 
 /*
  * Introduce a simple structre handling the index of menu
  */
 struct symbol{
 	int flag;
-    int exit;
+    	int exit;
 	int index;
 }symbol;
+
+/*---------------Setters--------------*/
+
+/*
+ *Get flag value from the structure
+ */
+int get_flag(Symbol s) {
+	return s->flag;
+}
+
+/*
+ *Get exit value from the structure
+ */
+int get_exit(Symbol s) {
+	return s->exit;
+}
+
+/*
+ *Get index value from the structure
+ */
+int get_index(Symbol s) {
+	return s->index;
+}
+
+/*---------------Getters--------------*/
+
+/*
+ *Set value to flag in structure
+ */
+void set_flag(Symbol s ,int *val) {
+	s->flag = *val;
+}
+
+/*
+ *Set value to exit in structure
+ */
+void set_exit(Symbol s ,int *val) {
+	s->exit = *val;
+}
+
+/*
+ *Set value to index in structure
+ */
+void set_index(Symbol s, int *val) {
+	s->index = *val;
+}
+
+/*----------------------------------------------------------------------------*/
+
 
 /*
  * Constructor of symbol structure
@@ -19,22 +70,6 @@ struct symbol{
 Symbol new_symbol(void) {
 	Symbol s = (Symbol) malloc(sizeof(Symbol));
 	return s;
-}
-
-void set_exit(Symbol s ,int *val){
-	s->exit = *val;
-}
-
-int get_exit(Symbol s){
-	return s->exit;
-}
-
-void set_flag(Symbol s ,int *val){
-	s->flag = *val;
-}
-
-int get_flag(Symbol s){
-	return s->flag;
 }
 
 /*
