@@ -24,6 +24,21 @@ void display_client(int *exit);
 void display_administrator(int *exit);
 
 /*
+ *Display an error message if the user input an incorrect flag
+ */
+void display_error_flag(Symbol s, int *flag) ;
+
+/*
+ *Display an error message if the user or administrator input an incorrect id
+ */
+void display_error_id(void);
+
+/*
+ *Display an error message if the user or administrator input an incorrect password
+ */
+void display_error_passwd(void);
+
+/*
  * Display the end bar
  */
 void end_bar(void);

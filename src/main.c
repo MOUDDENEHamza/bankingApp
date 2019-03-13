@@ -1,26 +1,36 @@
 #include <stdio.h>
-#include "../include/displayShell.h"
-#include "../include/input.h"
-#include "../include/setting.h"
+#include <string.h>
+#include "displayShell.h"
+#include "input.h"
+#include "setting.h"
+#include "security.h"
+#include "json.h"
 
+#define SIZE 10
 
 /*Main function*/
 int main(int argc, char *argv[]) {
-	int value1 = 0;
-	int value2 = 1;
+	/*Initialize variables*/
+	Symbol s = new_symbol();
+	Security p = new_security();
+	Json j = new_json();
+        int exit = get_exit(s);
+        int flag = get_flag(s);
+	int index = get_index(s);
+	char id[SIZE], passwd[SIZE];
+	strcpy(passwd, get_passwd(p));
+	strcpy(id, get_id(p));
+	printf("ID : %s\n", get_id_json(j));
+        printf("Passwd : %s\n", get_passwd_json(j));
+	
 	/*Start program*/	
- 	Symbol s = new_symbol();
-	set_exit(s,&value1);
-	set_flag(s,&value2);
-	int texit = get_exit(s);
-	int tflag = get_flag(s);
-	init_bar();//Display the init bar.
-	display_menu(&texit);//Display the main menu.
-	choose_feature(&tflag);//Choose the feature you want to run
-	while (get_flag(s)){
-		handle_menu(s);//Define the function handling the main menu
+	init_bar(); //Display the init bar.
+	display_menu(&exit); //Display the main menu.
+	choose_feature(s, &flag); //Choose the feature you want to run
+	while (exit){
+		handle_menu(s, p, &flag, &exit, &index, passwd, id); //Define the function handling the main menu
 		continue;
 	}
-
+	
 	return 0;
 }

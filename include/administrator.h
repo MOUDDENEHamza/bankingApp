@@ -1,4 +1,5 @@
-
+#ifndef _ADMINISTRATOR_H_
+#define _ADMINISTRATOR_H_
 
 typedef struct _coordonnees* Coordonnees;
 Coordonnees new_coordonnees(void);
@@ -48,3 +49,5 @@ void ajouter_client();
 void modifier_infos_client(Titulaire_Comptes t);
 void afficher_list_titulaires(Compte c);
 void changer_mot(Compte c);
+
+#endif

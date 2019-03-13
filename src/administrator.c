@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/administrateur.h"
+#include "administrator.h"
 
 void creer_compte(Titulaire_Comptes t){
-    
+
 }
 
 void modifier_compte(Titulaire_Comptes t){
@@ -31,5 +31,5 @@ void afficher_list_titulaires(Compte c){
 }
 
 void changer_mot(Compte c){
-    
+
 }

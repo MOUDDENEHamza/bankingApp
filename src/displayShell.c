@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "displayShell.h"
 #include "setting.h"
+#include "input.h"
 
 #define RED "\x1B[31m"
 #define GREEN "\x1B[32m"
@@ -31,7 +32,7 @@ void display_menu(int *exit) {
 void display_client(int *exit) {
 	*exit = 4;
 	printf("\n\t\t\t\tCLIENT AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Back\n"RESET""RED"%d)-Exit\n"RESET,*exit);
+        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Sign out\n"RESET""RED"%d)-Exit\n"RESET,*exit);
 }
 	
 /*
@@ -40,7 +41,28 @@ void display_client(int *exit) {
 void display_administrator(int *exit) {
 	*exit = 5;
 	printf("\n\t\t\t\tADMINISTRATOR AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n4)-Back\n"RESET""RED"%d)-Exit\n"RESET, *exit);
+        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n4)-Sign out\n"RESET""RED"%d)-Exit\n"RESET, *exit);
+}
+
+/*
+ *Display an error message if the user input an incorrect flag
+ */
+void display_error_flag(Symbol s, int *flag) {
+	printf(RED"\nERROR :"RESET" Wrong Choice, you should input an integer. Please enter again.\n");
+}
+
+/*
+ *Display an error message if the user or administrator input an incorrect id
+ */
+void display_error_id(void) {
+	printf(RED"\nERROR :"RESET" This id does not exist. Please try again.\n");
+}
+
+/*
+ *Display an error message if the user or administrator input an incorrect password
+ */
+void display_error_passwd(void) {
+        printf(RED"\nERROR :"RESET" Wrong password. Please try again.\n");
 }
 
 
@@ -48,6 +70,7 @@ void display_administrator(int *exit) {
  * Display the end bar
  */
 void end_bar(void) {
+	printf("\nGOODBYE!\n");
 	printf("\n\n\t\t\t\t"GREEN"THE END"RESET"\t\t\t\n");
         printf("\n******************************************************************************\n\n");
 }
