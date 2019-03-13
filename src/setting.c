@@ -97,7 +97,8 @@ void handle_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *p
 			display_administrator(exit); //Dipslay the administrator menu
 			choose_feature(s, index); //Choose the feature you want to run
 			handle_administrator_menu(s, p, index, exit, index, passwd);
-			} else {
+			} else { //Display an error message if the administrator input an incorrect password
+				display_error_passwd();
 			}
 			break;
 		case 3 : //Check if the user want to quit the program

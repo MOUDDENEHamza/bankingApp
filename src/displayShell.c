@@ -32,7 +32,7 @@ void display_menu(int *exit) {
 void display_client(int *exit) {
 	*exit = 4;
 	printf("\n\t\t\t\tCLIENT AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Back\n"RESET""RED"%d)-Exit\n"RESET,*exit);
+        printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Sign out\n"RESET""RED"%d)-Exit\n"RESET,*exit);
 }
 	
 /*
@@ -41,7 +41,7 @@ void display_client(int *exit) {
 void display_administrator(int *exit) {
 	*exit = 5;
 	printf("\n\t\t\t\tADMINISTRATOR AREA\n");
-        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n4)-Back\n"RESET""RED"%d)-Exit\n"RESET, *exit);
+        printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n4)-Sign out\n"RESET""RED"%d)-Exit\n"RESET, *exit);
 }
 
 /*
@@ -50,6 +50,14 @@ void display_administrator(int *exit) {
 void display_error_flag(Symbol s, int *flag) {
 	printf(RED"\nERROR :"RESET" Wrong Choice, you should input an integer. Please enter again.\n");
 }
+
+/*
+ *Display an error message if the user or administrator input an incorrect password
+ */
+void display_error_passwd(void) {
+        printf(RED"\nERROR :"RESET" Wrong password. Please try again.\n");
+}
+
 
 /*
  * Display the end bar
