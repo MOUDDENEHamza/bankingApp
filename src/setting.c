@@ -84,12 +84,12 @@ void quit(int *exit) {
  * Define the back feature
  */
 int back(Symbol s) {
-	/*int flag = get_flag(s);
+	int flag = get_flag(s);
 	int exit = get_exit(s);
 	int index = get_index(s);
 	display_menu(&exit);//Display the main menu.
         choose_feature(s, &flag);//Choose the feature you want to run
-        handle_menu(s, &flag, &exit, &index);*/
+        handle_menu(s, &flag, &exit, &index);
 }
 
 /*
@@ -109,6 +109,11 @@ void handle_menu(Symbol s, int *flag, int *exit, int *index) {
 			break;
 		case 3 : //Check if the user want to quit the program
 			quit(exit);
+			break;
+		default ://Display an error message if the user input an incorrect flag
+			display_error_flag(s, flag);
+			choose_feature(s, flag);//Choose the feature you want to run
+			break;
 	}
 }
 
@@ -116,20 +121,23 @@ void handle_menu(Symbol s, int *flag, int *exit, int *index) {
  * Define the function handling the client menu
  */
 void handle_client_menu(Symbol s, int *flag, int *exit, int *index) {
-     	switch(*flag) {
+	switch(*flag) {
 		case 1 :	
 			printf("\nAccount management :\n\t\t- check your account balance\n\t\t- check your transaction list on a chososen periode\n\t\t- transfer\n");
 			break;
 		case 2 :
-		       	printf("\nAdministration :\n\t\t- change your password\n\t\t- create a new account\n\t\t- delete an account\n");
-        		break;
+			printf("\nAdministration :\n\t\t- change your password\n\t\t- create a new account\n\t\t- delete an account\n");
+			break;
 		case 3 :
-			back(s);
+			//back(s);
 			break;
 		case 4 : //Check if the user want to quit the program
 			quit(exit);
 			break;
-        }
+		default ://Display an error message if the user input an incorrect flag
+                        display_error_flag(s, flag);
+			break;
+	}
 }
 
 /*
@@ -152,5 +160,7 @@ void handle_administrator_menu(Symbol s, int *flag, int *exit, int *index) {
 		case 5 : //Check if the user want to quit the program
 			quit(exit);
 			break;
+		default ://Display an error message if the user input an incorrect flag
+                        display_error_flag(s, flag);
 	} 
 }
