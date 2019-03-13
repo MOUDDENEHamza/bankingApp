@@ -52,6 +52,13 @@ void display_error_flag(Symbol s, int *flag) {
 }
 
 /*
+ *Display an error message if the user or administrator input an incorrect id
+ */
+void display_error_id(void) {
+	printf(RED"\nERROR :"RESET" This id does not exist. Please try again.\n");
+}
+
+/*
  *Display an error message if the user or administrator input an incorrect password
  */
 void display_error_passwd(void) {

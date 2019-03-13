@@ -52,8 +52,10 @@ void set_passwd(Security p ,char *passwd) {
  */
 Security new_security(void) {
 	Security p = (Security) malloc(sizeof(Security));
-	p->id= malloc(sizeof(char *));
-	p->passwd= malloc(sizeof(char *));
+	p->id = malloc(sizeof(char *));
+	p->passwd = malloc(sizeof(char *));
+ 	strcpy(p->id, "");
+	strcpy(p->passwd, "");
 	return p;
 }
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "displayShell.h"
 #include "input.h"
 #include "setting.h"
@@ -70,6 +71,9 @@ void set_index(Symbol s, int *val) {
  */
 Symbol new_symbol(void) {
 	Symbol s = (Symbol) malloc(sizeof(Symbol));
+	s->flag = 0;
+	s->exit = 1;
+	s->index = 0;
 	return s;
 }
 
@@ -88,10 +92,18 @@ void handle_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *p
 	switch (*flag) {
 		case 1 :
 			input_id(p, id);
-			input_passwd(p, passwd);
-			display_client(exit); //Dipslay the administrator menu
-			choose_feature(s, index); //Choose the feature you want to run
-			handle_client_menu(s, p, index, exit, index, passwd, id);
+			if (strcmp(id, "client1") == 0) {
+				input_passwd(p, passwd);
+				if(strcmp(passwd, "13/05/2000") == 0) {
+					display_client(exit); //Dipslay the administrator menu
+					choose_feature(s, index); //Choose the feature you want to run
+					handle_client_menu(s, p, index, exit, index, passwd, id);
+				} else { //Display an error message if the administrator input an incorrect password
+                                display_error_passwd();
+                        	}
+			} else {
+				display_error_id();//Display an error message if the user or administrator input an incorrect id
+			}
 			break;
 		case 2 :
 			input_passwd(p, passwd);

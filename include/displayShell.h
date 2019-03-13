@@ -29,6 +29,11 @@ void display_administrator(int *exit);
 void display_error_flag(Symbol s, int *flag) ;
 
 /*
+ *Display an error message if the user or administrator input an incorrect id
+ */
+void display_error_id(void);
+
+/*
  *Display an error message if the user or administrator input an incorrect password
  */
 void display_error_passwd(void);
