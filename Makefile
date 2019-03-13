@@ -11,6 +11,7 @@ COMMIT = commit -m
 PUSH = push
 READ = read -p
 BIN = bin/*
+FLAG = -ljson-c
 
 all :
 	$(MAKE) compile -s
@@ -20,7 +21,7 @@ all :
 compile :
 	$(GCC) -I $(INCLUDE) -c $(SRC)
 	$(MOVE) *.o $(LIB)
-	$(GCC) -o $(EXC) $(LIB)*.o
+	$(GCC) -o $(EXC) $(LIB)*.o $(FLAG)
 
 run :
 	$(EXC)
