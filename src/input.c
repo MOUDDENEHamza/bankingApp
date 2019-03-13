@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "input.h"
+#include "displayShell.h"
 
 /*
  * Choose the feature you want to run

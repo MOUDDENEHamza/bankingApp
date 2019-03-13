@@ -55,11 +55,6 @@ Symbol new_symbol(void);
 void quit(int *exit); 
 
 /*
- * Define the back feature
- */
-int back(Symbol s);
-
-/*
  * Define the function handling the main menu
  */
 void handle_menu(Symbol s, int *flag, int *exit, int *index);

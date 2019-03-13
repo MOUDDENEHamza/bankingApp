@@ -49,7 +49,6 @@ void display_administrator(int *exit) {
  */
 void display_error_flag(Symbol s, int *flag) {
 	printf(RED"\nERROR :"RESET" Wrong Choice, you should input an integer. Please enter again.\n");
-	//choose_feature(s, flag);//Choose the feature you want to run
 }
 
 /*
