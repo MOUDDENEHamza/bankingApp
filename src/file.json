@@ -1,0 +1,12 @@
+var client = [{
+    "last_name" : "SANZ--SOUHAIT",
+    "first_name" : "CORINA",
+    "id" : "client1",
+    "passwd" : "13/05/2000"
+},
+{
+    "last_name" : "MOUDDENE",
+    "first_name" : "Hamza",
+    "id" : "client2",
+    "passwd" : "18/05/1998"
+}];
