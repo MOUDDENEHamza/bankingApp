@@ -9,7 +9,7 @@ GIT = git
 ADD = add .
 COMMIT = commit -m
 PUSH = push
-READ = @read -p
+READ = read -p
 BIN = bin/*
 
 all :
