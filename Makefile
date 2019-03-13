@@ -26,8 +26,8 @@ run :
 
 git :
 	@$(READ) "Enter the message to set up the commit : " message; \
-	@$(READ) "Enter the base from where you want push your project : " base; \
-	@$(READ) "Enter the branch where you want push your project : " branch; \
+	$(READ) "Enter the base from where you want push your project : " base; \
+	$(READ) "Enter the branch where you want push your project : " branch; \
 	$(GIT) $(ADD) && $(GIT) $(COMMIT) "$$message" && $(GIT) $(PUSH) $$base $$branch;
 
 clean :
