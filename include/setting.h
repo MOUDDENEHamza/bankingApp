@@ -52,7 +52,7 @@ Symbol new_symbol(void);
 /*
  * Define the exit feature
  */
-int quit(Symbol s); 
+void quit(int *exit); 
 
 /*
  * Define the back feature
@@ -62,16 +62,16 @@ int back(Symbol s);
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s);
+void handle_menu(Symbol s, int *flag, int *exit, int *index);
 
 /*
  * Define the function handling the client menu
  */
-void handle_client_menu(Symbol s);
+void handle_client_menu(Symbol s, int *flag, int *exit, int *index);
 
 /*
  * Define the function handling the administrator menu
  */
-void handle_administrator_menu(Symbol s);
+void handle_administrator_menu(Symbol s, int *flag, int *exit, int *index);
 
 #endif

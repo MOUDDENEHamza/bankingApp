@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "displayShell.h"
 #include "setting.h"
+#include "input.h"
 
 #define RED "\x1B[31m"
 #define GREEN "\x1B[32m"
@@ -43,11 +44,19 @@ void display_administrator(int *exit) {
         printf(BLUE"\n1)-Account management\n2)-Client management\n3)-Administration\n4)-Back\n"RESET""RED"%d)-Exit\n"RESET, *exit);
 }
 
+/*
+ *Display an error message if the user input an incorrect flag
+ */
+void display_error_flag(Symbol s, int *flag) {
+	printf(RED"\nERROR :"RESET" Wrong Choice, you should input an integer. Please enter again.\n");
+	choose_feature(s, flag);//Choose the feature you want to run
+}
 
 /*
  * Display the end bar
  */
 void end_bar(void) {
+	printf("\nGOODBYE!\n");
 	printf("\n\n\t\t\t\t"GREEN"THE END"RESET"\t\t\t\n");
         printf("\n******************************************************************************\n\n");
 }

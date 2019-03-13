@@ -6,21 +6,26 @@
 
 /*Main function*/
 int main(int argc, char *argv[]) {
-	int value1 = 0;
-	int value2 = 1;
+	/*Initialize variables*/
+	Symbol s = new_symbol();
+	int flag = 0;
+	int exit = 1;
+	int index = 0;
+	set_exit(s, &exit);
+        set_flag(s, &flag);
+	set_index(s, &index);
+        exit = get_exit(s);
+        flag = get_flag(s);
+	index = get_index(s);
+
 	/*Start program*/	
- 	Symbol s = new_symbol();
-	set_exit(s,&value1);
-	set_flag(s,&value2);
-	int texit = get_exit(s);
-	int tflag = get_flag(s);
 	init_bar();//Display the init bar.
-	display_menu(&texit);//Display the main menu.
-	choose_feature(&tflag);//Choose the feature you want to run
-	while (get_flag(s)){
-		handle_menu(s);//Define the function handling the main menu
+	display_menu(&exit);//Display the main menu.
+	choose_feature(s, &flag);//Choose the feature you want to run
+	while (exit){
+		handle_menu(s, &flag, &exit, &index);//Define the function handling the main menu
 		continue;
 	}
-
+	
 	return 0;
 }
