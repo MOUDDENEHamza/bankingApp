@@ -13,27 +13,31 @@ typedef struct security *Security;
 /*
  *Get id from the structure
  */
-char* get_id(Security s);
+char* get_id(Security p);
 
 /*
  *Get password from the structure
  */
-char* get_passwd(Security s);
+char* get_passwd(Security p);
 
 /*--------------Setters---------------*/
 
 /*
  *Set value to id in structure
  */
-void set_id(Security s ,char *id);
+void set_id(Security p ,char *id);
 
 /*
  *Set value to password in structure
  */
-void set_passwd(Security s ,char *passwd);
+void set_passwd(Security p ,char *passwd);
 
 /*----------------------------------------------------------------------------*/
 
+/*
+ * Constructor of the structure
+ */
+Security new_security(void);
 
 /*
  * Allow to client to connect to the application

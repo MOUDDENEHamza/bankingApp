@@ -1,6 +1,8 @@
 #ifndef _SETTING_H_
 #define _SETTING_H_
 
+#include "security.h"
+
 /*-----------------------------------Structure--------------------------------*/
 
 /*
@@ -57,16 +59,16 @@ void quit(int *exit);
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, int *flag, int *exit, int *index);
+void handle_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *passwd);
 
 /*
  * Define the function handling the client menu
  */
-void handle_client_menu(Symbol s, int *flag, int *exit, int *index);
+void handle_client_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *passwd);
 
 /*
  * Define the function handling the administrator menu
  */
-void handle_administrator_menu(Symbol s, int *flag, int *exit, int *index);
+void handle_administrator_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *passwd);
 
 #endif
