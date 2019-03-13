@@ -15,7 +15,12 @@ void choose_feature(Symbol s, int *flag);
 void hide_passwd(char *passwd);
 
 /*
- * Ask to user or administrator to inout the password
+ * Ask to user or administrator to input the id
+ */
+void input_id(Security p, char *id);
+
+/*
+ * Ask to user or administrator to input the password
  */
 void input_passwd(Security p, char *passwd);
 

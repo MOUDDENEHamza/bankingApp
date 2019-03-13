@@ -44,7 +44,16 @@ void hide_passwd(char *passwd) {
 }
 
 /*
- * Ask to user or administrator to inout the password
+ * Ask to user or administrator to input the id
+ */
+void input_id(Security p, char *id) {
+        printf("\nEnter your id : ");
+	scanf("%s", id);
+        set_id(p , id);
+}
+
+/*
+ * Ask to user or administrator to input the password
  */
 void input_passwd(Security p, char *passwd) {
 	hide_passwd(passwd);

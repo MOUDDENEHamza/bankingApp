@@ -1,56 +1,57 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include<json-c/json.h>
+#include <string.h>
 #include "json.h"
+
+/*-----------------------------------Structures-------------------------------*/
+
+/*
+ * Introduce a simple structre handling the json file
+ */
+struct json {
+	char *id;
+	char *passwd;
+};
 
 /*--------------Getters---------------*/
 
 /*
- * Get last name from structure
- */
-void get_last_name_json(void) {
-	json_object_object_get_ex(parsed_json, "last_name", &last_name);
-	printf("Last name : %s\n", json_object_get_string(last_name));
-}
-
-/*
- * Get first name from structure
- */
-void get_first_name_json(void) {
-	json_object_object_get_ex(parsed_json, "first_name", &first_name);
-	printf("First name : %s\n", json_object_get_string(first_name));
-}
-
-/*
  * Get id from structure
  */
-void get_id_json(void) {
-	json_object_object_get_ex(parsed_json, "id", &id);
-	printf("ID : %s\n", json_object_get_string(id));
+char *get_id_json(Json j) {
+	return j->id;
 }
 
 /*
  * Get password from structure
  */
-void get_passwd_json(void) {
-	json_object_object_get_ex(parsed_json, "passwd", &passwd);
-	printf("Passwd : %s\n", json_object_get_string(passwd));
+char* get_passwd_json(Json j) {
+	return j->passwd;
 }
 
 /*------------------------------------*/
 
 /*
- * Open the file in reading mode
+ * Constructor of structure
  */
-void open_file(char *file_name, char *buffer) {
+Json new_json(void) {
 	FILE *fp;
-	fp = fopen(file_name, "r");
+	char buffer[1024];
+	struct json_object *parsed_json;
+	struct json_object *id, *passwd;
+	
+	Json j = malloc(sizeof(Json));
+	j->id = malloc(sizeof(char *));
+	j->id = malloc(sizeof(char *));
+	j->passwd = malloc(sizeof(char *));
+	fp = fopen("src/file.json","r");
 	fread(buffer, 1024, 1, fp);
-}
-
-/*
- * Close the file
- */
- void close_file(FILE *fp, char *buffer) {
- 	fclose(fp);
+	fclose(fp);
 	parsed_json = json_tokener_parse(buffer);
- }
+	json_object_object_get_ex(parsed_json, "id", &id);
+	json_object_object_get_ex(parsed_json, "passwd", &passwd);
+	strcpy(j->id, json_object_get_string(id));
+	strcpy(j->passwd, json_object_get_string(passwd));
+	return j;
+}
