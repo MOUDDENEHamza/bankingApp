@@ -9,6 +9,10 @@ typedef struct _coordonnees
     char* adresses;
 }_coordonnees;
 
+Coordonnees new_coordonnees(void){
+    return NULL;
+}
+
 void set_mail(Coordonnees c, char* m){
     c->mail=m;
 }
@@ -41,6 +45,10 @@ typedef struct _info_perso
     char* date_de_naissance;
     Coordonnees coordonnees;
 }_info_perso;
+
+Info_perso new_Info_perso(void){
+    return NULL;
+}
 
 void set_nom(Info_perso I, char* n){
     I->nom=n;
@@ -82,6 +90,10 @@ typedef struct _Compte
     float solde;
 }_Compte;
 
+Compte new_Compte(void){
+    return NULL;
+}
+
 void set_type(Compte c, char* t){
     c->type=t;
 }
@@ -115,6 +127,10 @@ typedef struct _Titulaire_Comptes
     Compte list_comptes;
 }_Titulaire_Comptes;
 
+Titulaire_Comptes new_Titulaire_Comptes(void){
+    return NULL;
+}
+
 void set_identifient(Titulaire_Comptes t, int *i){
     t->identifient=*i;
 }
@@ -147,8 +163,10 @@ Compte get_list_comptes(Titulaire_Comptes t){
     return t->list_comptes;
 }
 
-void creer_compte(Titulaire_Comptes t){
 
+
+void creer_compte(Titulaire_Comptes t){
+    
 }
 
 void modifier_compte(Titulaire_Comptes t){
