@@ -15,7 +15,8 @@ int main(int argc, char *argv[]) {
 	Security p = new_security();
 	Json j = new_json();
 	int log_in;
-        int exit = get_exit(s);
+	int attempt;
+	int exit = get_exit(s);
         int flag = get_flag(s);
 	int index = get_index(s);
 	char id[SIZE], passwd[SIZE];
@@ -26,10 +27,11 @@ int main(int argc, char *argv[]) {
 	init_bar(); //Display the init bar.
 	back:
 	log_in = 0;
+	attempt = 5;
 	display_menu(&exit); //Display the main menu.
 	choose_feature(s, &flag); //Choose the feature you want to run
 	while (exit){
-		handle_menu(s, p, j, &flag, &exit, &index, passwd, id, &log_in); //Define the function handling the main menu
+		handle_menu(s, p, j, &flag, &exit, &index, passwd, id, &log_in, &attempt); //Define the function handling the main menu
 		if ((flag == 1 && index == 3) || (flag == 2 && index == 4)) {
 			goto back;//If the user want to sign out the submenu
 		} 

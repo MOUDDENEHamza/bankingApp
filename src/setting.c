@@ -89,8 +89,8 @@ void quit(int *exit) {
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in) {
-	int process = 1;
+void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in, int *attempt) {
+	int stop = 3;
 	switch (*flag) {
 		case 1 :
 			if (*log_in == 0) {
@@ -103,9 +103,10 @@ void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index,
 				choose_feature(s, index); //Choose the feature you want to run
 				handle_client_menu(s, p, j, index, exit, index, passwd, id);
 				break;
-			} 
-                        display_error_connexion_client();//Display an error message if the user input an incorrect id or password
-			break;
+			} else {
+                        	display_error_connexion_client();//Display an error message if the user input an incorrect id or password
+				break;
+			}
 		case 2 :
 			if (*log_in == 0) {
 				input_passwd(p, passwd);
@@ -116,9 +117,10 @@ void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index,
 				handle_administrator_menu(s, p, j, index, exit, index, passwd, id);
 				*log_in = 1;
 				break;
+			} else {
+				display_error_connexion_admin(); //Display an error message if the administrator input an incorrect password
+				break;
 			}
-			display_error_connexion_admin(); //Display an error message if the administrator input an incorrect password
-			break;
 		case 3 : //Check if the user want to quit the program
 			quit(exit);
 			break;
