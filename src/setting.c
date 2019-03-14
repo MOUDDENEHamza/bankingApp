@@ -5,6 +5,7 @@
 #include "input.h"
 #include "setting.h"
 #include "security.h"
+#include "json.h"
 
 /*-----------------------------------Structure--------------------------------*/
 
@@ -88,16 +89,16 @@ void quit(int *exit) {
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
 	switch (*flag) {
 		case 1 :
 			input_id(p, id);
-			if (strcmp(id, "client1") == 0) {
+			if (!valid_id_client(j, id)) {
 				input_passwd(p, passwd);
-				if(strcmp(passwd, "13/05/2000") == 0) {
+				if(!valid_passwd_client(j, passwd)) {
 					display_client(exit); //Dipslay the administrator menu
 					choose_feature(s, index); //Choose the feature you want to run
-					handle_client_menu(s, p, index, exit, index, passwd, id);
+					handle_client_menu(s, p, j, index, exit, index, passwd, id);
 				} else { //Display an error message if the administrator input an incorrect password
                                 display_error_passwd();
                         	}
@@ -110,7 +111,7 @@ void handle_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *p
 			if (!connect_admin(passwd)) {
 			display_administrator(exit); //Dipslay the administrator menu
 			choose_feature(s, index); //Choose the feature you want to run
-			handle_administrator_menu(s, p, index, exit, index, passwd, id);
+			handle_administrator_menu(s, p, j, index, exit, index, passwd, id);
 			} else { //Display an error message if the administrator input an incorrect password
 				display_error_passwd();
 			}
@@ -128,7 +129,7 @@ void handle_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *p
 /*
  * Define the function handling the client menu
  */
-void handle_client_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_client_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
  	switch(*flag) {
 		case 1 :	
 			printf("\nAccount management :\n\t\t- check your account balance\n\t\t- check your transaction list on a chososen periode\n\t\t- transfer\n");
@@ -139,7 +140,7 @@ void handle_client_menu(Symbol s, Security p, int *flag, int *exit, int *index, 
 		case 3 : //If the user want to quit the submenu
 			display_menu(exit);//Display the main menu.
 			choose_feature(s, flag);//Choose the feature you want to run
-			return handle_menu(s, p, flag, exit, index, passwd, id);
+			return handle_menu(s, p, j, flag, exit, index, passwd, id);
 		case 4 : //Check if the user want to quit the program
 			quit(exit);
 			break;
@@ -152,7 +153,7 @@ void handle_client_menu(Symbol s, Security p, int *flag, int *exit, int *index, 
 /*
  * Define the function handling the administrator menu
  */
-void handle_administrator_menu(Symbol s, Security p, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_administrator_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
 	switch(*flag) { 
                 case 1 : 
 			printf("\nAccount management :\n\t\t- create an account\n\t\t- modify an account\n\t\t- delete an account\n\t\t- display the account list by type of account\n");
@@ -166,7 +167,7 @@ void handle_administrator_menu(Symbol s, Security p, int *flag, int *exit, int *
 		case 4 : //If the user want to quit the submenu
                         display_menu(exit);//Display the main menu.
                         choose_feature(s, flag);//Choose the feature you want to run
-                        return handle_menu(s, p, flag, exit, index, passwd, id);
+                        return handle_menu(s, p, j, flag, exit, index, passwd, id);
 		case 5 : //Check if the user want to quit the program
 			quit(exit);
 			break;

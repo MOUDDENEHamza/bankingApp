@@ -22,13 +22,13 @@ int main(int argc, char *argv[]) {
 	strcpy(id, get_id(p));
 	printf("ID : %s\n", get_id_json(j));
         printf("Passwd : %s\n", get_passwd_json(j));
-	
+
 	/*Start program*/	
 	init_bar(); //Display the init bar.
 	display_menu(&exit); //Display the main menu.
 	choose_feature(s, &flag); //Choose the feature you want to run
 	while (exit){
-		handle_menu(s, p, &flag, &exit, &index, passwd, id); //Define the function handling the main menu
+		handle_menu(s, p, j, &flag, &exit, &index, passwd, id); //Define the function handling the main menu
 		continue;
 	}
 	

@@ -1,6 +1,8 @@
 #ifndef _SECURITY_H_
 #define _SECURITY_H_
 
+#include "json.h"
+
 /*-----------------------------------Structure--------------------------------*/
 
 /*
@@ -40,9 +42,14 @@ void set_passwd(Security p ,char *passwd);
 Security new_security(void);
 
 /*
- * Allow to client to connect to the application
+ * Check if the id client is valid
  */
-void connect_client(void);
+int valid_id_client(Json j, char *id);
+
+/*
+ * Check if the password client is valid
+ */
+int valid_passwd_client(Json j, char *passwd);
 
 /*
  * Allow to administrator to connect to the application
