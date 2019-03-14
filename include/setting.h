@@ -60,7 +60,7 @@ void quit(int *exit);
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id);
+void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in);
 
 /*
  * Define the function handling the client menu

@@ -48,20 +48,20 @@ void display_administrator(int *exit) {
  *Display an error message if the user input an incorrect flag
  */
 void display_error_flag(Symbol s, int *flag) {
-	printf(RED"\nERROR :"RESET" Wrong Choice, you should input an integer. Please enter again.\n");
+	printf(RED"\nERROR :"RESET" Wrong Choice. Please enter again.\n");
 }
 
 /*
- *Display an error message if the user or administrator input an incorrect id
+ *Display an error message if the user input an incorrect id or password
  */
-void display_error_id(void) {
-	printf(RED"\nERROR :"RESET" This id does not exist. Please try again.\n");
+void display_error_connexion_client(void) {
+	printf(RED"\nERROR :"RESET" Wrong id or password. Please try again.\n");
 }
 
 /*
- *Display an error message if the user or administrator input an incorrect password
+ *Display an error message if the administrator input an incorrect password
  */
-void display_error_passwd(void) {
+void display_error_connexion_admin(void) {
         printf(RED"\nERROR :"RESET" Wrong password. Please try again.\n");
 }
 

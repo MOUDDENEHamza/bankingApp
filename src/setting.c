@@ -89,32 +89,35 @@ void quit(int *exit) {
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in) {
+	int process = 1;
 	switch (*flag) {
 		case 1 :
-			input_id(p, id);
-			if (!valid_id_client(j, id)) {
+			if (*log_in == 0) {
+				input_id(p, id);
 				input_passwd(p, passwd);
-				if(!valid_passwd_client(j, passwd)) {
-					display_client(exit); //Dipslay the administrator menu
-					choose_feature(s, index); //Choose the feature you want to run
-					handle_client_menu(s, p, j, index, exit, index, passwd, id);
-				} else { //Display an error message if the administrator input an incorrect password
-                                display_error_passwd();
-                        	}
-			} else {
-				display_error_id();//Display an error message if the user or administrator input an incorrect id
-			}
+			}	
+			if(!valid_id_client(j, id) && !valid_passwd_client(j, passwd)) {
+				*log_in = 1;
+				display_client(exit); //Dipslay the administrator menu
+				choose_feature(s, index); //Choose the feature you want to run
+				handle_client_menu(s, p, j, index, exit, index, passwd, id);
+				break;
+			} 
+                        display_error_connexion_client();//Display an error message if the user input an incorrect id or password
 			break;
 		case 2 :
-			input_passwd(p, passwd);
-			if (!connect_admin(passwd)) {
-			display_administrator(exit); //Dipslay the administrator menu
-			choose_feature(s, index); //Choose the feature you want to run
-			handle_administrator_menu(s, p, j, index, exit, index, passwd, id);
-			} else { //Display an error message if the administrator input an incorrect password
-				display_error_passwd();
+			if (*log_in == 0) {
+				input_passwd(p, passwd);
 			}
+			if (!connect_admin(passwd)) {
+				display_administrator(exit); //Dipslay the administrator menu
+				choose_feature(s, index); //Choose the feature you want to run
+				handle_administrator_menu(s, p, j, index, exit, index, passwd, id);
+				*log_in = 1;
+				break;
+			}
+			display_error_connexion_admin(); //Display an error message if the administrator input an incorrect password
 			break;
 		case 3 : //Check if the user want to quit the program
 			quit(exit);
@@ -137,10 +140,8 @@ void handle_client_menu(Symbol s, Security p, Json j, int *flag, int *exit, int 
 		case 2 :
 			printf("\nAdministration :\n\t\t- change your password\n\t\t- create a new account\n\t\t- delete an account\n");
 			break;
-		case 3 : //If the user want to quit the submenu
-			display_menu(exit);//Display the main menu.
-			choose_feature(s, flag);//Choose the feature you want to run
-			return handle_menu(s, p, j, flag, exit, index, passwd, id);
+		case 3 : //If the user want to sign out the submenu
+			break;
 		case 4 : //Check if the user want to quit the program
 			quit(exit);
 			break;
@@ -164,10 +165,8 @@ void handle_administrator_menu(Symbol s, Security p, Json j, int *flag, int *exi
 		case 3 :
 	 		printf("\nAdministration :\n\t\t- Change password\n");
 			break;
-		case 4 : //If the user want to quit the submenu
-                        display_menu(exit);//Display the main menu.
-                        choose_feature(s, flag);//Choose the feature you want to run
-                        return handle_menu(s, p, j, flag, exit, index, passwd, id);
+		case 4 : //If the user want to sign out the submenu
+			break;
 		case 5 : //Check if the user want to quit the program
 			quit(exit);
 			break;

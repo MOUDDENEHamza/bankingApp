@@ -31,12 +31,12 @@ void display_error_flag(Symbol s, int *flag) ;
 /*
  *Display an error message if the user or administrator input an incorrect id
  */
-void display_error_id(void);
+void display_error_connexion_client(void);
 
 /*
  *Display an error message if the user or administrator input an incorrect password
  */
-void display_error_passwd(void);
+void display_error_connexion_admin(void);
 
 /*
  * Display the end bar
