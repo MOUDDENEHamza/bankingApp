@@ -63,6 +63,12 @@ void display_error_connexion_admin(void) {
         printf(RED"\nERROR :"RESET" Wrong password. Please try again.\n");
 }
 
+/*
+ * Display a message while deleting account
+ */
+void display_deleting_msg(void) {
+	printf("\nAccount has been deleted.\n");
+}
 
 /*
  * Display the end bar

@@ -39,6 +39,11 @@ void display_error_connexion_client(void);
 void display_error_connexion_admin(void);
 
 /*
+ * Display a message while deleting account
+ */
+void display_deleting_msg(void);
+
+/*
  * Display the end bar
  */
 void end_bar(void);

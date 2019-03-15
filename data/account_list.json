@@ -1,4 +1,7 @@
-{
-    "id" : "client1",
-    "passwd" : "13/05/2000"
+{	
+	"id" : "client1",
+	"passwd" : "123456",
+	"perso_info" : ["SANZ--SOUHAIT", "Corina", "13/05/2000", "corina.sanz---souhait@univ-tlse3.fr", "06-61-31-83-28", "4 avenue des croisés, 31520, Ramonville saint-agne"],	
+	"account" : ["current account", "SANZ--SOUHAIT Corina", 2300],
 }
+

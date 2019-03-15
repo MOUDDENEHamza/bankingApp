@@ -216,58 +216,58 @@ float set_balance(Account a, float *balance);
 /*
  * Introduce a simple structre handling account owner
  */
-typedef struct account_owner* Account_owner;
+typedef struct client* Client;
 
 /*--------------Constructor---------------*/
 
 /*
  *Constructor of the structure
  */
-Account_owner new_account_owner(void);
+Client new_client(void);
 
 /*---------------Getters--------------*/
 
 /*
  * Get the id of the account owner from the structure
  */
-char* get_id(Account_owner ao);
+char* get_id(Client client);
 
 /*
  * Get the passwd of account owner from the structure
  */
-char* get_passwd(Account_owner ao);
+char* get_passwd(Client client);
 
 /*
  * Get the personal information of account owner from the structure
  */
-Perso_info get_perso_info(Account_owner ao);
+Perso_info get_perso_info(Client client);
 
 /*
  * Get the account list of account owner from the structure
  */
-Account get_account_list(Account_owner ao);
+Account get_account_list(Client client);
 
 /*---------------Setters--------------*/
 
 /*
  * Set the id of the account owner into the structure
  */
-void set_id(Account_owner ao, char *id);
+void set_id(Client client, char *id);
 
 /*
  * Get the passwd of account owner into the structure
  */
-void set_passwd(Account_owner ao, char *passwd);
+void set_passwd(Client client, char *passwd);
 
 /*
  * Get the personal information of account owner into the structure
  */
-void set_perso_info(Account_owner ao, Perso_info p);
+void set_perso_info(Client client, Perso_info p);
 
 /*
  * Get the account list of account owner into the structure
  */
-void set_account_list(Account_owner ao, Account a);
+void set_account(Client client, Account a);
 
 /*----------------------------------------------------------------------------*/
 

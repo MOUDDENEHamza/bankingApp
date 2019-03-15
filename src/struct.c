@@ -313,11 +313,11 @@ float set_balance(Account a, float *balance) {
 /*
  * Introduce a simple structre handling account owner
  */
-struct account_owner {
+struct client {
     char* id;
     char* passwd;
     Perso_info perso_info;
-    Account account_list;
+    Account account;
 };
 
 /*--------------Constructor---------------*/
@@ -325,13 +325,13 @@ struct account_owner {
 /*
  *Constructor of the structure
  */
-Account_owner new_account_owner(void) {
-	Account_owner ao = malloc(sizeof(Account_owner));
-        ao->id = malloc(sizeof(char *));
-        ao->passwd = malloc(sizeof(char *));
-        ao->perso_info = new_perso_info();
-	ao->account_list = new_account();
-        return ao;
+Client new_client(void) {
+	Client client = malloc(sizeof(Client));
+        client->id = malloc(sizeof(char *));
+        client->passwd = malloc(sizeof(char *));
+        client->perso_info = new_perso_info();
+	client->account = new_account();
+        return client;
 }
 
 /*---------------Getters--------------*/
@@ -339,29 +339,29 @@ Account_owner new_account_owner(void) {
 /*
  * Get the id of the account owner from the structure
  */
-char* get_id(Account_owner ao) {
-	return ao->id;
+char* get_id(Client client) {
+	return client->id;
 }
 
 /*
  * Get the passwd of account owner from the structure
  */
-char* get_passwd(Account_owner ao) {
-	return ao->passwd;
+char* get_passwd(Client client) {
+	return client->passwd;
 }
 
 /*
  * Get the personal information of account owner from the structure
  */
-Perso_info get_perso_info(Account_owner ao) {
-	return ao->perso_info;
+Perso_info get_perso_info(Client client) {
+	return client->perso_info;
 }
 
 /*
  * Get the account list of account owner from the structure
  */
-Account get_account_list(Account_owner ao) {
-	return ao->account_list;
+Account get_account(Client client) {
+	return client->account;
 }
 
 /*---------------Setters--------------*/
@@ -369,29 +369,29 @@ Account get_account_list(Account_owner ao) {
 /*
  * Set the id of the account owner into the structure
  */
-void set_id(Account_owner ao, char *id) {
-	strcpy(ao->id, id);
+void set_id(Client client, char *id) {
+	strcpy(client->id, id);
 }
 
 /*
  * Get the passwd of account owner into the structure
  */
-void set_passwd(Account_owner ao, char *passwd) {
-	strcpy(ao->passwd, passwd);
+void set_passwd(Client client, char *passwd) {
+	strcpy(client->passwd, passwd);
 }
 
 /*
  * Get the personal information of account owner into the structure
  */
-void set_perso_info(Account_owner ao, Perso_info p) {
-	ao->perso_info = p;
+void set_perso_info(Client client, Perso_info p) {
+	client->perso_info = p;
 }
 
 /*
  * Get the account list of account owner into the structure
  */
-void set_account_list(Account_owner ao, Account a) {
-	ao->account_list = a;
+void set_account(Client client, Account a) {
+	client->account = a;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -415,9 +415,10 @@ Json new_json(void) {
         FILE *fp;
         char buffer[1024];
         struct json_object *parsed_json;
-        struct json_object *id, *passwd;
-        Json j = malloc(sizeof(Json));
-        j->id = malloc(sizeof(char *));
+        struct json_object *id, *passwd, *perso_info, *account, *item1, *item2;
+       	int i;
+	size_t n, p;
+	Json j = malloc(sizeof(Json));
         j->id = malloc(sizeof(char *));
         j->passwd = malloc(sizeof(char *));
         fp = fopen("data/account_list.json","r");
@@ -426,9 +427,23 @@ Json new_json(void) {
         parsed_json = json_tokener_parse(buffer);
         json_object_object_get_ex(parsed_json, "id", &id);
         json_object_object_get_ex(parsed_json, "passwd", &passwd);
-        strcpy(j->id, json_object_get_string(id));
+	json_object_object_get_ex(parsed_json, "perso_info", &perso_info);
+	json_object_object_get_ex(parsed_json, "account", &account);
+	strcpy(j->id, json_object_get_string(id));
         strcpy(j->passwd, json_object_get_string(passwd));
-        return j;
+	printf("%s\n", json_object_get_string(id));
+        printf("%s\n", json_object_get_string(passwd));
+ 	n = json_object_array_length(perso_info);
+	for(i = 0;i < n; i++) {
+		item1 = json_object_array_get_idx(perso_info, i);
+		printf("%s\n", json_object_get_string(item1));
+	}     	
+	p = json_object_array_length(account);
+        for(i = 0;i < p; i++) {
+                item2 = json_object_array_get_idx(account, i);
+                printf("%s\n", json_object_get_string(item2));
+        }
+	return j;
 }
 
 /*--------------Getters---------------*/

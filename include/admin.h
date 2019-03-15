@@ -6,26 +6,26 @@
 /*
  *Create account to the client
  */
-void create_account(Account_owner ao);
+void create_account(Client client);
 
 /*
  *Edit account to the client
  */
-void edit_account(Account_owner ao);
+void edit_account(Client client);
 
 /*
  *delete account
  */
-void delete_account(Account_owner ao);
+void delete_account(Client client);
 
 /*
  *Add client
  */
-void add_client(void);
+void add_client(Client client);
 
 /*
  *Edit the personal information of the client
  */
-void edit_perso_info_client(Account_owner ao);
+void edit_perso_info_client(Client client);
 
 #endif
