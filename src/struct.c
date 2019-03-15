@@ -155,7 +155,6 @@ Json new_json(void) {
         char buffer[1024];
         struct json_object *parsed_json;
         struct json_object *id, *passwd;
-
         Json j = malloc(sizeof(Json));
         j->id = malloc(sizeof(char *));
         j->id = malloc(sizeof(char *));

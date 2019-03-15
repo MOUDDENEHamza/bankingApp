@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include "struct.h"
 #include "displayShell.h"
 #include "input.h"
 #include "setting.h"
@@ -19,8 +20,10 @@ int main(int argc, char *argv[]) {
         int flag = get_flag(s);
 	int index = get_index(s);
 	char id[SIZE], passwd[SIZE];
-	strcpy(passwd, get_passwd(p));
 	strcpy(id, get_id(p));
+	strcpy(passwd, get_passwd(p));
+	printf("ID : %s\n", get_id_json(j));
+	printf("PASSWORD : %s\n", get_passwd_json(j));
 
 	/*Start program*/	
 	init_bar(); //Display the init bar.
