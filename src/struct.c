@@ -420,7 +420,7 @@ Json new_json(void) {
         j->id = malloc(sizeof(char *));
         j->id = malloc(sizeof(char *));
         j->passwd = malloc(sizeof(char *));
-        fp = fopen("src/file.json","r");
+        fp = fopen("data/account_list.json","r");
         fread(buffer, 1024, 1, fp);
         fclose(fp);
         parsed_json = json_tokener_parse(buffer);
