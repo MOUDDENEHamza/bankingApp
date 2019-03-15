@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include "displayShell.h"
-#include "setting.h"
-#include "input.h"
 
 #define RED "\x1B[31m"
 #define GREEN "\x1B[32m"

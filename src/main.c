@@ -4,7 +4,6 @@
 #include "input.h"
 #include "setting.h"
 #include "security.h"
-#include "json.h"
 
 #define SIZE 255
 

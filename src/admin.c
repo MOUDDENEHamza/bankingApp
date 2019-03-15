@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "administrator.h"
+#include "admin.h"
 
 void creer_compte(Titulaire_Comptes t){
 

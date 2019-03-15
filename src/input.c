@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <termios.h>
 #include "input.h"
-#include "security.h"
 
 /*
  * Choose the feature you want to run

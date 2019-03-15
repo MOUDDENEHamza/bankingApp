@@ -1,164 +1,190 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "administrator.h"
+#include <string.h>
+#include<json-c/json.h>
+#include "struct.h"
 
-typedef struct _coordonnees
-{
-    char* mail;
-    char* telnumber;
-    char* adresses;
-}_coordonnees;
+/*-----------------------------------Structure--------------------------------*/
 
-Coordonnees new_coordonnees(void){
-    return NULL;
+/*
+ * Introduce a simple structre handling the menu
+ */
+struct symbol{
+	int flag;
+    	int exit;
+	int index;
+}symbol;
+
+/*-------------Constructor------------*/
+
+/*
+ * Constructor of symbol structure
+ */
+Symbol new_symbol(void) {
+        Symbol s = (Symbol) malloc(sizeof(Symbol));
+        s->flag = 0;
+        s->exit = 1;
+        s->index = 0;
+        return s;
 }
 
-void set_mail(Coordonnees c, char* m){
-    c->mail=m;
+/*---------------Getters--------------*/
+
+/*
+ *Get flag value from the structure
+ */
+int get_flag(Symbol s) {
+	return s->flag;
 }
 
-void set_telnumber(Coordonnees c, char* t){
-    c->telnumber=t;
+/*
+ *Get exit value from the structure
+ */
+int get_exit(Symbol s) {
+	return s->exit;
 }
 
-void set_adresses(Coordonnees c, char* a){
-    c->adresses=a;
+/*
+ *Get index value from the structure
+ */
+int get_index(Symbol s) {
+	return s->index;
 }
 
-char* get_mail(Coordonnees c){
-    return c->mail;
+/*---------------Setters--------------*/
+
+/*
+ *Set value to flag in structure
+ */
+void set_flag(Symbol s ,int *val) {
+	s->flag = *val;
 }
 
-char* get_telnumber(Coordonnees c){
-    return c->telnumber;
+/*
+ *Set value to exit in structure
+ */
+void set_exit(Symbol s ,int *val) {
+	s->exit = *val;
 }
 
-char* get_adresses(Coordonnees c){
-    return c->adresses;
+/*
+ *Set value to index in structure
+ */
+void set_index(Symbol s, int *val) {
+	s->index = *val;
 }
 
+/*----------------------------------------------------------------------------*/
 
-typedef struct _info_perso
-{
-    char* nom;
-    char* prenom;
-    char* date_de_naissance;
-    Coordonnees coordonnees;
-}_info_perso;
+/*-----------------------------------Structure--------------------------------*/
 
-Info_perso new_Info_perso(void){
-    return NULL;
-}
+/*
+ * Introduce a simple structre handling the connexion feature
+ */
+struct security{
+        char *id;
+        char *passwd;
+};
 
-void set_nom(Info_perso I, char* n){
-    I->nom=n;
-}
+/*-------------Constructor------------*/
 
-void set_prenom(Info_perso I, char* p){
-    I->prenom=p;
-}
-
-void set_date_de_naissance(Info_perso I, char* da){
-    I->date_de_naissance=da;
-}
-
-void set_coordonnees(Info_perso I, Coordonnees co){
-    I->coordonnees=co;
-}
-
-char* get_nom(Info_perso d){
-    return d->nom;
-}
-
-char* get_prenom(Info_perso I){
-    return I->prenom;
-}
-
-char* get_date_de_naissance(Info_perso I){
-    return I->date_de_naissance;
-}
-
-Coordonnees get_coordonnees(Info_perso I){
-    return I->coordonnees;
-}
-
-
-typedef struct _Compte
-{
-    char* type;
-    char* intitule;
-    float solde;
-}_Compte;
-
-Compte new_Compte(void){
-    return NULL;
-}
-
-void set_type(Compte c, char* t){
-    c->type=t;
-}
-
-void set_intitule(Compte c, char* i){
-    c->intitule=i;
-}
-
-void set_solde(Compte c, float *s){
-    c->solde=*s;
-}
-
-char* get_type(Compte c){
-    return c->type;
-}
-
-char* get_intitule(Compte c){
-    return c->intitule;
-}
-
-float get_solde(Compte c){
-    return c->solde;
+/*
+ * Constructor of the structure
+ */
+Security new_security(void) {
+        Security p = (Security) malloc(sizeof(Security));
+        p->id = malloc(sizeof(char *));
+        p->passwd = malloc(sizeof(char *));
+        strcpy(p->id, "");
+        strcpy(p->passwd, "");
+        return p;
 }
 
 
-typedef struct _Titulaire_Comptes
-{
-    int identifient;
-    int passeword;
-    Info_perso info;
-    Compte list_comptes;
-}_Titulaire_Comptes;
+/*---------------Getters--------------*/
 
-Titulaire_Comptes new_Titulaire_Comptes(void){
-    return NULL;
+/*
+ *Get id value from the structure
+ */
+char* get_id(Security p) {
+        return p->id;
 }
 
-void set_identifient(Titulaire_Comptes t, int *i){
-    t->identifient=*i;
+/*
+ *Get exit value from the structure
+ */
+char* get_passwd(Security p) {
+        return p->passwd;
 }
 
-void set_passeword(Titulaire_Comptes t, int *p){
-    t->passeword=*p;
+/*---------------Setters--------------*/
+
+/*
+ *Set value to id in structure
+ */
+void set_id(Security p ,char *id) {
+        strcpy(p->id, id);
 }
 
-void set_info(Titulaire_Comptes t, Info_perso i){
-    t->info=i;
+/*
+ *Set value to passwd in structure
+ */
+void set_passwd(Security p ,char *passwd) {
+        strcpy(p->passwd, passwd);
 }
 
-void set_list_comptes(Titulaire_Comptes t, Compte c){
-    t->list_comptes=c;
+/*----------------------------------------------------------------------------*/
+
+/*-----------------------------------Structures-------------------------------*/
+
+/*
+ * Introduce a simple structre handling the json file
+ */
+struct json {
+	char *id;
+	char *passwd;
+};
+
+/*-------------Constructor------------*/
+
+/*
+ * Constructor of structure
+ */
+Json new_json(void) {
+        FILE *fp;
+        char buffer[1024];
+        struct json_object *parsed_json;
+        struct json_object *id, *passwd;
+
+        Json j = malloc(sizeof(Json));
+        j->id = malloc(sizeof(char *));
+        j->id = malloc(sizeof(char *));
+        j->passwd = malloc(sizeof(char *));
+        fp = fopen("src/file.json","r");
+        fread(buffer, 1024, 1, fp);
+        fclose(fp);
+        parsed_json = json_tokener_parse(buffer);
+        json_object_object_get_ex(parsed_json, "id", &id);
+        json_object_object_get_ex(parsed_json, "passwd", &passwd);
+        strcpy(j->id, json_object_get_string(id));
+        strcpy(j->passwd, json_object_get_string(passwd));
+        return j;
 }
 
-int get_identifient(Titulaire_Comptes t){
-    return t->identifient;
+/*--------------Getters---------------*/
+
+/*
+ * Get id from structure
+ */
+char *get_id_json(Json j) {
+	return j->id;
 }
 
-int get_passeword(Titulaire_Comptes t){
-    return t->passeword;
+/*
+ * Get password from structure
+ */
+char* get_passwd_json(Json j) {
+	return j->passwd;
 }
 
-Info_perso get_info(Titulaire_Comptes t){
-    return t->info;
-}
-
-Compte get_list_comptes(Titulaire_Comptes t){
-    return t->list_comptes;
-}
+/*------------------------------------*/
