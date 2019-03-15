@@ -2,34 +2,37 @@
 #include <stdlib.h>
 #include "admin.h"
 
-void creer_compte(Titulaire_Comptes t){
-
+/*
+ *Create account to the client
+ */
+void create_account(Account_owner ao) {
+	//TODO
 }
 
-void modifier_compte(Titulaire_Comptes t){
-
+/*
+ *Edit account to the client
+ */
+void edit_account(Account_owner ao) {
+	//TODO
 }
 
-void supprimer_compte(Titulaire_Comptes t){
-    free(t);
+/*
+ *delete account
+ */
+void delete_account(Account_owner ao) {
+	//TODO
 }
 
-void afficher_list_comptes(Titulaire_Comptes t){
-
+/*
+ *Add client
+ */
+void add_client(void) {
+	//TODO
 }
 
-void ajouter_client(){
-
-}
-
-void modifier_infos_client(Titulaire_Comptes t){
-
-}
-
-void afficher_list_titulaires(Compte c){
-
-}
-
-void changer_mot(Compte c){
-
+/*
+ *Edit the personal information of the client
+ */
+void edit_perso_info_client(Account_owner ao) {
+	//TODO
 }

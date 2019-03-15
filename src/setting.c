@@ -17,19 +17,18 @@ void quit(int *exit) {
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in, int *attempt) {
-	int stop = 3;
+void handle_menu(Symbol s, Account_owner ao, Json j, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in) {
 	switch (*flag) {
 		case 1 :
 			if (*log_in == 0) {
-				input_id(p, id);
-				input_passwd(p, passwd);
+				input_id(ao, id);
+				input_passwd(ao, passwd);
 			}	
 			if(!valid_id_client(j, id) && !valid_passwd_client(j, passwd)) {
 				*log_in = 1;
 				display_client(exit); //Dipslay the administrator menu
 				choose_feature(s, index); //Choose the feature you want to run
-				handle_client_menu(s, p, j, index, exit, index, passwd, id);
+				handle_client_menu(s, ao, j, index, exit, index, passwd, id);
 				break;
 			} else {
                         	display_error_connexion_client();//Display an error message if the user input an incorrect id or password
@@ -37,12 +36,12 @@ void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index,
 			}
 		case 2 :
 			if (*log_in == 0) {
-				input_passwd(p, passwd);
+				input_passwd(ao, passwd);
 			}
 			if (!connect_admin(passwd)) {
 				display_administrator(exit); //Dipslay the administrator menu
 				choose_feature(s, index); //Choose the feature you want to run
-				handle_administrator_menu(s, p, j, index, exit, index, passwd, id);
+				handle_administrator_menu(s, ao, j, index, exit, index, passwd, id);
 				*log_in = 1;
 				break;
 			} else {
@@ -62,7 +61,7 @@ void handle_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index,
 /*
  * Define the function handling the client menu
  */
-void handle_client_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_client_menu(Symbol s, Account_owner ao, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
  	switch(*flag) {
 		case 1 :	
 			printf("\nAccount management :\n\t\t- check your account balance\n\t\t- check your transaction list on a chososen periode\n\t\t- transfer\n");
@@ -84,7 +83,7 @@ void handle_client_menu(Symbol s, Security p, Json j, int *flag, int *exit, int 
 /*
  * Define the function handling the administrator menu
  */
-void handle_administrator_menu(Symbol s, Security p, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_administrator_menu(Symbol s, Account_owner ao, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
 	switch(*flag) { 
                 case 1 : 
 			printf("\nAccount management :\n\t\t- create an account\n\t\t- modify an account\n\t\t- delete an account\n\t\t- display the account list by type of account\n");

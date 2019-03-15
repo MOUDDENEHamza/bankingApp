@@ -45,16 +45,16 @@ void hide_passwd(char *passwd) {
 /*
  * Ask to user or administrator to input the id
  */
-void input_id(Security p, char *id) {
+void input_id(Account_owner ao, char *id) {
         printf("\nEnter your id : ");
 	scanf("%s", id);
-        set_id(p , id);
+        set_id(ao , id);
 }
 
 /*
  * Ask to user or administrator to input the password
  */
-void input_passwd(Security p, char *passwd) {
+void input_passwd(Account_owner ao, char *passwd) {
 	hide_passwd(passwd);
-       	set_passwd(p , passwd);
+       	set_passwd(ao , passwd);
 }
