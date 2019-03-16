@@ -31,7 +31,7 @@ void handle_menu(Symbol s, Client client, Json j, int *flag, int *exit, int *ind
 				handle_client_menu(s, client, j, index, exit, index, passwd, id);
 				break;
 			} else {
-                        	display_error_connexion_client();//Display an error message if the user input an incorrect id or password
+                        display_error_connexion_client();//Display an error message if the user input an incorrect id or password
 				break;
 			}
 		case 2 :

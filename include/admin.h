@@ -21,7 +21,7 @@ void delete_account(Client client);
 /*
  *Add client
  */
-void add_client(Client client);
+void add_client(void);
 
 /*
  *Edit the personal information of the client

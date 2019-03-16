@@ -11,7 +11,7 @@
  */
 struct symbol{
 	int flag;
-    	int exit;
+    int exit;
 	int index;
 }symbol;
 
@@ -21,11 +21,11 @@ struct symbol{
  * Constructor of symbol structure
  */
 Symbol new_symbol(void) {
-        Symbol s = (Symbol) malloc(sizeof(Symbol));
-        s->flag = 0;
-        s->exit = 1;
-        s->index = 0;
-        return s;
+	Symbol s = (Symbol) malloc(sizeof(Symbol));
+	s->flag = 0;
+	s->exit = 1;
+	s->index = 0;
+	return s;
 }
 
 /*---------------Getters--------------*/
@@ -83,8 +83,8 @@ void set_index(Symbol s, int *val) {
  */
 struct coordinates {
 	char* mail;
-    	char* phone;
-    	char* address;
+    char* phone;
+    char* address;
 };
 
 /*--------------Constructor---------------*/
@@ -106,21 +106,21 @@ Coordinates new_coordinates(void){
  * Get the e-mail of client from the structure
  */
 char* get_mail(Coordinates c){
-    	return c->mail;
+    return c->mail;
 }
 
 /*
  * Get the phone number of client from the structure
  */
 char* get_phone(Coordinates c){
-    	return c->phone;
+    return c->phone;
 }
 
 /*
  * Get the address of client from the structure
  */
 char* get_adress(Coordinates c){
-    	return c->address;
+    return c->address;
 }
 
 /*--------------Setters---------------*/
@@ -129,21 +129,21 @@ char* get_adress(Coordinates c){
  * Set the mail of client into the structure
  */
 void set_mail(Coordinates c, char* mail){
-    	strcpy(c->mail, mail);
+    strcpy(c->mail, mail);
 }
 
 /*
  * Set the phone of client into the structure
  */
 void set_phone(Coordinates c, char* phone){
-    	strcpy(c->phone, phone);
+    strcpy(c->phone, phone);
 }
 
 /*
  * Set the address of client into the structure
  */
 void set_address(Coordinates c, char* address){
-    	strcpy(c->address, address);
+    strcpy(c->address, address);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -154,10 +154,10 @@ void set_address(Coordinates c, char* address){
  * Introduce a simple structre stocking the personal information of clients
  */
 struct perso_info{
-    	char* last_name;
-    	char* first_name;
-    	char* birthday;
-    	Coordinates coordinates;
+	char* last_name;
+	char* first_name;
+	char* birthday;
+	Coordinates coordinates;
 };
 
 /*--------------Constructor---------------*/
@@ -167,10 +167,10 @@ struct perso_info{
  */
 Perso_info new_perso_info(void) {
 	Perso_info p = malloc(sizeof(Perso_info));
-        p->last_name = malloc(sizeof(char *));
-        p->first_name = malloc(sizeof(char *));
-        p->birthday = malloc(sizeof(char *));
-        p->coordinates = new_coordinates();
+	p->last_name = malloc(sizeof(char *));
+	p->first_name = malloc(sizeof(char *));
+	p->birthday = malloc(sizeof(char *));
+	p->coordinates = new_coordinates();
 	return p;
 }
 
@@ -180,28 +180,28 @@ Perso_info new_perso_info(void) {
  * Get the last name of client from the structure
  */
 char* get_last_name(Perso_info p){
-    	return p->last_name;
+    return p->last_name;
 }
 
 /*
  * Get the first name of client from the structure
  */
 char* get_first_name(Perso_info p){
-    	return p->first_name;
+    return p->first_name;
 }
 
 /*
  * Get the birthday of client from the structure
  */
 char* get_birthday(Perso_info p){
-    	return p->birthday;
+    return p->birthday;
 }
 
 /*
  * Get the the coordinates of client from the structure
  */
 Coordinates get_coordinates(Perso_info p){
-    	return p->coordinates;
+    return p->coordinates;
 }
 
 /*--------------Setters---------------*/
@@ -224,14 +224,14 @@ void set_first_name(Perso_info p, char* first_name) {
  * Set the birthday of client into the structure
  */
 void set_birthday(Perso_info p, char* birthday){
-    	strcpy(p->birthday, birthday);
+    strcpy(p->birthday, birthday);
 }
 
 /*
  *Set the the coordinates of client into the structure
  */
 void set_coordinates(Perso_info p, Coordinates c) {
-    	p->coordinates = c;
+    p->coordinates = c;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -243,7 +243,7 @@ void set_coordinates(Perso_info p, Coordinates c) {
  */
 struct account {
    	char* type;
-    	char* entitled;
+    char* entitled;
 	float balance;
 };
 
@@ -254,10 +254,10 @@ struct account {
  */
 Account new_account(void) {
 	Account a = malloc(sizeof(Account));
-        a->type = malloc(sizeof(char *));
-        a->entitled = malloc(sizeof(char *));
-        a->balance = 0;
-        return a;
+	a->type = malloc(sizeof(char *));
+	a->entitled = malloc(sizeof(char *));
+	a->balance = 0;
+	return a;
 }
 
 /*---------------Getters--------------*/
@@ -327,11 +327,11 @@ struct client {
  */
 Client new_client(void) {
 	Client client = malloc(sizeof(Client));
-        client->id = malloc(sizeof(char *));
-        client->passwd = malloc(sizeof(char *));
-        client->perso_info = new_perso_info();
+    client->id = malloc(sizeof(char *));
+    client->passwd = malloc(sizeof(char *));
+    client->perso_info = new_perso_info();
 	client->account = new_account();
-        return client;
+    return client;
 }
 
 /*---------------Getters--------------*/
@@ -412,27 +412,27 @@ struct json {
  * Constructor of structure
  */
 Json new_json(void) {
-        FILE *fp;
-        char buffer[1024];
-        struct json_object *parsed_json;
-        struct json_object *id, *passwd, *perso_info, *account, *item1, *item2;
-       	int i;
+	FILE *fp;
+	char buffer[1024];
+	struct json_object *parsed_json;
+	struct json_object *id, *passwd, *perso_info, *account, *item1, *item2;
+	int i;
 	size_t n, p;
 	Json j = malloc(sizeof(Json));
-        j->id = malloc(sizeof(char *));
-        j->passwd = malloc(sizeof(char *));
-        fp = fopen("data/account_list.json","r");
-        fread(buffer, 1024, 1, fp);
-        fclose(fp);
-        parsed_json = json_tokener_parse(buffer);
-        json_object_object_get_ex(parsed_json, "id", &id);
-        json_object_object_get_ex(parsed_json, "passwd", &passwd);
+	j->id = malloc(sizeof(char *));
+	j->passwd = malloc(sizeof(char *));
+	fp = fopen("data/account_list.json","r");
+	fread(buffer, 1024, 1, fp);
+	fclose(fp);
+	parsed_json = json_tokener_parse(buffer);
+	json_object_object_get_ex(parsed_json, "id", &id);
+	json_object_object_get_ex(parsed_json, "passwd", &passwd);
 	json_object_object_get_ex(parsed_json, "perso_info", &perso_info);
 	json_object_object_get_ex(parsed_json, "account", &account);
 	strcpy(j->id, json_object_get_string(id));
-        strcpy(j->passwd, json_object_get_string(passwd));
+    strcpy(j->passwd, json_object_get_string(passwd));
 	printf("%s\n", json_object_get_string(id));
-        printf("%s\n", json_object_get_string(passwd));
+    printf("%s\n", json_object_get_string(passwd));
  	n = json_object_array_length(perso_info);
 	for(i = 0;i < n; i++) {
 		item1 = json_object_array_get_idx(perso_info, i);

@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 	Json j = new_json();
 	int log_in;
 	int exit = get_exit(s);
-        int flag = get_flag(s);
+    int flag = get_flag(s);
 	int index = get_index(s);
 	char id[SIZE], passwd[SIZE];
 	strcpy(id, get_id(client));

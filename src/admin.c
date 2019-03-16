@@ -3,6 +3,7 @@
 #include "admin.h"
 #include "struct.h"
 #include "displayShell.h"
+#include "input.h"
 
 /*
  *Create account to the client
@@ -22,15 +23,16 @@ void edit_account(Client client) {
  *delete account
  */
 void delete_account(Client client) {
-	set_account(client, NULL);
+	free(client);
 	display_deleting_msg();
 }
 
 /*
  *Add client
  */
-void add_client(Client client) {
-	//TODO
+void add_client() {
+	Client client = new_client();
+	input_perso_info(client);
 }
 
 /*
