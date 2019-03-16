@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <termios.h>
-#include "../include/input.h"
+#include "input.h"
 
 /*
  * Choose the feature you want to run
