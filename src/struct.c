@@ -243,7 +243,7 @@ void set_coordinates(Perso_info p, Coordinates c) {
  */
 struct account {
    	char* type;
-    char* entitled;
+   	char* entitled;
 	float balance;
 };
 
