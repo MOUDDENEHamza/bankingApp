@@ -30,7 +30,7 @@ void delete_account(Client client) {
 /*
  *Add client
  */
-void add_client() {
+void add_client(void) {
 	Client client = new_client();
 	input_perso_info(client);
 }

@@ -23,4 +23,9 @@ void handle_client_menu(Symbol s, Client client, Json j, int *flag, int *exit, i
  */
 void handle_administrator_menu(Symbol s, Client client, Json j, int *flag, int *exit, int *index, char *passwd, char *id);
 
+/*
+ * Define the function handling the client management menu
+ */
+void handle_client_management(Symbol s, Client client, Json j, int *flag, int *exit, int *index, char *passwd, char *id);
+
 #endif

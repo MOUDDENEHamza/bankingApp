@@ -43,6 +43,13 @@ void display_administrator(int *exit) {
 }
 
 /*
+ * Display the administrator submenu
+ */
+void display_client_management(void) {
+	printf("\n\t\t\t\tClient management\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+}
+
+/*
  *Display an error message if the user input an incorrect flag
  */
 void display_error_flag(Symbol s, int *flag) {

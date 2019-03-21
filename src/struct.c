@@ -119,7 +119,7 @@ char* get_phone(Coordinates c){
 /*
  * Get the address of client from the structure
  */
-char* get_adress(Coordinates c){
+char* get_address(Coordinates c){
     return c->address;
 }
 
@@ -327,11 +327,11 @@ struct client {
  */
 Client new_client(void) {
 	Client client = malloc(sizeof(Client));
-    client->id = malloc(sizeof(char *));
-    client->passwd = malloc(sizeof(char *));
-    client->perso_info = new_perso_info();
-	client->account = new_account();
-    return client;
+    	client->id = malloc(sizeof(char *));
+    	client->passwd = malloc(sizeof(char *));
+    	client->perso_info = new_perso_info();
+    	client->account = new_account();
+    	return client;
 }
 
 /*---------------Getters--------------*/
@@ -430,19 +430,7 @@ Json new_json(void) {
 	json_object_object_get_ex(parsed_json, "perso_info", &perso_info);
 	json_object_object_get_ex(parsed_json, "account", &account);
 	strcpy(j->id, json_object_get_string(id));
-    strcpy(j->passwd, json_object_get_string(passwd));
-	printf("%s\n", json_object_get_string(id));
-    printf("%s\n", json_object_get_string(passwd));
- 	n = json_object_array_length(perso_info);
-	for(i = 0;i < n; i++) {
-		item1 = json_object_array_get_idx(perso_info, i);
-		printf("%s\n", json_object_get_string(item1));
-	}     	
-	p = json_object_array_length(account);
-        for(i = 0;i < p; i++) {
-                item2 = json_object_array_get_idx(account, i);
-                printf("%s\n", json_object_get_string(item2));
-        }
+	strcpy(j->passwd, json_object_get_string(passwd));
 	return j;
 }
 

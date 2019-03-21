@@ -5,6 +5,7 @@
 #include "displayShell.h"
 #include "input.h"
 #include "security.h"
+#include "admin.h"
 
 /*
  * Define the exit feature
@@ -89,7 +90,9 @@ void handle_administrator_menu(Symbol s, Client client, Json j, int *flag, int *
 			printf("\nAccount management :\n\t\t- create an account\n\t\t- modify an account\n\t\t- delete an account\n\t\t- display the account list by type of account\n");
 			break;
 		case 2 :
-			printf("\nClient management :\n\t\t- add a client\n\t\t- modify clients coordinates_n- display the list of holders of the account\n");
+			display_client_management();
+			choose_feature(s, index); //Choose the feature you want to run
+			handle_client_management(s, client, j, index, exit, index, passwd, id);
 			break;
 		case 3 :
 	 		printf("\nAdministration :\n\t\t- Change password\n");
@@ -103,4 +106,24 @@ void handle_administrator_menu(Symbol s, Client client, Json j, int *flag, int *
                         display_error_flag(s, flag);
 			break;
 	} 
+}
+
+/*
+ * Define the function handling the client management menu
+ */
+void handle_client_management(Symbol s, Client client, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
+	restart:
+	switch(*flag) {
+                case 1 :
+			add_client();
+        		break;
+		case 2 :
+                        break;
+                case 3 :
+                        break;
+                default ://Display an error message if the user input an incorrect flag
+                        display_error_flag(s, flag);
+	 		choose_feature(s, flag); //Choose the feature you want to run
+			goto restart;
+        }
 }

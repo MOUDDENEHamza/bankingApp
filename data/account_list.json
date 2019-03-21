@@ -1,7 +1,44 @@
-{	
-	"id" : "client1",
-	"passwd" : "123456",
-	"perso_info" : ["SANZ--SOUHAIT", "Corina", "13/05/2000", "corina.sanz---souhait@univ-tlse3.fr", "06-61-31-83-28", "4 avenue des croisés, 31520, Ramonville saint-agne"],	
-	"account" : ["current account", "SANZ--SOUHAIT Corina", 2300],
+{
+	"last name" : "Hamza",
+	"first name" : "",
+	"email" : "hz.mouddene@gmail.com",
+	"phone" : "06-41-13-22-30",
+	"birthday" : "28/05/1998",
+	"address" : "a"
 }
-
+{
+	"last name" : "99",
+	"first name" : "",
+	"email" : "99",
+	"phone" : "99",
+	"birthday" : "99",
+	"address" : "
+"
+}
+{
+	"last name" : "Hamza",
+	"first name" : "",
+	"email" : "hz.mouddene@gmail.com",
+	"phone" : "06-41-13-22-30",
+	"birthday" : "28/05/1998",
+	"address" : "
+"
+}
+{
+	"last name" : "1",
+	"first name" : "",
+	"email" : "1",
+	"phone" : "1",
+	"birthday" : "1",
+	"address" : "
+"
+}
+{
+	"last name" : "a",
+	"first name" : "",
+	"email" : "a",
+	"phone" : "a",
+	"birthday" : "a",
+	"address" : "
+"
+}

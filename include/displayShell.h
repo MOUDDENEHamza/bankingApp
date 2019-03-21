@@ -24,6 +24,11 @@ void display_client(int *exit);
 void display_administrator(int *exit);
 
 /*
+ * Display the administrator submenu
+ */
+void display_client_management(void);
+
+/*
  *Display an error message if the user input an incorrect flag
  */
 void display_error_flag(Symbol s, int *flag) ;

@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 	/*Initialize variables*/
 	Symbol s = new_symbol();
 	Client client = new_client();
-	Json j = new_json();
+	Json j = NULL;
 	int log_in;
 	int exit = get_exit(s);
     int flag = get_flag(s);
@@ -21,9 +21,6 @@ int main(int argc, char *argv[]) {
 	char id[SIZE], passwd[SIZE];
 	strcpy(id, get_id(client));
 	strcpy(passwd, get_passwd(client));
-	//printf("ID : %s\n", get_id_json(j));
- 	//printf("PASSWORD : %s\n", get_passwd_json(j));
-
 	/*Start program*/	
 	init_bar(); //Display the init bar.
 	back:
@@ -37,6 +34,5 @@ int main(int argc, char *argv[]) {
 		} 
 		continue;
 	}
-
 	return 0;
 }
