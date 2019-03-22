@@ -127,7 +127,6 @@ void input_birthday(Client client){
  */
 void input_perso_info(Client client){
 	FILE *fp = fopen("data/account_list.json", "a+");
-	printf("\nAdd client...\n");
 	input_last_name(client);
         input_first_name(client);
         input_mail(client);
@@ -135,7 +134,6 @@ void input_perso_info(Client client){
         input_birthday(client);
         input_address(client);
 	fprintf(fp,"{\n\t\"last name\" : \"%s\",\n\t\"first name\" : \"%s\",\n\t\"email\" : \"%s\",\n\t\"phone\" : \"%s\",\n\t\"birthday\" : \"%s\",\n\t\"address\" : \"%s\"\n}\n", get_last_name(get_perso_info(client)), get_first_name(get_perso_info(client)), get_mail(get_coordinates(get_perso_info(client))), get_phone(get_coordinates(get_perso_info(client))), get_birthday(get_perso_info(client)), get_address(get_coordinates(get_perso_info(client))));
-	printf("\nClient added. back to administrator menu.\n");
 	fclose(fp);
 }
 
@@ -148,3 +146,4 @@ void input_new_balance(Account account){
         scanf("%f", &balance);
         set_balance(account, &balance);
 }
+

@@ -23,7 +23,6 @@ int valid_passwd_client(Json j, char *passwd) {
         return 1;
 }
 
-
 /*
  * Allow to administrator to connect to the application
  */
@@ -33,3 +32,13 @@ int connect_admin(char *passwd) {
 	}
 	return 1;
 }
+
+/*
+ * Change the client password
+ */
+void change_client_password(void);
+
+/*
+ * Change the administrator password
+ */
+void change_administrator_password(void);

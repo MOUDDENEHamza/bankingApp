@@ -118,6 +118,7 @@ void handle_client_management(Symbol s, Client client, Json j, int *flag, int *e
 			add_client();
         		break;
 		case 2 :
+
                         break;
                 case 3 :
                         break;

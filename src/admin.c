@@ -31,13 +31,17 @@ void delete_account(Client client) {
  *Add client
  */
 void add_client(void) {
+	printf("\nAdd client : loading...\n");
 	Client client = new_client();
 	input_perso_info(client);
+	printf("\nClient has been added. Come back to the administrator menu.\n");
 }
 
 /*
  *Edit the personal information of the client
  */
 void edit_perso_info_client(Client client) {
-	//TODO
+	printf("\nChange the coordinates : loading...\n");
+	free(get_perso_info(client));
+	printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
 }

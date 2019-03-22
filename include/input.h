@@ -56,19 +56,16 @@ void input_address(Client client);
 /*
  * Ask to user or administrator to input his birthday
  */
-
 void input_birthday(Client client);
 
 /*
  * input all personnal information
  */
-
 void input_perso_info(Client client);
 
 /*
  * Ask to the administrator de to enter a new balance
  */
-
 void input_new_balance(Account account);
 
 #endif

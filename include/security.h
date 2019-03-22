@@ -18,4 +18,14 @@ int valid_passwd_client(Json j, char *passwd);
  */
 int connect_admin(char *passwd);
 
+/*
+ * Change the client password
+ */
+void change_client_password(void);
+
+/*
+ * Change the administrator password
+ */
+void change_administrator_password(void);
+
 #endif

@@ -83,8 +83,8 @@ void set_index(Symbol s, int *val) {
  */
 struct coordinates {
 	char* mail;
-    char* phone;
-    char* address;
+    	char* phone;
+    	char* address;
 };
 
 /*--------------Constructor---------------*/
