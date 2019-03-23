@@ -68,23 +68,31 @@ void input_perso_info(Client client);
  */
 void input_new_balance(Account account);
 
-
+/*ask admin to choose the type oh account to create*/
 void choose_type();
 
+/* input the account type choosen*/
 void input_type(Account account);
 
+/*input the entitled of the account*/
 void input_entitled(Account account);
 
+/*input all account information*/
 void input_create_account(Client client);
 
+/*input a new account*/
 void input_add_account(Client client);
 
+/*ask to edit the information of account to edit*/
 void choose_edit();
 
+/*ask to choose the type of account to edit*/
 void choose_typeAccountTo_edit(Client client);
 
+/*return the account to edit */
 Account choosen_account_to_edit(Client client ,int choice_type);
 
+/*edit the information of the account that we want to change except the type of the account*/
 void input_edit_account(Client client);
 
 #endif

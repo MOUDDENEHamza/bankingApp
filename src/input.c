@@ -189,6 +189,7 @@ void input_type(Account account){
         }
 }
 
+/*input the entitled of the account*/
 void input_entitled(Account account){
         char* entitled;
         printf("Enter the entitled");
@@ -196,6 +197,7 @@ void input_entitled(Account account){
         set_entitled(account,entitled);
 }
 
+/*input all account information*/
 void input_create_account(Client client){
         Account a=get_account(client);
         input_type(a);
@@ -203,6 +205,7 @@ void input_create_account(Client client){
         input_new_balance(a);
 }
 
+/*input a new account*/
 void input_add_account(Client client){
         Account a=get_account(client);
         Account aNext=get_nextAccount(a);
@@ -211,12 +214,14 @@ void input_add_account(Client client){
         input_new_balance(a);
 }
 
+/*ask to edit the information of account to edit*/
 void choose_edit(){
         printf("choose what you want to edit");
         printf("1 : balance");
         printf("2 : entitled");
 }
 
+/*ask to choose the type of account to edit*/
 void choose_typeAccountTo_edit(Client client){
         printf("choose the type of account you want to edit");
         Account a=get_account(client);
@@ -228,6 +233,7 @@ void choose_typeAccountTo_edit(Client client){
         }
 }
 
+/*return the account to edit */
 Account choosen_account_to_edit(Client client ,int choice_type){
         Account a=get_account(client);
         if(choice_type==1){
@@ -241,6 +247,7 @@ Account choosen_account_to_edit(Client client ,int choice_type){
         }
 }
 
+/*edit the information of the account that we want to change except the type of the account*/
 void input_edit_account(Client client){
         choose_edit();
         int choice,choice_type;
