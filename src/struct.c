@@ -285,6 +285,9 @@ float get_balance(Account a) {
 	return a->balance;
 }
 
+/*
+ * get the next account of the same client int the account
+ */
 Account get_nextAccount(Account a){
 	return a->nextAccount;
 }
