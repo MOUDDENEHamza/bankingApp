@@ -68,4 +68,23 @@ void input_perso_info(Client client);
  */
 void input_new_balance(Account account);
 
+
+void choose_type();
+
+void input_type(Account account);
+
+void input_entitled(Account account);
+
+void input_create_account(Client client);
+
+void input_add_account(Client client);
+
+void choose_edit();
+
+void choose_typeAccountTo_edit(Client client);
+
+Account choosen_account_to_edit(Client client ,int choice_type);
+
+void input_edit_account(Client client);
+
 #endif

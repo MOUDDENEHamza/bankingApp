@@ -9,20 +9,25 @@
  *Create account to the client
  */
 void create_account(Client client) {
-	//TODO
+	input_create_account(client);
+}
+/* add another account type for the client*/
+void add_account(Client client){
+	input_add_account(client);
 }
 
 /*
  *Edit account to the client
  */
 void edit_account(Client client) {
-	//TODO
+	input_edit_account(client);
 }
 
 /*
  *delete account
  */
 void delete_account(Client client) {
+	//choose the type of the account you want to delete
 	free(client);
 	display_deleting_msg();
 }

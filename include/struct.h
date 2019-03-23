@@ -192,6 +192,11 @@ char* get_entitled(Account a);
  */
 float get_balance(Account a);
 
+/*
+ * Get the next account of the same client
+ */
+Account get_nextAccount(Account a);
+
 /*---------------Setters--------------*/
 
 /*
@@ -207,7 +212,10 @@ void set_entitled(Account a, char* entitled);
 /*
  * Set the balance of account from the structure
  */
-float set_balance(Account a, float *balance);
+void set_balance(Account a, float *balance);
+
+/*set the next account of the same client  */
+void set_nextAccount(Account a, Account next);
 
 /*----------------------------------------------------------------------------*/
 
@@ -245,7 +253,7 @@ Perso_info get_perso_info(Client client);
 /*
  * Get the account list of account owner from the structure
  */
-Account get_account_list(Client client);
+Account get_account(Client client);
 
 /*---------------Setters--------------*/
 

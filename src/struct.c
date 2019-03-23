@@ -245,6 +245,7 @@ struct account {
    	char* type;
    	char* entitled;
 	float balance;
+	struct account* nextAccount;
 };
 
 /*--------------Constructor---------------*/
@@ -257,6 +258,7 @@ Account new_account(void) {
 	a->type = malloc(sizeof(char *));
 	a->entitled = malloc(sizeof(char *));
 	a->balance = 0;
+	a->nextAccount = NULL;
 	return a;
 }
 
@@ -283,6 +285,10 @@ float get_balance(Account a) {
 	return a->balance;
 }
 
+Account get_nextAccount(Account a){
+	return a->nextAccount;
+}
+
 /*---------------Setters--------------*/
 
 /*
@@ -302,8 +308,15 @@ void set_entitled(Account a, char* entitled) {
 /*
  * Set the balance of account from the structure
  */
-float set_balance(Account a, float *balance) {
+void set_balance(Account a, float *balance) {
 	a->balance = *balance;
+}
+
+/*
+ * Set the next account of the same client int the account
+ */
+void set_nextAccount(Account a, Account next){
+	a->nextAccount=next;
 }
 
 /*----------------------------------------------------------------------------*/
