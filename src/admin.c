@@ -68,13 +68,13 @@ bool in_1__nb_accounts(int choice,int nb){
  *Create account to the client
  */
 void create_account(Client client) {
-	printf("choose the type of account you want to create");
+	printf("choose the type of account you want to create\n");
 	display_choose_type();
 	input_create_account(client);
 }
 /* add another account type for the client*/
 void add_account(Client client){
-	printf("choose the type of account you want to add");
+	printf("choose the type of account you want to add\n");
 	display_choose_type();
 	input_add_account(client);
 }
@@ -84,12 +84,12 @@ void add_account(Client client){
  */
 void edit_account(Client client) {
 	int choice,choice_type;
-	printf("choose the type of account you want to edit");
+	printf("choose the type of account you want to edit\n");
 	back1:
 	display_typeAccounts(client);
 	scanf("%d",&choice_type);
 	while(!in_1__nb_accounts(choice_type,nb_accounts(client))){
-		printf("unexistant choice !");
+		printf("unexistant choice !\n");
 		printf("retry again");
 		goto back1;
 	}
@@ -105,8 +105,8 @@ void edit_account(Client client) {
 				input_entitled(choosen_account(client,choice_type)); break;
 	
 			default:
-				printf("unexistant choice !");
-				printf("retry again");
+				printf("unexistant choice !\n");
+				printf("retry again\n");
 				goto back2;
 		}
 		continue;
@@ -118,14 +118,14 @@ void edit_account(Client client) {
  *delete account
  */
 void delete_account(Client client) {
-	printf("choose the acount type you want to delete");
+	printf("choose the acount type you want to delete\n");
 	back:
 	display_typeAccounts(client);
 	int choice_type;
 	scanf("%d",choice_type);
 	while(!in_1__nb_accounts(choice_type,nb_accounts(client))){
-		printf("unexistant choice !");
-		printf("retry again");
+		printf("unexistant choice !\n");
+		printf("retry again\n");
 		goto back;
 	}
 	Account temp;

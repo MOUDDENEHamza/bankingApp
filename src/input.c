@@ -68,7 +68,7 @@ void input_passwd(Client client,char *passwd) {
  */
 void input_last_name(Client client){
         char *last_name = malloc(SIZE);
-        printf("\nEnter your last name : ");
+        printf("\nEnter your last name : \n");
         scanf("%s", last_name);
         set_last_name(get_perso_info(client), last_name);
 }
@@ -78,7 +78,7 @@ void input_last_name(Client client){
  */
 void input_first_name(Client client){
         char *first_name = malloc(SIZE);
-        printf("\nEnter your first name : ");
+        printf("\nEnter your first name : \n");
         scanf("%s", first_name);
         set_last_name(get_perso_info(client), first_name);
 }
@@ -88,7 +88,7 @@ void input_first_name(Client client){
  */
 void input_mail(Client client){
         char *mail = malloc(SIZE);
-        printf("\nEnter your Email-address : ");
+        printf("\nEnter your Email-address : \n");
         scanf("%s", mail);
         set_mail(get_coordinates(get_perso_info(client)), mail);
 }
@@ -98,7 +98,7 @@ void input_mail(Client client){
  */
 void input_phone(Client client){
         char *phone = malloc(SIZE);
-        printf("\nEnter your phone number : ");
+        printf("\nEnter your phone number : \n");
         scanf("%s", phone);
         set_phone(get_coordinates(get_perso_info(client)), phone);
 }
@@ -108,7 +108,7 @@ void input_phone(Client client){
  */
 void input_address(Client client){
         char *address = malloc(SIZE);
-        printf("\nEnter your address : ");
+        printf("\nEnter your address : \n");
         scanf("%s", address);
         set_address(get_coordinates(get_perso_info(client)), address);
 }
@@ -118,7 +118,7 @@ void input_address(Client client){
  */
 void input_birthday(Client client){
         char *birthday = malloc(SIZE);
-        printf("\nEnter your birthday : ");
+        printf("\nEnter your birthday : \n");
         scanf("%s", birthday);
         set_birthday(get_perso_info(client), birthday);
 }
@@ -143,7 +143,7 @@ void input_perso_info(Client client){
  */
 void input_new_balance(Account account){
         float balance;
-        printf("\nEnter new balance :");
+        printf("\nEnter new balance :\n");
         scanf("%f", &balance);
         set_balance(account, &balance);
 }
@@ -167,8 +167,8 @@ void input_type(Account account){
                 case 6 :
                         set_type(account,"joint");break;
                 default :
-                        printf("unexistant choice !");
-                        printf("try again !");
+                        printf("unexistant choice !\n");
+                        printf("try again !\n");
                         goto back;
         }
 }
@@ -176,7 +176,7 @@ void input_type(Account account){
 /*input the entitled of the account*/
 void input_entitled(Account account){
         char* entitled;
-        printf("Enter the entitled");
+        printf("Enter the entitled\n");
         scanf("%s",entitled);
         set_entitled(account,entitled);
 }
