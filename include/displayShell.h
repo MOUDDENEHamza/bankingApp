@@ -53,4 +53,13 @@ void display_deleting_msg(void);
  */
 void end_bar(void);
 
+/*display a list of accounts*/
+void display_choose_type();
+
+/*ask to edit the information of account to edit*/
+void display_choose_edit();
+
+/*display all accounts of the client*/
+void display_typeAccounts(Client client);
+
 #endif

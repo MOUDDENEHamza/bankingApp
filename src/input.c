@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include "input.h"
+#include "admin.h"
 
 #define SIZE 255
 
@@ -147,29 +148,10 @@ void input_new_balance(Account account){
         set_balance(account, &balance);
 }
 
-/* Ask to the administrator to enter a balance for the first time*/
-void input_balance(Account account){
-        float balance;
-        printf("\nEnter balance :");
-        scanf("%f", &balance);
-        set_balance(account, &balance);
-}
-
-/*ask admin to choose the type oh account to create*/
-void choose_type(){
-        printf("choose the type of account you want to create");
-        printf("1: courant");
-        printf("2: epargne");    
-        printf("3: compte a terme");
-        printf("4: titre");
-        printf("5: individuel");
-        printf("6: joint");
-}
-
 /* input the account type choosen*/
 void input_type(Account account){
+        back:
         int choice;
-        choose_type();
         scanf("%d",&choice);
         switch (choice) {
                 case 1 :
@@ -186,6 +168,8 @@ void input_type(Account account){
                         set_type(account,"joint");break;
                 default :
                         printf("unexistant choice !");
+                        printf("try again !");
+                        goto back;
         }
 }
 
@@ -199,70 +183,19 @@ void input_entitled(Account account){
 
 /*input all account information*/
 void input_create_account(Client client){
-        Account a=get_account(client);
+        Account a=new_account();
         input_type(a);
         input_entitled(a);
         input_new_balance(a);
+        set_account(client,a);
 }
 
 /*input a new account*/
 void input_add_account(Client client){
-        Account a=get_account(client);
-        Account aNext=get_nextAccount(a);
-        input_type(aNext);
-        input_entitled(aNext);
-        input_new_balance(a);
-}
-
-/*ask to edit the information of account to edit*/
-void choose_edit(){
-        printf("choose what you want to edit");
-        printf("1 : balance");
-        printf("2 : entitled");
-}
-
-/*ask to choose the type of account to edit*/
-void choose_typeAccountTo_edit(Client client){
-        printf("choose the type of account you want to edit");
-        Account a=get_account(client);
-        int i=1;
-        while(a!=NULL){
-                printf("%d : %s\n",i,get_type(a));
-                a=get_nextAccount(a);
-                i++;
-        }
-}
-
-/*return the account to edit */
-Account choosen_account_to_edit(Client client ,int choice_type){
-        Account a=get_account(client);
-        if(choice_type==1){
-                return a;
-        }
-        else{
-                for(int i=1; i<choice_type; i++){
-                        a=get_nextAccount(a);
-                }
-                return a;
-        }
-}
-
-/*edit the information of the account that we want to change except the type of the account*/
-void input_edit_account(Client client){
-        choose_edit();
-        int choice,choice_type;
-        scanf("%d",&choice);
-        choose_typeAccountTo_edit(client);
-        scanf("%d",&choice_type);
-        switch (choice)
-        {
-                case 1:
-                        input_new_balance(choosen_account_to_edit(client,choice_type)); break;
-                case 2:
-                        input_entitled(choosen_account_to_edit(client,choice_type)); break;
-        
-                default:
-                        printf("unexistant choice !");
-        }
+        Account new=new_account();
+        input_type(new);
+        input_entitled(new);
+        input_new_balance(new);
+        set_nextOflastAccout(client,new);
 }
 

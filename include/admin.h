@@ -2,6 +2,22 @@
 #define _ADMIN_H_
 
 #include "struct.h"
+typedef enum boolean bool;
+
+/*return the account to edit */
+Account choosen_account(Client client ,int choice_type);
+
+/*get the last added account of the client in list list of account*/
+Account get_lastAccount(Client client);
+
+/*set the next account of the last account as a real account*/
+void set_nextOflastAccout(Client client,Account account);
+
+/*get the number of accounts that have the client*/
+int nb_accounts(Client client);
+
+/*return true if the input of admin or user is in list of choice*/
+bool in_1__nb_accounts(int choice,int nb);
 
 /*
  *Create account to the client
