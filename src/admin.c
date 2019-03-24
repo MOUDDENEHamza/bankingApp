@@ -63,7 +63,6 @@ bool in_1__nb_accounts(int choice,int nb){
 	
 }
 
-
 /*
  *Create account to the client
  */
@@ -112,7 +111,6 @@ void edit_account(Client client) {
 		continue;
 	}
 }       
-
 
 /*
  *delete account
