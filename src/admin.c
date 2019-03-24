@@ -119,9 +119,9 @@ void edit_account(Client client) {
  */
 void delete_account(Client client) {
 	printf("choose the acount type you want to delete\n");
+	int choice_type;
 	back:
 	display_typeAccounts(client);
-	int choice_type;
 	scanf("%d",choice_type);
 	while(!in_1__nb_accounts(choice_type,nb_accounts(client))){
 		printf("unexistant choice !\n");
