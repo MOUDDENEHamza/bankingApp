@@ -11,7 +11,7 @@ Account choosen_account(Client client ,int choice_type);
 Account get_lastAccount(Client client);
 
 /*set the next account of the last account as a real account*/
-void set_nextOflastAccout(Client client,Account account);
+void set_nextOfLastAccout(Client client,Account account);
 
 /*get the number of accounts that have the client*/
 int nb_accounts(Client client);

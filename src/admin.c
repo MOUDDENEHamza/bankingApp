@@ -31,7 +31,7 @@ Account get_lastAccount(Client client){
 }
 
 /*set the next account of the last account as a real account*/
-void set_nextOflastAccout(Client client,Account account){
+void set_nextOfLastAccout(Client client,Account account){
 	Account last=get_lastAccount(client);
 	set_nextAccount(last,account);
 }

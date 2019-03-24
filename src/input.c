@@ -150,8 +150,8 @@ void input_new_balance(Account account){
 
 /* input the account type choosen*/
 void input_type(Account account){
-        back:
         int choice;
+        back:
         scanf("%d",&choice);
         switch (choice) {
                 case 1 :
@@ -196,6 +196,6 @@ void input_add_account(Client client){
         input_type(new);
         input_entitled(new);
         input_new_balance(new);
-        set_nextOflastAccout(client,new);
+        set_nextOfLastAccout(client,new);
 }
 
