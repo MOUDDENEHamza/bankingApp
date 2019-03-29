@@ -66,21 +66,21 @@ void display_administrator(int *exit) {
  * Display the client account management submenu
  */
 void display_admin_account_management(void) {
-        printf("\n\t\t\t\tClient management\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+        printf("\n\t\t\t\tClient management\n"BLUE"1)-Create an account\n2)-Modify clients coordinates\n3)-Delete an account\n4)-Display the account list by type of account\n"RESET);
 }
 
 /*
  * Display the admin account management submenu
  */
 void display_admin_client_management(void) {
-
+printf("\n\t\t\t\tAdministration\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
 }
 
 /*
  * Display the client account management submenu
  */
 void display_admin_administration(void) {
-printf("\n\t\t\t\tAdministration\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+printf("\n\t\t\t\tAdministration\n"BLUE"1)-Change password\n"RESET);
 }
 
 /*------------------------------------------------------------------------------------------------*/

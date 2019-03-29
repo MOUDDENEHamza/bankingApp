@@ -87,7 +87,7 @@ void handle_client_menu(Symbol s, Client client, Json j, int *flag, int *exit, i
 void handle_administrator_menu(Symbol s, Client client, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
 	switch(*flag) { 
                 case 1 : 
-			printf("\nAccount management :\n\t\t- create an account\n\t\t- modify an account\n\t\t- delete an account\n\t\t- display the account list by type of account\n");
+			display_admin_account_management();
 			break;
 		case 2 :
 			display_admin_client_management();
@@ -95,7 +95,7 @@ void handle_administrator_menu(Symbol s, Client client, Json j, int *flag, int *
 			handle_client_management(s, client, j, index, exit, index, passwd, id);
 			break;
 		case 3 :
-	 		printf("\nAdministration :\n\t\t- Change password\n");
+			display_admin_administration();
 			break;
 		case 4 : //If the user want to sign out the submenu
 			break;
