@@ -120,7 +120,7 @@ void delete_account(Client client) {
 	int choice_type;
 	back:
 	display_typeAccounts(client);
-	scanf("%d",choice_type);
+	scanf("%d", &choice_type);
 	while(!in_1__nb_accounts(choice_type,nb_accounts(client))){
 		printf("unexistant choice !\n");
 		printf("retry again\n");
