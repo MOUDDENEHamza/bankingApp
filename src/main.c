@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 	/*Initialize variables*/
 	Symbol s = new_symbol();
 	Client client = new_client();
-	Json j = NULL;
+	Json j = new_json();
 	int log_in;
 	int exit = get_exit(s);
     int flag = get_flag(s);

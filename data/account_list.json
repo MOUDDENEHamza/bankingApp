@@ -1,44 +1,10 @@
 {
-	"last name" : "Hamza",
-	"first name" : "",
+	"id" : "client1",
+	"passwd" : "123456",
+	"last name" : "MOUDDENE",
+	"first name" : "Hamza",
 	"email" : "hz.mouddene@gmail.com",
 	"phone" : "06-41-13-22-30",
 	"birthday" : "28/05/1998",
-	"address" : "a"
-}
-{
-	"last name" : "99",
-	"first name" : "",
-	"email" : "99",
-	"phone" : "99",
-	"birthday" : "99",
-	"address" : "
-"
-}
-{
-	"last name" : "Hamza",
-	"first name" : "",
-	"email" : "hz.mouddene@gmail.com",
-	"phone" : "06-41-13-22-30",
-	"birthday" : "28/05/1998",
-	"address" : "
-"
-}
-{
-	"last name" : "1",
-	"first name" : "",
-	"email" : "1",
-	"phone" : "1",
-	"birthday" : "1",
-	"address" : "
-"
-}
-{
-	"last name" : "a",
-	"first name" : "",
-	"email" : "a",
-	"phone" : "a",
-	"birthday" : "a",
-	"address" : "
-"
+	"address" : "8, rue Colbert, 31400, Toulouse"
 }

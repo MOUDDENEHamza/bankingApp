@@ -431,9 +431,7 @@ Json new_json(void) {
 	FILE *fp;
 	char buffer[1024];
 	struct json_object *parsed_json;
-	struct json_object *id, *passwd, *perso_info, *account, *item1, *item2;
-	int i;
-	size_t n, p;
+	struct json_object *id, *passwd;
 	Json j = malloc(sizeof(Json));
 	j->id = malloc(sizeof(char *));
 	j->passwd = malloc(sizeof(char *));
@@ -443,8 +441,6 @@ Json new_json(void) {
 	parsed_json = json_tokener_parse(buffer);
 	json_object_object_get_ex(parsed_json, "id", &id);
 	json_object_object_get_ex(parsed_json, "passwd", &passwd);
-	json_object_object_get_ex(parsed_json, "perso_info", &perso_info);
-	json_object_object_get_ex(parsed_json, "account", &account);
 	strcpy(j->id, json_object_get_string(id));
 	strcpy(j->passwd, json_object_get_string(passwd));
 	return j;

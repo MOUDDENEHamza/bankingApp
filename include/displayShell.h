@@ -8,25 +8,53 @@
  */
 void init_bar(void);
 
+/*-------------------------------------DISPLAY MAIN MENU------------------------------------------*/
+
 /*
  * Display the main menu
  */
 void display_menu(int *exit);
 
+/*------------DISPLAY CLIENT MENU----------------*/
+
 /*
- * Display the home menu
+ * Display the client menu
  */
 void display_client(int *exit);
 
 /*
- * Display the settings menu
+ * Display the client account management submenu
+ */
+void display_client_account_management(void);
+
+/*
+ * Display the client administration submenu
+ */
+void display_client_administration(void);
+
+/*--------------DISPLAY ADMIN MENU----------------*/
+
+/*
+ * Display the administrator menu
  */
 void display_administrator(int *exit);
 
 /*
- * Display the administrator submenu
+ * Display the admin account management submenu
  */
-void display_client_management(void);
+void display_admin_account_management(void);
+
+/*
+ * Display the admin client management submenu
+ */
+void display_admin_client_management(void);
+
+/*
+ * Display the admin administration submenu
+ */
+void display_admin_administration(void);
+
+/*------------------------------------------------------------------------------------------------*/
 
 /*
  *Display an error message if the user input an incorrect flag
@@ -53,13 +81,19 @@ void display_deleting_msg(void);
  */
 void end_bar(void);
 
-/*display a list of accounts*/
+/*
+ * Display a list of accounts
+ */
 void display_choose_type();
 
-/*ask to edit the information of account to edit*/
+/*
+ * Ask to edit the information of account to edit
+ */
 void display_choose_edit();
 
-/*display all accounts of the client*/
+/*
+ * Display all accounts of the client
+ */
 void display_typeAccounts(Client client);
 
 #endif

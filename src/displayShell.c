@@ -15,6 +15,8 @@ void init_bar(void) {
 	printf("\n******************************************************************************\n\n\nStart program ...\n");
 }
 
+/*-------------------------------------DISPLAY MAIN MENU------------------------------------------*/
+
 /*
  * Display the main menu
  */
@@ -24,6 +26,8 @@ void display_menu(int *exit) {
 	printf(BLUE"\n1)-Client area\n2)-Adminstrator area\n"RESET""RED"%d)-Exit"RESET"\n\nIf you are a client type 1, If you are an administrator type 2, if you want to exit type %d.\n", *exit, *exit);
 }
 
+/*------------DISPLAY CLIENT MENU----------------*/
+
 /*
  * Display the client menu
  */
@@ -32,7 +36,23 @@ void display_client(int *exit) {
 	printf("\n\t\t\t\tCLIENT AREA\n");
         printf(BLUE"\n1)-Account management\n2)-Administration\n3)-Sign out\n"RESET""RED"%d)-Exit\n"RESET,*exit);
 }
-	
+
+/*
+ * Display the client account management submenu
+ */
+void display_client_account_management(void) {
+        printf("\n\t\t\t\tAccount management\n"BLUE"1)-Check your account balance\n2)-Get your transaction list on a chososen periode\n3)-Transfer money\n"RESET);
+}
+
+/*
+ * Display the client account management submenu
+ */
+void display_client_administration(void) {
+printf("\n\t\t\t\tAdministration\n"BLUE"1)-Change your password\n2)-Create a new account\n3)-Delete account\n"RESET);
+}
+
+/*--------------DISPLAY ADMIN MENU----------------*/
+
 /*
  * Display the administrator menu
  */
@@ -43,11 +63,27 @@ void display_administrator(int *exit) {
 }
 
 /*
- * Display the administrator submenu
+ * Display the client account management submenu
  */
-void display_client_management(void) {
-	printf("\n\t\t\t\tClient management\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+void display_admin_account_management(void) {
+        printf("\n\t\t\t\tClient management\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
 }
+
+/*
+ * Display the admin account management submenu
+ */
+void display_admin_client_management(void) {
+
+}
+
+/*
+ * Display the client account management submenu
+ */
+void display_admin_administration(void) {
+printf("\n\t\t\t\tAdministration\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+}
+
+/*------------------------------------------------------------------------------------------------*/
 
 /*
  *Display an error message if the user input an incorrect flag
