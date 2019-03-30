@@ -41,14 +41,14 @@ void display_client(int *exit) {
  * Display the client account management submenu
  */
 void display_client_account_management(void) {
-        printf("\n\t\t\t\tAccount management\n"BLUE"1)-Check your account balance\n2)-Get your transaction list on a chososen periode\n3)-Transfer money\n"RESET);
+        printf("\n\t\t\t\tAccount management\n\n"BLUE"1)-Check your account balance\n2)-Get your transaction list on a chososen periode\n3)-Transfer money\n"RESET);
 }
 
 /*
  * Display the client account management submenu
  */
 void display_client_administration(void) {
-printf("\n\t\t\t\tAdministration\n"BLUE"1)-Change your password\n2)-Create a new account\n3)-Delete account\n"RESET);
+printf("\n\t\t\t\tAdministration\n\n"BLUE"1)-Change your password\n2)-Create a new account\n3)-Delete account\n"RESET);
 }
 
 /*--------------DISPLAY ADMIN MENU----------------*/
@@ -66,21 +66,21 @@ void display_administrator(int *exit) {
  * Display the client account management submenu
  */
 void display_admin_account_management(void) {
-        printf("\n\t\t\t\tClient management\n"BLUE"1)-Create an account\n2)-Modify clients coordinates\n3)-Delete an account\n4)-Display the account list by type of account\n"RESET);
+        printf("\n\t\t\t\tClient management\n\n"BLUE"1)-Create an account\n2)-Modify clients coordinates\n3)-Delete an account\n4)-Display the account list by type of account\n"RESET);
 }
 
 /*
  * Display the admin account management submenu
  */
 void display_admin_client_management(void) {
-printf("\n\t\t\t\tAdministration\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+printf("\n\t\t\t\tAdministration\n\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
 }
 
 /*
  * Display the client account management submenu
  */
 void display_admin_administration(void) {
-printf("\n\t\t\t\tAdministration\n"BLUE"1)-Change password\n"RESET);
+printf("\n\t\t\t\tAdministration\n\n"BLUE"1)-Change password\n"RESET);
 }
 
 /*------------------------------------------------------------------------------------------------*/

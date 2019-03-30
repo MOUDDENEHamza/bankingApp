@@ -6,6 +6,7 @@
 #include "input.h"
 #include "security.h"
 #include "admin.h"
+#include "client.h"
 
 /*
  * Define the exit feature
@@ -93,7 +94,21 @@ void handle_client_menu(Symbol s, Client client, Json j, int *flag, int *exit, i
  * Define the function handling the client account management menu
  */
 void handle_client_account_management(Symbol s, Client client, Json j, int *flag, int *exit, int *index, char *passwd, char *id) {
+	restart:
+        switch(*flag) {
+                case 1 :
+                        consult_balance(get_account(client));//To consult the balance of the client 
+                        break;
+                case 2 :
 
+                        break;
+                case 3 :
+                        break;
+                default ://Display an error message if the user input an incorrect flag
+                        display_error_flag(s, flag);
+                        choose_feature(s, flag); //Choose the feature you want to run
+                        goto restart;
+        }
 }
 
 /*
