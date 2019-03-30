@@ -1,0 +1,24 @@
+{
+	"clients" :[
+		[
+				"client1",
+				"123456",
+				"MOUDDENE",
+				"Hamza",
+				"hz.mouddene@gmail.com",
+				"06-41-13-22-30",
+				"28/05/1998",
+				"8, rue Colbert, 31400, Toulouse"
+		],
+		[
+			"client2",
+			"654321",
+			"MOUDDENE",
+			"Hamza",
+			"hz.mouddene@gmail.com",
+			"06-41-13-22-30",
+			"28/05/1998",
+			"8, rue Colbert, 31400, Toulouse"
+		]
+	]
+}
