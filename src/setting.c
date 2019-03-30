@@ -100,9 +100,10 @@ void handle_client_account_management(Symbol s, Client client, Json j, int *flag
                         consult_balance(get_account(client));//To consult the balance of the client 
                         break;
                 case 2 :
-
+			transaction_list();//Get the operations list linked over a choosen period
                         break;
                 case 3 :
+			transfer_money();//Get the transfers list associated to the client
                         break;
                 default ://Display an error message if the user input an incorrect flag
                         display_error_flag(s, flag);

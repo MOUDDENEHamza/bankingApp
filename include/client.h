@@ -3,6 +3,11 @@
 
 #include "struct.h"
 
+/*
+ * Get fields from .csv file
+ */
+char* getfield(char line[], int n);
+
 /**
  * To consult the balance of the client 
  */
@@ -11,11 +16,11 @@ void consult_balance(Account account);
 /**
  * Get the operations list linked over a choosen period 
  */
-void operations_list(void);
+void transaction_list(void);
 
 /**
  * Get the transfers list associated to the client
  */
-void transfers_list(void);
+void transfer_money(void);
 
 #endif
