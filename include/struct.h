@@ -292,7 +292,7 @@ void set_next_client(Client client, Client next);
 /*
  * Add a new node at the end of the list
  */
-Client append(Client head, char *id, char* passwd);
+Client append(Client head, Client new_client);
 
 /*
  * The linked list can be traversed in a while loop by using the head node as a starting reference

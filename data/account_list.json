@@ -1,1 +1,1 @@
-[ [ "0C59566B", "corina2031", "SANZ--SOUHAIT", "Corina", "13\/05\/2000", "corina.sanz---souhait@univ-tlse306-61-31-83-28", "06-61-31-83-28" ], [ "1394669D", "MOUDA", "MOUDDENE", "Hamza", "28\/05\/1998", "hz.mouddene@gmail.com", "06-41-13-22-30" ] ][ ]
+{ "clients": [ { "ID": "ID", "PASSWD": "PASSWD", "LAST NAME": "LAST NAME", "FIRST NAME": "FIRST NAME", "BIRTHDAY": "BIRTHDAY" } ] }

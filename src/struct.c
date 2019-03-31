@@ -430,19 +430,16 @@ void set_next_client(Client client, Client next) {
 /*
  * Add a new node at the end of the list
  */
-Client append(Client head, char *id, char* passwd) {
+Client append(Client head, Client new_client) {
    	Client temp = NULL;
-	Client new_node = new_client();
-	set_id(new_node, id);
-	set_passwd(new_node, passwd);
 	if(head == NULL) {
-		head = new_node;	
+		head = new_client;	
     	} else {
 		temp = head;
 		while (get_next_client(temp) != NULL) {
 			temp = get_next_client(temp);
 		}
-		set_next_client(temp, new_node);
+		set_next_client(temp, new_client);
 	}
     	return head;
 }

@@ -106,7 +106,7 @@ void input_last_name(Client client){
  */
 void input_first_name(Client client){
         char first_name[32];
-        printf("\n\nEnter your first name : ");
+        printf("\nEnter your first name : ");
 	scanf("%s", first_name);
 	set_first_name(get_perso_info(client), first_name);
 }
@@ -116,7 +116,7 @@ void input_first_name(Client client){
  */
 void input_mail(Client client){
         char mail[32];
-        printf("\n\nEnter your E-mail : ");
+        printf("\nEnter your E-mail : ");
         scanf("%s", mail);       
 	set_mail(get_coordinates(get_perso_info(client)), mail);
 }
@@ -126,7 +126,7 @@ void input_mail(Client client){
  */
 void input_phone(Client client){
         char phone[16];
-        printf("\n\nEnter your phone : ");
+        printf("\nEnter your phone : ");
 	scanf("%s", phone);
 	set_phone(get_coordinates(get_perso_info(client)), phone);
 }
@@ -136,7 +136,7 @@ void input_phone(Client client){
  */
 void input_birthday(Client client){
         char birthday[10];
-        printf("\n\nEnter your birthday : ");
+        printf("\nEnter your birthday : ");
 	scanf("%s", birthday);
 	set_birthday(get_perso_info(client), birthday);
 }
