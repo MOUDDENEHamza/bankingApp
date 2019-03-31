@@ -4,23 +4,13 @@
 #include "security.h"
 
 /*
- * Check if the id client is valid
+ * Check if the id and the password of the client is valid
  */
-int valid_id_client(Json j, char *id) {
-	if (strcmp(id, get_id_json(j)) == 0) {
-                return 0;
+int valid_client(Client client, char *id, char *passwd) {
+	if (strcmp(id, get_id(client)) && strcmp(passwd, get_passwd(client)) == 0) {
+        	return 0;
         }
-        return 1;
-}
-
-/*
- * Check if the password client is valid
- */
-int valid_passwd_client(Json j, char *passwd) {
-	if (strcmp(passwd, get_passwd_json(j)) == 0) {
-                return 0;
-        }
-        return 1;
+	return 1;
 }
 
 /*

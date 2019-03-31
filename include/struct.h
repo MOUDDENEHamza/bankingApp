@@ -255,6 +255,11 @@ Perso_info get_perso_info(Client client);
  */
 Account get_account(Client client);
 
+/*
+ * Get the next client into the structure
+ */
+Client get_next_client(Client client);
+
 /*---------------Setters--------------*/
 
 /*
@@ -277,34 +282,21 @@ void set_perso_info(Client client, Perso_info p);
  */
 void set_account(Client client, Account a);
 
+/*
+ * Set the next client into the structure
+ */
+void set_next_client(Client client, Client next);
+
 /*----------------------------------------------------------------------------*/
 
-/*-----------------------------------Structures-------------------------------*/
+/*
+ * Add a new node at the end of the list
+ */
+Client append(Client head, char *id, char* passwd);
 
 /*
- * Introduce a simple structre handling the json file
+ * The linked list can be traversed in a while loop by using the head node as a starting reference
  */
-typedef struct json *Json;
-
-/*-------------Constructor------------*/
-
-/*
- * Constructor of structure
- */
-Json new_json(void);
-
-/*--------------Getters---------------*/
-
-/*
- * Get id from structure
- */
-char *get_id_json(Json j);
-
-/*
- * Get password from structure
- */
-char *get_passwd_json(Json j);
-
-/*----------------------------------------------------------------------------*/
+void traverse(Client head);
 
 #endif

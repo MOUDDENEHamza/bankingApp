@@ -4,14 +4,9 @@
 #include "struct.h"
 
 /*
- * Check if the id client is valid
+ * Check if the id and the password of the client is valid
  */
-int valid_id_client(Json j, char *id);
-
-/*
- * Check if the password client is valid
- */
-int valid_passwd_client(Json j, char *passwd);
+int valid_client(Client client, char *id, char *passwd);
 
 /*
  * Allow to administrator to connect to the application

@@ -14,9 +14,9 @@ void choose_feature(Symbol s, int *flag);
 void hide_passwd(char *passwd);
 
 /*
- * Ask to user or administrator to input the id
+ * Generate unique id for the client
  */
-void input_id(Client client,char *id);
+void generate_unique_id(Client client);
 
 /*
  * Ask to user or administrator to input the password
@@ -24,34 +24,29 @@ void input_id(Client client,char *id);
 void input_passwd(Client client,char *passwd);
 
 /*
+ * Ask to user to create his own password
+ */
+void create_passwd(Client client);
+
+/*
  * Ask to user or administrator to input her last name
  */
-
 void input_last_name(Client client);
 
 /*
  * Ask to user or administrator to input her first name
  */
-
 void input_first_name(Client client);
 
 /*
  * Ask to user or administrator to input his Email address
  */
-
 void input_mail(Client client);
 
 /*
  * Ask to user or administrator to input her phone number
  */
-
 void input_phone(Client client);
-
-/*
- * Ask to user or administrator to input his address
- */
-
-void input_address(Client client);
 
 /*
  * Ask to user or administrator to input his birthday

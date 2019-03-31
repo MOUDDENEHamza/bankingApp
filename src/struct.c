@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include<json-c/json.h>
 #include "struct.h"
 
 /*-----------------------------------Structure--------------------------------*/
@@ -11,9 +10,9 @@
  */
 struct symbol{
 	int flag;
-    int exit;
+  	int exit;
 	int index;
-}symbol;
+};
 
 /*-------------Constructor------------*/
 
@@ -245,7 +244,7 @@ struct account {
    	char* type;
    	char* entitled;
 	float balance;
-	struct account* nextAccount;
+	Account nextAccount;
 };
 
 /*--------------Constructor---------------*/
@@ -330,10 +329,11 @@ void set_nextAccount(Account a, Account next){
  * Introduce a simple structre handling account owner
  */
 struct client {
-    char* id;
-    char* passwd;
-    Perso_info perso_info;
-    Account account;
+    	char *id;
+    	char *passwd;
+    	Perso_info perso_info;
+    	Account account;
+	Client next;
 };
 
 /*--------------Constructor---------------*/
@@ -344,10 +344,11 @@ struct client {
 Client new_client(void) {
 	Client client = malloc(sizeof(Client));
     	client->id = malloc(sizeof(char *));
-    	client->passwd = malloc(sizeof(char *));
+	client->passwd = malloc(sizeof(char *));
     	client->perso_info = new_perso_info();
     	client->account = new_account();
-    	return client;
+	client->next = NULL;
+	return client;
 }
 
 /*---------------Getters--------------*/
@@ -380,6 +381,13 @@ Account get_account(Client client) {
 	return client->account;
 }
 
+/*
+ * Get the next client from the structure
+ */
+Client get_next_client(Client client) {
+        return client->next;
+}
+
 /*---------------Setters--------------*/
 
 /*
@@ -410,56 +418,43 @@ void set_account(Client client, Account a) {
 	client->account = a;
 }
 
+/*
+ * Set the next client into the structure
+ */
+void set_next_client(Client client, Client next) {
+        client->next = next;
+}
+
 /*----------------------------------------------------------------------------*/
 
-/*-----------------------------------Structures-------------------------------*/
-
 /*
- * Introduce a simple structre handling the json file
+ * Add a new node at the end of the list
  */
-struct json {
-	char *id;
-	char *passwd;
-};
-
-/*-------------Constructor------------*/
-
-/*
- * Constructor of structure
- */
-Json new_json(void) {
-	FILE *fp;
-	char buffer[1024];
-	struct json_object *parsed_json;
-	struct json_object *id, *passwd;
-	Json j = malloc(sizeof(Json));
-	j->id = malloc(sizeof(char *));
-	j->passwd = malloc(sizeof(char *));
-	fp = fopen("data/account_list.json","r");
-	fread(buffer, 1024, 1, fp);
-	fclose(fp);
-	parsed_json = json_tokener_parse(buffer);
-	json_object_object_get_ex(parsed_json, "id", &id);
-	json_object_object_get_ex(parsed_json, "passwd", &passwd);
-	strcpy(j->id, json_object_get_string(id));
-	strcpy(j->passwd, json_object_get_string(passwd));
-	return j;
-}
-
-/*--------------Getters---------------*/
-
-/*
- * Get id from structure
- */
-char *get_id_json(Json j) {
-	return j->id;
+Client append(Client head, char *id, char* passwd) {
+   	Client temp = NULL;
+	Client new_node = new_client();
+	set_id(new_node, id);
+	set_passwd(new_node, passwd);
+	if(head == NULL) {
+		head = new_node;	
+    	} else {
+		temp = head;
+		while (get_next_client(temp) != NULL) {
+			temp = get_next_client(temp);
+		}
+		set_next_client(temp, new_node);
+	}
+    	return head;
 }
 
 /*
- * Get password from structure
+ * The linked list can be traversed in a while loop by using the head node as a starting reference
  */
-char* get_passwd_json(Json j) {
-	return j->passwd;
+void traverse(Client head) {
+	Client current = head;
+	while(current != NULL){
+		printf("\nID : %s\n", get_id(current));
+		printf("\nPASSWD : %s\n", get_passwd(current));
+		current = get_next_client(current);
+	}
 }
-
-/*------------------------------------*/
