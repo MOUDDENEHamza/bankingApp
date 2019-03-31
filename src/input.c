@@ -6,6 +6,7 @@
 #include <termios.h>
 #include "input.h"
 #include "admin.h"
+#include "json.h"
 
 #define SIZE 255
 
@@ -143,8 +144,7 @@ void input_birthday(Client client){
 /*
  * input all personnal information
  */
-void input_perso_info(Client client){
-	FILE *fp = fopen("data/account_list.json", "a+");
+struct json_object *input_perso_info(Client client, struct json_object *clients){
 	generate_unique_id(client);
 	create_passwd(client);
 	input_last_name(client);
@@ -152,8 +152,8 @@ void input_perso_info(Client client){
        	input_birthday(client);
 	input_mail(client);
         input_phone(client);
-	fprintf(fp,"{\n\t\"id\" : \"%s\",\n\t\"password\" : \"%s\",\n\t\"last name\" : \"%s\",\n\t\"first name\" : \"%s\",\n\t\"birthday\" : \"%s\",\n\t\"email\" : \"%s\",\n\t\"phone\" : \"%s\"\n}",get_id(client), get_passwd(client), get_last_name(get_perso_info(client)), get_first_name(get_perso_info(client)), get_birthday(get_perso_info(client)), get_mail(get_coordinates(get_perso_info(client))), get_phone(get_coordinates(get_perso_info(client))));
-	fclose(fp);
+	clients = add_client_json(client, clients);
+	return clients;
 }
 
 /*

@@ -37,7 +37,7 @@ void delete_account(Client client);
 /*
  *Add client
  */
-void add_client(void);
+struct json_object *add_client(struct json_object *clients);
 
 /*
  *Edit the personal information of the client

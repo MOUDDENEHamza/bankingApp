@@ -21,7 +21,7 @@ void quit(int *exit) {
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in) {
+struct json_object *handle_menu(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in) {
 	switch (*flag) {
 		case 1 :
 			if (*log_in == 0) {
@@ -32,7 +32,7 @@ void handle_menu(Symbol s, Client client, int *flag, int *exit, int *index, char
 				*log_in = 1;
 				display_client(exit); //Dipslay the administrator menu
 				choose_feature(s, index); //Choose the feature you want to run
-				handle_client_menu(s, client, index, exit, index, passwd, id);
+				handle_client_menu(s, client, clients, index, exit, index, passwd, id);
 				break;
 			} else {
                         display_error_connexion_client();//Display an error message if the user input an incorrect id or password
@@ -45,7 +45,7 @@ void handle_menu(Symbol s, Client client, int *flag, int *exit, int *index, char
 			if (!connect_admin(passwd)) {
 				display_administrator(exit); //Dipslay the administrator menu
 				choose_feature(s, index); //Choose the feature you want to run
-				handle_administrator_menu(s, client, index, exit, index, passwd, id);
+				handle_administrator_menu(s, client, clients, index, exit, index, passwd, id);
 				*log_in = 1;
 				break;
 			} else {
@@ -60,6 +60,7 @@ void handle_menu(Symbol s, Client client, int *flag, int *exit, int *index, char
 			choose_feature(s, flag);//Choose the feature you want to run
 			break;
 	}
+	return clients;
 }
 
 /*-----------------CLIENT MENU-------------------*/
@@ -67,17 +68,17 @@ void handle_menu(Symbol s, Client client, int *flag, int *exit, int *index, char
 /*
  * Define the function handling the client menu
  */
-void handle_client_menu(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_client_menu(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {
  	switch(*flag) {
 		case 1 :	
 			display_client_account_management();
 			choose_feature(s, index); //Choose the feature you want to run
-                        handle_client_account_management(s, client, index, exit, index, passwd, id);
+                        handle_client_account_management(s, client, clients, index, exit, index, passwd, id);
 			break;
 		case 2 :
 			display_client_administration();
 			choose_feature(s, index); //Choose the feature you want to run
-                        handle_client_administration(s, client, index, exit, index, passwd, id);
+                        handle_client_administration(s, client, clients, index, exit, index, passwd, id);
 			break;
 		case 3 : //If the user want to sign out the submenu
 			break;
@@ -93,7 +94,7 @@ void handle_client_menu(Symbol s, Client client, int *flag, int *exit, int *inde
 /*
  * Define the function handling the client account management menu
  */
-void handle_client_account_management(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_client_account_management(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {
 	restart:
         switch(*flag) {
                 case 1 :
@@ -115,7 +116,7 @@ void handle_client_account_management(Symbol s, Client client, int *flag, int *e
 /*
  * Define the function handling the client administration menu
  */
-void handle_client_administration(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {
+void handle_client_administration(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {
 
 }
 
@@ -124,7 +125,7 @@ void handle_client_administration(Symbol s, Client client, int *flag, int *exit,
 /*
  * Define the function handling the administrator menu
  */
-void handle_administrator_menu(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {
+struct json_object *handle_administrator_menu(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {
 	switch(*flag) { 
                 case 1 : 
 			display_admin_account_management();
@@ -132,7 +133,7 @@ void handle_administrator_menu(Symbol s, Client client, int *flag, int *exit, in
 		case 2 :
 			display_admin_client_management();
 			choose_feature(s, index); //Choose the feature you want to run
-			handle_admin_client_management(s, client, index, exit, index, passwd, id);
+			handle_admin_client_management(s, client, clients, index, exit, index, passwd, id);
 			break;
 		case 3 :
 			display_admin_administration();
@@ -145,22 +146,23 @@ void handle_administrator_menu(Symbol s, Client client, int *flag, int *exit, in
 		default ://Display an error message if the user input an incorrect flag
                         display_error_flag(s, flag);
 			break;
-	} 
+	}
+	return clients;
 }
 
 /*
  * Define the function handling the administrator account management menu
  */
-void handle_admin_account_management(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {}
+void handle_admin_account_management(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {}
 
 /*
  * Define the function handling the client management menu
  */
-void handle_admin_client_management(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {
+struct json_object *handle_admin_client_management(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {
 	restart:
 	switch(*flag) {
 		case 1 :
-			add_client();//Add new client
+			clients = add_client(clients);//Add new client
         		break;
 		case 2 :
 
@@ -172,11 +174,12 @@ void handle_admin_client_management(Symbol s, Client client, int *flag, int *exi
 	 		choose_feature(s, flag); //Choose the feature you want to run
 			goto restart;
         }
+	return clients;
 }
 
 /*
  * Define the function handling the administrator administration menu
  */
-void handle_admin_administration(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id) {}
+void handle_admin_administration(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id) {}
 
 /*------------------------------------------------------------------------------------------------*/

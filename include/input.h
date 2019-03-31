@@ -56,7 +56,7 @@ void input_birthday(Client client);
 /*
  * input all personnal information
  */
-void input_perso_info(Client client);
+struct json_object *input_perso_info(Client client, struct json_object *clients);
 
 /*
  * Ask to the administrator de to enter a new balance

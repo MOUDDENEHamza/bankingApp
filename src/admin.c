@@ -148,10 +148,11 @@ void delete_account(Client client) {
 /*
  *Add client
  */
-void add_client(void) {
+struct json_object *add_client(struct json_object *clients) {
 	Client client = new_client();
-	input_perso_info(client);
+	clients = input_perso_info(client, clients);
 	printf("\n\nClient has been added. Come back to the administrator menu.\n");
+	return clients;
 }
 
 /*

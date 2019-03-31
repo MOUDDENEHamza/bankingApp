@@ -5,37 +5,28 @@
 #include "struct.h"
 
 /*
- * Parse the json file containing the client data
- *
-void parse_json(Client head) {
-	FILE *fp;
-        char buffer[1024], str1[1024], str2[1024];
-        struct json_object *parsed_json;
-        struct json_object *list;
-        struct json_object *item;
-        struct json_object *id, *passwd, *last_name, *first_name, *mail, *phone, *birthday, *address;
-        size_t len;
-        size_t i;
-        fp = fopen("data/account_list.json","r");
-        fread(buffer, 1024, 1, fp);
-	fclose(fp);
-        parsed_json = json_tokener_parse(buffer);
-        json_object_object_get_ex(parsed_json, "clients", &list);
-        len = json_object_array_length(list);
-        for(i = 0; i < len; i++) {
-                item = json_object_array_get_idx(list, i);
-                id = json_object_array_get_idx(item, 0);
-		passwd = json_object_array_get_idx(item, 1);
-		last_name = json_object_array_get_idx(item, 2);
-                first_name = json_object_array_get_idx(item, 3);
-                mail = json_object_array_get_idx(item, 4);
-                phone = json_object_array_get_idx(item, 5);
-                birthday = json_object_array_get_idx(item, 6);
-                address = json_object_array_get_idx(item, 7);
-		strcpy(str1, json_object_get_string(id));
-		strcpy(str2, json_object_get_string(passwd));
-	}
-	head = append(head, str1, str2);
-	traverse(head);
+ * Add data client to json file
+ */
+struct json_object *add_client_json(Client head, struct json_object *clients) {
+	struct json_object *new_client;
+        struct json_object *id, *passwd, *last_name, *first_name, *birthday, *mail, *phone;
+	new_client = json_object_new_array();
+	json_object_array_add(new_client, json_object_new_string(get_id(head)));
+	json_object_array_add(new_client, json_object_new_string(get_passwd(head)));
+	json_object_array_add(new_client, json_object_new_string(get_last_name(get_perso_info(head))));
+	json_object_array_add(new_client, json_object_new_string(get_first_name(get_perso_info(head))));
+	json_object_array_add(new_client, json_object_new_string(get_birthday(get_perso_info(head))));
+        json_object_array_add(new_client, json_object_new_string(get_mail(get_coordinates(get_perso_info(head)))));
+	json_object_array_add(new_client, json_object_new_string(get_phone(get_coordinates(get_perso_info(head)))));
+	json_object_array_add(clients, new_client);
+	printf("\nClients : %s\n", json_object_to_json_string(clients));
+	return clients;
 }
-*/
+
+/*
+ * Parse the json file containing the client data
+ */
+void parse_json(struct json_object *clients) {
+	printf("\nDownload JSON File ...\n");
+	printf("\nClients : %s\n", json_object_to_json_string(clients));
+}

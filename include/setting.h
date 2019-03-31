@@ -13,46 +13,46 @@ void quit(int *exit);
 /*
  * Define the function handling the main menu
  */
-void handle_menu(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in);
+struct json_object *handle_menu(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id, int *log_in);
 
 /*-----------------CLIENT MENU-------------------*/
 
 /*
  * Define the function handling the client menu
  */
-void handle_client_menu(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd,char *id);
+void handle_client_menu(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd,char *id);
 
 /*
  * Define the function handling the client account management menu
  */
-void handle_client_account_management(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id);
+void handle_client_account_management(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id);
 
 /*
  * Define the function handling the client administration menu
  */
-void handle_client_administration(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id);
+void handle_client_administration(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id);
 
 /*-----------------ADMIN MENU-------------------*/
 
 /*
  * Define the function handling the administrator menu
  */
-void handle_administrator_menu(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id);
+struct json_object *handle_administrator_menu(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id);
 
 /*
  * Define the function handling the administrator account management menu
  */
-void handle_admin_account_management(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id);
+void handle_admin_account_management(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id);
 
 /*
  * Define the function handling the administrator client management menu
  */
-void handle_admin_client_management(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id);
+struct json_object *handle_admin_client_management(Symbol s, Client client,struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id);
 
 /*
  * Define the function handling the administrator administration menu
  */
-void handle_admin_administration(Symbol s, Client client, int *flag, int *exit, int *index, char *passwd, char *id);
+void handle_admin_administration(Symbol s, Client client, struct json_object *clients, int *flag, int *exit, int *index, char *passwd, char *id);
 
 /*------------------------------------------------------------------------------------------------*/
 
