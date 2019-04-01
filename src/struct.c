@@ -6,7 +6,7 @@
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling the menu
+ * Introduce a simple structure handling the menu
  */
 struct symbol {
     int flag;
@@ -94,7 +94,7 @@ void set_sub_index(Symbol s, int *val) {
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre stocking the cooridnates of clients
+ * Introduce a simple structure stocking the coordinates of clients
  */
 struct coordinates {
     char *mail;
@@ -166,7 +166,7 @@ void set_address(Coordinates c, char *address) {
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre stocking the personal information of clients
+ * Introduce a simple structure stocking the personal information of clients
  */
 struct perso_info {
     char *last_name;
@@ -254,7 +254,7 @@ void set_coordinates(Perso_info p, Coordinates c) {
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling account client
+ * Introduce a simple structure handling account client
  */
 struct account {
     char *type;
@@ -342,14 +342,13 @@ void set_nextAccount(Account a, Account next) {
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling account owner
+ * Introduce a simple structure handling account owner
  */
 struct client {
     char *id;
     char *passwd;
     Perso_info perso_info;
     Account account;
-    Client next;
 };
 
 /*--------------Constructor---------------*/
@@ -363,7 +362,6 @@ Client new_client(void) {
     client->passwd = malloc(sizeof(char *));
     client->perso_info = new_perso_info();
     client->account = new_account();
-    client->next = NULL;
     return client;
 }
 
@@ -397,13 +395,6 @@ Account get_account(Client client) {
     return client->account;
 }
 
-/*
- * Get the next client from the structure
- */
-Client get_next_client(Client client) {
-    return client->next;
-}
-
 /*---------------Setters--------------*/
 
 /*
@@ -434,39 +425,4 @@ void set_account(Client client, Account a) {
     client->account = a;
 }
 
-/*
- * Set the next client into the structure
- */
-void set_next_client(Client client, Client next) {
-    client->next = next;
-}
-
 /*----------------------------------------------------------------------------*/
-
-/*
- * Add a new node at the end of the list
- */
-void append(Client head, Client new_client) {
-    Client temp = NULL;
-    if (head == NULL) {
-        head = new_client;
-    } else {
-        temp = head;
-        while (get_next_client(temp) != NULL) {
-            temp = get_next_client(temp);
-        }
-        set_next_client(temp, new_client);
-    }
-}
-
-/*
- * The linked list can be traversed in a while loop by using the head node as a starting reference
- */
-void traverse(Client head) {
-    Client current = head;
-    while (current != NULL) {
-        printf("\nID : %s\n", get_id(current));
-        printf("\nPASSWD : %s\n", get_passwd(current));
-        current = get_next_client(current);
-    }
-}

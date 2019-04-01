@@ -6,7 +6,7 @@
 /*
  * Check if the id and the password of the client is valid
  */
-int valid_client(Clients clients, char *id, char *passwd);
+int valid_client(Client client, Json_object json_clients, char *id, char *passwd);
 
 /*
  * Allow to administrator to connect to the application

@@ -19,8 +19,9 @@ char* getfield(char line[], int n){
 /**
  * To consult the balance of the client
  */
-void consult_balance(Account account) {
-	printf("\n\nLoading...\n\nYour account balance : %f\n\nCome back the client menu", get_balance(account));
+void consult_balance(Client client) {
+	printf("\nLoading...\n");
+	printf("\nCome back the client menu\n");
 }
 
 /**

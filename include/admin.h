@@ -38,7 +38,7 @@ void delete_account(Client client);
 /*
  *Add client
  */
-void add_client(Client new_node);
+void add_client(Client client);
 
 /*
  *Edit the personal information of the client

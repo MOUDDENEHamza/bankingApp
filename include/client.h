@@ -11,7 +11,7 @@ char* getfield(char line[], int n);
 /**
  * To consult the balance of the client 
  */
-void consult_balance(Account account);
+void consult_balance(Client client);
 
 /**
  * Get the operations list linked over a choosen period 

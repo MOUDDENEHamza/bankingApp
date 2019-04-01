@@ -4,7 +4,7 @@
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling the menu
+ * Introduce a simple structure handling the menu
  */
 typedef struct symbol *Symbol;
 
@@ -64,7 +64,7 @@ void set_sub_index(Symbol s, int *val);
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre stocking the cooridnates of clients
+ * Introduce a simple structure stocking the coordinates of clients
  */
 typedef struct coordinates *Coordinates;
 
@@ -114,7 +114,7 @@ void set_address(Coordinates c, char *address);
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre stocking the personal information of clients
+ * Introduce a simple structure stocking the personal information of clients
  */
 typedef struct perso_info *Perso_info;
 
@@ -174,7 +174,7 @@ void set_coordinates(Perso_info p, Coordinates c);
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling account client
+ * Introduce a simple structure handling account client
  */
 typedef struct account *Account;
 
@@ -232,7 +232,7 @@ void set_nextAccount(Account a, Account next);
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling account owner
+ * Introduce a simple structure handling account owner
  */
 typedef struct client *Client;
 
@@ -265,11 +265,6 @@ Perso_info get_perso_info(Client client);
  */
 Account get_account(Client client);
 
-/*
- * Get the next client into the structure
- */
-Client get_next_client(Client client);
-
 /*---------------Setters--------------*/
 
 /*
@@ -292,30 +287,15 @@ void set_perso_info(Client client, Perso_info p);
  */
 void set_account(Client client, Account a);
 
-/*
- * Set the next client into the structure
- */
-void set_next_client(Client client, Client next);
-
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------Structure--------------------------------*/
 
 /*
- * Introduce a simple structre handling account owner
+ * Introduce a simple structure handling account owner
  */
-typedef struct json_object *Object, *Clients, *Json_client, *Json_account_list;
+typedef struct json_object *Json_object;
 
 /*----------------------------------------------------------------------------*/
-
-/*
- * Add a new node at the end of the list
- */
-void append(Client head, Client new_client);
-
-/*
- * The linked list can be traversed in a while loop by using the head node as a starting reference
- */
-void traverse(Client head);
 
 #endif

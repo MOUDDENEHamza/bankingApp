@@ -6,16 +6,16 @@
 /*
  * Update json file
  */
-void write_file(Clients object, Clients client);
+void write_file(Json_object json_object, Json_object json_client);
 
 /*
  * Add data client to json file
  */
-void add_client_json(Client new_client, Clients clients);
+void add_client_json(Client client, Json_object json_clients);
 
 /*
- * Parse the json file contais\ning the client data
+ * Parse the json file containing the client data
  */
-Clients parse_json(void);
+Json_object parse_json(void);
 
 #endif

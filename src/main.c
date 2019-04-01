@@ -15,12 +15,10 @@
 int main(int argc, char *argv[]) {
     /*Initialize variables*/
     Symbol s = new_symbol();
-    Client head = NULL;
-    Client new_node = new_client();
-    Object object;
-    Clients clients;
-    object = json_object_new_object();
-    clients = json_object_new_array();
+    Client client = new_client();
+    Json_object json_object, json_clients;
+    json_object = json_object_new_object();
+    json_clients = json_object_new_array();
     int log_in;
     int exit = get_exit(s);
     int flag = get_flag(s);
@@ -33,7 +31,7 @@ int main(int argc, char *argv[]) {
     back:
     log_in = 0;
     display_menu(&exit); //Display the main menu.
-    clients = parse_json();//Parse the json file containing the client data
+    json_clients = parse_json();//Parse the json file containing the client data
     choose_feature(s, &flag); //Choose the feature you want to run
     while (exit) {
         switch (flag) {
@@ -43,7 +41,7 @@ int main(int argc, char *argv[]) {
                     input_id(id);
                     input_passwd(passwd);
                 }
-                if (!valid_client(clients, id, passwd)) {
+                if (!valid_client(client, json_clients, id, passwd)) {
                     log_in = 1;
                     display_client(&exit); //Display the administrator menu
                     choose_feature(s, &index); //Choose the feature you want to run
@@ -53,7 +51,8 @@ int main(int argc, char *argv[]) {
                             choose_feature(s, &sub_index); //Choose the feature you want to run
                             switch (sub_index) {
                                 case 1 :
-                                    consult_balance(get_account(head));//To consult the balance of the client
+                                    printf("\ntest : %s\n", get_last_name(get_perso_info(client)));
+                                    consult_balance(client);//To consult the balance of the client
                                     break;
                                 case 2 :
                                     transaction_list();//Get the operations list linked over a choosen period
@@ -93,7 +92,7 @@ int main(int argc, char *argv[]) {
                     input_passwd(passwd);
                 }
                 if (!connect_admin(passwd)) {
-                    display_administrator(&exit); //Dipslay the administrator menu
+                    display_administrator(&exit); //Display the administrator menu
                     choose_feature(s, &index); //Choose the feature you want to run
                     switch (index) {
                         case 1 :
@@ -105,10 +104,9 @@ int main(int argc, char *argv[]) {
                         restart:
                             switch (sub_index) {
                                 case 1 :
-                                    add_client(new_node);//Add new client
-                                    add_client_json(new_node, clients);
-                                    append(head, new_node);
-                                    new_node = new_client();
+                                    add_client(client);//Add new client
+                                    add_client_json(client, json_clients);
+                                    client = new_client();
                                     break;
                                 case 2 :
 
@@ -158,6 +156,6 @@ int main(int argc, char *argv[]) {
 
         continue;
     }
-    write_file(object, clients);
+    write_file(json_object, json_clients);
     return 0;
 }

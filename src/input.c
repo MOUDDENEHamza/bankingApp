@@ -164,15 +164,15 @@ void input_birthday(Client client) {
 /*
  * input all personnal information
  */
-Client input_perso_info(Client new_client) {
-    generate_unique_id(new_client);
-    create_passwd(new_client);
-    input_last_name(new_client);
-    input_first_name(new_client);
-    input_birthday(new_client);
-    input_mail(new_client);
-    input_phone(new_client);
-    return new_client;
+Client input_perso_info(Client client) {
+    generate_unique_id(client);
+    create_passwd(client);
+    input_last_name(client);
+    input_first_name(client);
+    input_birthday(client);
+    input_mail(client);
+    input_phone(client);
+    return client;
 }
 
 /*

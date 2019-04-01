@@ -61,7 +61,7 @@ void input_birthday(Client client);
 /*
  * input all personnal information
  */
-Client input_perso_info(Client new_client);
+Client input_perso_info(Client client);
 
 /*
  * Ask to the administrator de to enter a new balance
