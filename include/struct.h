@@ -42,12 +42,12 @@ int get_sub_index(Symbol s);
 /*
  *Set value to flag in structure
  */
-void set_flag(Symbol s ,int *val);
+void set_flag(Symbol s, int *val);
 
 /*
  *Set value to exit in structure
  */
-void set_exit(Symbol s ,int *val);
+void set_exit(Symbol s, int *val);
 
 /*
  *Set value to index in structure
@@ -66,7 +66,7 @@ void set_sub_index(Symbol s, int *val);
 /*
  * Introduce a simple structre stocking the cooridnates of clients
  */
-typedef struct coordinates* Coordinates;
+typedef struct coordinates *Coordinates;
 
 /*--------------Constructor---------------*/
 
@@ -97,17 +97,17 @@ char *get_address(Coordinates c);
 /*
  * Set the mail of client into the structure
  */
-void set_mail(Coordinates c, char* mail);
+void set_mail(Coordinates c, char *mail);
 
 /*
  * Set the phone of client into the structure
  */
-void set_phone(Coordinates c, char* phone);
+void set_phone(Coordinates c, char *phone);
 
 /*
  * Set the address of client into the structure
  */
-void set_address(Coordinates c, char* address);
+void set_address(Coordinates c, char *address);
 
 /*----------------------------------------------------------------------------*/
 
@@ -116,7 +116,7 @@ void set_address(Coordinates c, char* address);
 /*
  * Introduce a simple structre stocking the personal information of clients
  */
-typedef struct perso_info* Perso_info;
+typedef struct perso_info *Perso_info;
 
 /*--------------Constructor---------------*/
 
@@ -130,17 +130,17 @@ Perso_info new_perso_info(void);
 /*
  * Get the last name of client from the structure
  */
-char* get_last_name(Perso_info p);
+char *get_last_name(Perso_info p);
 
 /*
  * Get the first name of client from the structure
  */
-char* get_first_name(Perso_info p);
+char *get_first_name(Perso_info p);
 
 /*
  * Get the birthday of client from the structure
  */
-char* get_birthday(Perso_info p);
+char *get_birthday(Perso_info p);
 
 /*
  *Get the the coordinates of client from the structure
@@ -152,17 +152,17 @@ Coordinates get_coordinates(Perso_info p);
 /*
  * Set the last name of client into the structure
  */
-void set_last_name(Perso_info p, char* last_name);
+void set_last_name(Perso_info p, char *last_name);
 
 /*
  * Set the first name of client into the structure
  */
-void set_first_name(Perso_info p, char* first_name);
+void set_first_name(Perso_info p, char *first_name);
 
 /*
  * Set the birthday of client into the structure
  */
-void set_birthday(Perso_info p, char* birthday);
+void set_birthday(Perso_info p, char *birthday);
 
 /*
  *Set the the coordinates of client into the structure
@@ -176,7 +176,7 @@ void set_coordinates(Perso_info p, Coordinates c);
 /*
  * Introduce a simple structre handling account client
  */
-typedef struct account* Account;
+typedef struct account *Account;
 
 /*--------------Constructor---------------*/
 
@@ -190,12 +190,12 @@ Account new_account(void);
 /*
  * Get the type of account from the structure
  */
-char* get_type(Account a);
+char *get_type(Account a);
 
 /*
  * Get the entitled of account from the structure
- */	
-char* get_entitled(Account a);
+ */
+char *get_entitled(Account a);
 
 /*
  * Get the balance of account from the structure
@@ -212,12 +212,12 @@ Account get_nextAccount(Account a);
 /*
  * Set the type of account into the structure
  */
-void set_type(Account a, char* type);
+void set_type(Account a, char *type);
 
 /*
  * Set the entitled of account from the structure
  */
-void set_entitled(Account a, char* entitled);
+void set_entitled(Account a, char *entitled);
 
 /*
  * Set the balance of account from the structure
@@ -234,7 +234,7 @@ void set_nextAccount(Account a, Account next);
 /*
  * Introduce a simple structre handling account owner
  */
-typedef struct client* Client;
+typedef struct client *Client;
 
 /*--------------Constructor---------------*/
 
@@ -248,12 +248,12 @@ Client new_client(void);
 /*
  * Get the id of the account owner from the structure
  */
-char* get_id(Client client);
+char *get_id(Client client);
 
 /*
  * Get the passwd of account owner from the structure
  */
-char* get_passwd(Client client);
+char *get_passwd(Client client);
 
 /*
  * Get the personal information of account owner from the structure
@@ -311,7 +311,7 @@ typedef struct json_object *Object, *Clients, *Json_client;
 /*
  * Add a new node at the end of the list
  */
-Client append(Client head, Client new_client);
+void append(Client head, Client new_client);
 
 /*
  * The linked list can be traversed in a while loop by using the head node as a starting reference

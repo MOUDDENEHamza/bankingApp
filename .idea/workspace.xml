@@ -32,24 +32,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4d4fc0-4ad9-4d50-be29-26e84ea32a45" name="Default Changelist" comment="RELEASE">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/account_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/account_list.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/admin.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/admin.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/json.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/json.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/struct.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/struct.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/admin.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/client.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/displayShell.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/input.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/json.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/security.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/struct.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/input.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/json.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/json.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/struct.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -81,8 +66,26 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-539">
-              <caret line="111" column="58" selection-start-line="111" selection-start-column="58" selection-end-line="111" selection-end-column="58" />
+            <state relative-caret-position="136">
+              <caret line="111" column="36" lean-forward="true" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/struct.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="121">
+              <caret line="313" column="5" selection-start-line="313" selection-start-column="5" selection-end-line="313" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/struct.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="424">
+              <caret line="448" column="4" selection-start-line="448" selection-start-column="4" selection-end-line="448" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -133,8 +136,6 @@
         <option value="$PROJECT_DIR$/src/setting.c" />
         <option value="$PROJECT_DIR$/include/setting.h" />
         <option value="$PROJECT_DIR$/include/input.h" />
-        <option value="$PROJECT_DIR$/src/struct.c" />
-        <option value="$PROJECT_DIR$/include/struct.h" />
         <option value="$PROJECT_DIR$/data/account_list.json" />
         <option value="$PROJECT_DIR$/src/input.c" />
         <option value="$PROJECT_DIR$/include/json.h" />
@@ -142,6 +143,8 @@
         <option value="$PROJECT_DIR$/src/admin.c" />
         <option value="$PROJECT_DIR$/include/admin.h" />
         <option value="$PROJECT_DIR$/src/main.c" />
+        <option value="$PROJECT_DIR$/include/struct.h" />
+        <option value="$PROJECT_DIR$/src/struct.c" />
       </list>
     </option>
   </component>
@@ -269,22 +272,23 @@
       <workItem from="1554082451434" duration="508000" />
       <workItem from="1554082976690" duration="968000" />
       <workItem from="1554083957995" duration="3352000" />
-      <workItem from="1554110802120" duration="7623000" />
+      <workItem from="1554110802120" duration="7851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12451000" />
+    <option name="totallyTimeSpent" value="12679000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.257886" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.257886" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5863931" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5863931" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,18 +358,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c" />
-    <entry file="file://$PROJECT_DIR$/src/struct.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5906" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/struct.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="306" column="58" selection-start-line="306" selection-start-column="58" selection-end-line="306" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-49">
@@ -422,10 +414,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/include/struct.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="313" column="5" selection-start-line="313" selection-start-column="5" selection-end-line="313" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/struct.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="424">
+          <caret line="448" column="4" selection-start-line="448" selection-start-column="4" selection-end-line="448" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-539">
-          <caret line="111" column="58" selection-start-line="111" selection-start-column="58" selection-end-line="111" selection-end-column="58" />
+        <state relative-caret-position="136">
+          <caret line="111" column="36" lean-forward="true" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="36" />
         </state>
       </provider>
     </entry>

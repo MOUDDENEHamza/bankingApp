@@ -108,7 +108,7 @@ int main(int argc, char *argv[]) {
                                 case 1 :
                                     add_client(new_node);//Add new client
                                     add_client_json(new_node, clients);
-                                    head = append(head, new_node);
+                                    append(head, new_node);
                                     new_node = new_client();
                                     break;
                                 case 2 :

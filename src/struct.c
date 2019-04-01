@@ -446,7 +446,7 @@ void set_next_client(Client client, Client next) {
 /*
  * Add a new node at the end of the list
  */
-Client append(Client head, Client new_client) {
+void append(Client head, Client new_client) {
     Client temp = NULL;
     if (head == NULL) {
         head = new_client;
@@ -457,7 +457,6 @@ Client append(Client head, Client new_client) {
         }
         set_next_client(temp, new_client);
     }
-    return head;
 }
 
 /*
