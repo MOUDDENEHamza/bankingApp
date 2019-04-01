@@ -9,6 +9,9 @@
  */
 void write_file(Clients object, Clients clients) {
     FILE *fp;
+    if (clients == NULL) {
+        return;
+    }
     json_object_object_add(object, "CLIENTS", clients);
     fp = fopen("data/account_list.json", "w");
     printf("%s\n", json_object_get_string(object));
@@ -19,23 +22,20 @@ void write_file(Clients object, Clients clients) {
 /*
  * Add data client to json file
  */
-Clients add_client_json(Client new_client, Clients clients) {
-    printf("ok\n");
-    Clients client = json_object_new_object();
-    printf("1\n");
+void add_client_json(Client new_client, Clients clients) {
+    Json_client client = json_object_new_object();
     json_object_object_add(client, "ID", json_object_new_string(get_id(new_client)));
-    printf("3\n");
     json_object_object_add(client, "PASSWD", json_object_new_string(get_passwd(new_client)));
     json_object_object_add(client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(new_client))));
     json_object_object_add(client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(new_client))));
     json_object_object_add(client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(new_client))));
-    json_object_object_add(client, "EMAIL", json_object_new_string(get_mail(get_coordinates(get_perso_info(new_client)))));
-    json_object_object_add(client, "PHONE", json_object_new_string(get_phone(get_coordinates(get_perso_info(new_client)))));
-    printf("10\n");
+    json_object_object_add(client, "EMAIL",
+                           json_object_new_string(get_mail(get_coordinates(get_perso_info(new_client)))));
+    json_object_object_add(client, "PHONE",
+                           json_object_new_string(get_phone(get_coordinates(get_perso_info(new_client)))));
+    printf("%s\n", json_object_to_json_string(client));
     json_object_array_add(clients, client);
-
-    printf("%s\n", json_object_get_string(clients));
-    return clients;
+    printf("%s\n", json_object_to_json_string(clients));
 }
 
 /*
@@ -44,20 +44,18 @@ Clients add_client_json(Client new_client, Clients clients) {
 Clients parse_json(void) {
     FILE *fp;
     char buffer[1024];
-    Clients parsed_json, clients, client;
+    struct json_object *parsed_json;
+    struct json_object *clients;
+    struct json_object *client;
     size_t n_clients;
     size_t i;
     fp = fopen("data/account_list.json", "r");
-    if (fp == NULL) {//Check if the file exist
-        perror ("Error opening file");
-        return NULL;
-    }
     fread(buffer, 1024, 1, fp);
     fclose(fp);
     parsed_json = json_tokener_parse(buffer);
-    json_object_object_get_ex(parsed_json, "clients", &clients);
+    json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
-    printf("Found %lu friends\n", n_clients);
+    printf("Found %lu clients\n", n_clients);
     for (i = 0; i < n_clients; i++) {
         client = json_object_array_get_idx(clients, i);
         printf("%s\n", json_object_get_string(client));

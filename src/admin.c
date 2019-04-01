@@ -147,11 +147,9 @@ void delete_account(Client client) {
 /*
  *Add client
  */
-Client add_client(void) {
-    Client temp = new_client();
-    input_perso_info(temp);
-    printf("\n\nClient has been added. Come back to the administrator menu.\n");
-    return temp;
+void add_client(Client new_node) {
+    input_perso_info(new_node);
+    printf("\nClient has been added. Come back to the administrator menu.\n");
 }
 
 /*

@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     /*Initialize variables*/
     Symbol s = new_symbol();
     Client head = NULL;
-    Client new_node;
+    Client new_node = new_client();
     Object object;
     Clients clients;
     object = json_object_new_object();
@@ -103,14 +103,13 @@ int main(int argc, char *argv[]) {
                         case 2 :
                             display_admin_client_management();
                             choose_feature(s, &sub_index); //Choose the feature you want to run
-                            restart:
+                        restart:
                             switch (sub_index) {
                                 case 1 :
-                                    new_node = add_client();//Add new client
-                                    printf("ok\n");
-                                    add_client_json(new_node, clients);//Update json file
-                                    append(head, new_node);
-                                    free(new_node);
+                                    add_client(new_node);//Add new client
+                                    add_client_json(new_node, clients);
+                                    head = append(head, new_node);
+                                    new_node = new_client();
                                     break;
                                 case 2 :
 

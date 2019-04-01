@@ -304,7 +304,7 @@ void set_next_client(Client client, Client next);
 /*
  * Introduce a simple structre handling account owner
  */
-typedef struct json_object *Object, *Clients;
+typedef struct json_object *Object, *Clients, *Json_client;
 
 /*----------------------------------------------------------------------------*/
 

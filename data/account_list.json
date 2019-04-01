@@ -1,3 +1,1 @@
-{
-	"clients" : []
-}
+{ "CLIENTS": [ { "ID": "3D6F14D6", "PASSWD": "admin", "LAST NAME": "2", "FIRST NAME": "aa", "BIRTHDAY": "a", "EMAIL": "a", "PHONE": "a" }, { "ID": "D8A2E52E", "PASSWD": "a", "LAST NAME": "a", "FIRST NAME": "a", "BIRTHDAY": "a", "EMAIL": "a", "PHONE": "a" } ] }

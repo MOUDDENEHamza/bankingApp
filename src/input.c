@@ -8,7 +8,7 @@
 #include "admin.h"
 #include "json.h"
 
-#define SIZE 255
+#define SIZE 64
 
 /*
  * Choose the feature you want to run
@@ -53,7 +53,7 @@ void hide_passwd(char *passwd) {
  */
 void generate_unique_id(Client client) {
     srand(clock());
-    char id[8];
+    char *id = (char *) malloc(SIZE);
     int t = 0;
     char *szTemp = "xxxxxxxx";
     char *szHex = "0123456789ABCDEF-";
@@ -97,7 +97,7 @@ void input_passwd(Client client, char *passwd) {
  * Ask to user to create his own password
  */
 void create_passwd(Client client) {
-    char passwd[20];
+    char *passwd = (char *) malloc(SIZE);
     hide_passwd(passwd);
     set_passwd(client, passwd);
 }
@@ -107,7 +107,7 @@ void create_passwd(Client client) {
  * Ask to user or administrator to input her last name
  */
 void input_last_name(Client client) {
-    char last_name[32];
+    char *last_name = (char *) malloc(SIZE);
     printf("\nEnter your last name : ");
     scanf("%s", last_name);
     set_last_name(get_perso_info(client), last_name);
@@ -117,7 +117,7 @@ void input_last_name(Client client) {
  * Ask to user or administrator to input her first name
  */
 void input_first_name(Client client) {
-    char first_name[32];
+    char *first_name = (char *) malloc(SIZE);
     printf("\nEnter your first name : ");
     scanf("%s", first_name);
     set_first_name(get_perso_info(client), first_name);
@@ -127,7 +127,7 @@ void input_first_name(Client client) {
  * Ask to user or administrator to input his Email address
  */
 void input_mail(Client client) {
-    char mail[32];
+    char *mail = (char *) malloc(SIZE);
     printf("\nEnter your E-mail : ");
     scanf("%s", mail);
     set_mail(get_coordinates(get_perso_info(client)), mail);
@@ -137,7 +137,7 @@ void input_mail(Client client) {
  * Ask to user or administrator to input her phone number
  */
 void input_phone(Client client) {
-    char phone[16];
+    char *phone = (char *) malloc(SIZE);
     printf("\nEnter your phone : ");
     scanf("%s", phone);
     set_phone(get_coordinates(get_perso_info(client)), phone);
@@ -147,10 +147,11 @@ void input_phone(Client client) {
  * Ask to user or administrator to input his birthday
  */
 void input_birthday(Client client) {
-    char birthday[10];
+    char *birthday = (char *) malloc(SIZE);
     printf("\nEnter your birthday : ");
     scanf("%s", birthday);
     set_birthday(get_perso_info(client), birthday);
+
 }
 
 /*
