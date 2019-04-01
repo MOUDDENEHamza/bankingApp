@@ -1,1 +1,3 @@
-{ "clients": [ { "ID": "ID", "PASSWD": "PASSWD", "LAST NAME": "LAST NAME", "FIRST NAME": "FIRST NAME", "BIRTHDAY": "BIRTHDAY" } ] }
+{
+	"clients" : []
+}

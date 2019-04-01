@@ -4,13 +4,18 @@
 #include "struct.h"
 
 /*
+ * Update json file
+ */
+void write_file(Clients object, Clients client);
+
+/*
  * Add data client to json file
  */
-struct json_object *add_client_json(Client new_client, struct json_object *clients);
+Clients add_client_json(Client new_client, Clients clients);
 
 /*
  * Parse the json file contais\ning the client data
  */
-struct json_object *parse_json(void);
+Clients parse_json(void);
 
 #endif

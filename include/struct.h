@@ -32,6 +32,11 @@ int get_exit(Symbol s);
  */
 int get_index(Symbol s);
 
+/*
+ *Get the sub index value from the structure
+ */
+int get_sub_index(Symbol s);
+
 /*--------------Setters---------------*/
 
 /*
@@ -48,6 +53,11 @@ void set_exit(Symbol s ,int *val);
  *Set value to index in structure
  */
 void set_index(Symbol s, int *val);
+
+/*
+ *Set value to index in structure
+ */
+void set_sub_index(Symbol s, int *val);
 
 /*----------------------------------------------------------------------------*/
 
@@ -286,6 +296,15 @@ void set_account(Client client, Account a);
  * Set the next client into the structure
  */
 void set_next_client(Client client, Client next);
+
+/*----------------------------------------------------------------------------*/
+
+/*-----------------------------------Structure--------------------------------*/
+
+/*
+ * Introduce a simple structre handling account owner
+ */
+typedef struct json_object *Object, *Clients;
 
 /*----------------------------------------------------------------------------*/
 
