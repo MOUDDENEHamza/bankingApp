@@ -19,9 +19,14 @@ void hide_passwd(char *passwd);
 void generate_unique_id(Client client);
 
 /*
+ * Ask to client to input his id
+ */
+void input_id(char *id);
+
+/*
  * Ask to user or administrator to input the password
  */
-void input_passwd(Client client,char *passwd);
+void input_passwd(char *passwd);
 
 /*
  * Ask to user to create his own password

@@ -48,10 +48,13 @@ void add_client_json(Client new_client, Clients clients) {
  */
 Clients parse_json(void) {
     FILE *fp;
+    //Client new_node = new_client();
     char buffer[1024];
+    char str_id[64], str_passwd[64], str_last_name[64], str_first_name[64], str_birthday[64], str_mail[64], str_phone[64];
     struct json_object *parsed_json;
     struct json_object *clients;
     struct json_object *client;
+    struct json_object *id, *passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone;
     size_t n_clients;
     size_t i;
     fp = fopen("data/account_list.json", "r");
@@ -60,12 +63,35 @@ Clients parse_json(void) {
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
-    printf("Found %lu clients\n", n_clients);
+    //printf("Found %lu clients\n", n_clients);
     for (i = 0; i < n_clients; i++) {
         client = json_object_array_get_idx(clients, i);
         printf("%s\n", json_object_get_string(client));
+        /*json_object_object_get_ex(client, "ID", &id);
+        strcpy(str_id, json_object_get_string(id));
+        set_id(new_node, str_id);
+        json_object_object_get_ex(client, "PASSWD", &passwd);
+        strcpy(str_passwd, json_object_get_string(passwd));
+        set_passwd(new_node, str_passwd);
+        json_object_object_get_ex(client, "LAST NAME", &last_name);
+        strcpy(str_last_name, json_object_get_string(last_name));
+        set_last_name(get_perso_info(new_node), str_last_name);
+        json_object_object_get_ex(client, "FIRST NAME", &first_name);
+        strcpy(str_first_name, json_object_get_string(first_name));
+        set_first_name(get_perso_info(new_node), str_first_name);
+        json_object_object_get_ex(client, "BIRTHDAY", &birthday);
+        strcpy(str_birthday, json_object_get_string(birthday));
+        set_birthday(get_perso_info(new_node), str_birthday);
+        json_object_object_get_ex(client, "EMAIL", &mail);
+        strcpy(str_mail, json_object_get_string(mail));
+        set_mail(get_coordinates(get_perso_info(new_node)), str_mail);
+        json_object_object_get_ex(client, "PHONE", &phone);
+        strcpy(str_phone, json_object_get_string(phone));
+        set_phone(get_coordinates(get_perso_info(new_node)), str_phone);
+        append(head, new_node);
+        new_node = new_client();*/
     }
-    printf("%s\n", json_object_get_string(clients));
-    printf("%s\n", json_object_get_string(parsed_json));
+    //printf("%s\n", json_object_get_string(clients));
+    //printf("%s\n", json_object_get_string(parsed_json));
     return clients;
 }

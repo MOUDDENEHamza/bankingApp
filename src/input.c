@@ -87,9 +87,17 @@ void generate_unique_id(Client client) {
 }
 
 /*
+ * Ask to client to input his id
+ */
+void input_id(char *id) {
+    printf("\nEnter your id : ");
+    scanf("%s", id);
+}
+
+/*
  * Ask to user or administrator to input the password
  */
-void input_passwd(Client client, char *passwd) {
+void input_passwd(char *passwd) {
     hide_passwd(passwd);
 }
 
@@ -101,7 +109,6 @@ void create_passwd(Client client) {
     hide_passwd(passwd);
     set_passwd(client, passwd);
 }
-
 
 /*
  * Ask to user or administrator to input her last name

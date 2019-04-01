@@ -35,18 +35,17 @@ int main(int argc, char *argv[]) {
     display_menu(&exit); //Display the main menu.
     clients = parse_json();//Parse the json file containing the client data
     choose_feature(s, &flag); //Choose the feature you want to run
-
     while (exit) {
         switch (flag) {
 
             case 1 :
                 if (log_in == 0) {
-                    generate_unique_id(head);
-                    input_passwd(head, passwd);
+                    input_id(id);
+                    input_passwd(passwd);
                 }
-                if (!valid_client(head, id, passwd)) {
+                if (!valid_client(clients, id, passwd)) {
                     log_in = 1;
-                    display_client(&exit); //Dipslay the administrator menu
+                    display_client(&exit); //Display the administrator menu
                     choose_feature(s, &index); //Choose the feature you want to run
                     switch (index) {
                         case 1 :
@@ -91,7 +90,7 @@ int main(int argc, char *argv[]) {
 
             case 2 :
                 if (log_in == 0) {
-                    input_passwd(head, passwd);
+                    input_passwd(passwd);
                 }
                 if (!connect_admin(passwd)) {
                     display_administrator(&exit); //Dipslay the administrator menu
