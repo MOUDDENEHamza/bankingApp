@@ -24,8 +24,8 @@ void write_file(Clients object, Clients clients) {
  */
 void add_client_json(Client new_client, Clients clients) {
     Json_client client = json_object_new_object();
-    Json_account_list account_list= json_object_new_array();
-
+    Json_account_list account_list = json_object_new_array();
+    Account a = get_account(new_client);
     json_object_object_add(client, "ID", json_object_new_string(get_id(new_client)));
     json_object_object_add(client, "PASSWD", json_object_new_string(get_passwd(new_client)));
     json_object_object_add(client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(new_client))));
@@ -33,12 +33,11 @@ void add_client_json(Client new_client, Clients clients) {
     json_object_object_add(client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(new_client))));
     json_object_object_add(client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(new_client)))));
     json_object_object_add(client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(new_client)))));
-    Account a= get_account(new_client);
-    while(a!=NULL){
-        json_object_array_add(account_list,json_object_new_string(get_type(a)));
-        a=get_nextAccount(a);
+    while (a != NULL) {
+        json_object_array_add(account_list, json_object_new_string(get_type(a)));
+        a = get_nextAccount(a);
     }
-    json_object_object_add(client,"LISTES_COMPTE", account_list);
+    json_object_object_add(client, "ACCOUNT LIST", account_list);
     printf("%s\n", json_object_to_json_string(client));
     json_object_array_add(clients, client);
     printf("%s\n", json_object_to_json_string(clients));
