@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "admin.h"
 #include "struct.h"
 #include "displayShell.h"
 #include "input.h"
+
+#define SIZE 64
 
 enum boolean {
     true, false
@@ -148,7 +151,15 @@ void delete_account(Client client) {
  *Add client
  */
 void add_client(Client client) {
+    FILE *fp;
+    char *str = (char *) malloc(SIZE);
+
     input_perso_info(client);
+    strcpy(str, "data/");
+    strcat(get_id(client), ".csv");
+    strcat(str, get_id(client));
+    fp = fopen(str, "w");
+    fclose(fp);
     printf("\nClient has been added. Come back to the administrator menu.\n");
 }
 
