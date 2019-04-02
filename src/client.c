@@ -3,7 +3,7 @@
 #include <string.h>
 #include "struct.h"
 
-/*
+/**
  * Get fields from .csv file
  */
 char* getfield(char line[], int n){
@@ -45,4 +45,19 @@ void transaction_list(void) {
  */
 void transfer_money(void) {
 
+}
+
+/**
+ * Pay by card
+ */
+void pay_by_card(Client client) {
+    float product_price;
+    printf("\nSecure payment\n");
+    printf("\nEnter the price of the product : ");
+    scanf("%f", &product_price);
+    if (product_price <= get_balance(get_account(client))) {
+        printf("\nPayment done\n");
+        return;
+    }
+    printf("\nyour balance is insufficient to perform this operation\n");
 }

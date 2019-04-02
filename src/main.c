@@ -59,6 +59,9 @@ int main(int argc, char *argv[]) {
                                 case 3 :
                                     transfer_money();//Get the transfers list associated to the client
                                     break;
+                                case 4 :
+                                    pay_by_card(client);//Pay by card
+                                    break;
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &sub_index);
                                     choose_feature(s, &sub_index); //Choose the feature you want to run
