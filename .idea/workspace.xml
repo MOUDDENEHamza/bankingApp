@@ -31,11 +31,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d4d4fc0-4ad9-4d50-be29-26e84ea32a45" name="Default Changelist" comment="RELEASE">
-      <change beforePath="$PROJECT_DIR$/data/account_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/account_list.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/input.c" afterDir="false" />
-    </list>
+    <list default="true" id="4d4d4fc0-4ad9-4d50-be29-26e84ea32a45" name="Default Changelist" comment="RELEASE" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -60,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="91" column="90" lean-forward="true" selection-start-line="91" selection-start-column="90" selection-end-line="91" selection-end-column="90" />
+            <state relative-caret-position="2">
+              <caret line="91" column="90" selection-start-line="91" selection-start-column="90" selection-end-line="91" selection-end-column="90" />
             </state>
           </provider>
         </entry>
@@ -232,16 +228,15 @@
       <workItem from="1554138715846" duration="6506000" />
       <workItem from="1554147050940" duration="7340000" />
       <workItem from="1554170406919" duration="1532000" />
-      <workItem from="1554202444392" duration="10703000" />
+      <workItem from="1554202444392" duration="10945000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39490000" />
+    <option name="totallyTimeSpent" value="39732000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-2" width="1680" height="1052" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30232558" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -256,7 +251,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="TeamCity" order="8" />
       <window_info anchor="bottom" id="Messages" order="9" visible="true" weight="0.32937366" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.18743229" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.9674973" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="12" />
       <window_info anchor="bottom" id="CMake" order="13" weight="0.33044422" />
@@ -410,8 +405,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/client.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="91" column="90" lean-forward="true" selection-start-line="91" selection-start-column="90" selection-end-line="91" selection-end-column="90" />
+        <state relative-caret-position="2">
+          <caret line="91" column="90" selection-start-line="91" selection-start-column="90" selection-end-line="91" selection-end-column="90" />
         </state>
       </provider>
     </entry>
