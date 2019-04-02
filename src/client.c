@@ -52,13 +52,16 @@ void transaction_list(void) {
  * Get the transfers list associated to the client
  */
 void transfer_money(Client client, Json_object json_clients) {
+    FILE *fp, *FP;
     int i, j;
     int done = 0;
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
     char *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
-    char *str_type = (char *) malloc(SIZE), *str_entitled = (char *) malloc(SIZE);
+    char *str_type = (char *) malloc(SIZE), *str_entitled = (char *) malloc(SIZE), *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
     float amount_transfer, recipient_balance, new_balance;
     size_t n_clients, n_accounts;
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
 
     printf("\nSecure payment\n");
     printf("\nPlease, enter the id of your recipient : ");
@@ -100,6 +103,13 @@ void transfer_money(Client client, Json_object json_clients) {
                             recipient_balance = json_object_get_double(json_balance) + amount_transfer;
                             json_object_object_add(json_account, key, json_object_new_double(recipient_balance));
                             done++;
+
+                            strcpy(str2, "data/");
+                            strcat(str2, json_object_get_string(json_id));
+                            strcat(str2, ".csv");
+                            FP = fopen(str2, "a+");
+                            fprintf(FP, "%d/%d/%d, TRANSFER, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, amount_transfer, recipient_balance);
+                            fclose(FP);
                         }
                     }
                 }
@@ -120,6 +130,14 @@ void transfer_money(Client client, Json_object json_clients) {
 
                 if (done == 2) {
                     printf("\nTransfer done with success\n");
+
+                    strcpy(str1, "data/");
+                    strcat(str1, get_id(client));
+                    strcat(str1, ".csv");
+                    fp = fopen(str1, "a+");
+                    fprintf(fp, "%d/%d/%d, TRANSFER, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, amount_transfer, get_balance(get_account(client)));
+                    fclose(fp);
+
                     return;
                 }
             }

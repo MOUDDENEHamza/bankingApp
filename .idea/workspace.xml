@@ -32,16 +32,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4d4fc0-4ad9-4d50-be29-26e84ea32a45" name="Default Changelist" comment="RELEASE">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/3CAFC048.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/799A84F5.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/7D672394.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/ID.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/A6799714.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/A6799714.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ID.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/ID.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/account_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/account_list.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/admin.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/security.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/security.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -78,12 +72,45 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/client.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="177" column="46" lean-forward="true" selection-start-line="177" selection-start-column="46" selection-end-line="177" selection-end-column="46" />
+            <state relative-caret-position="390">
+              <caret line="59" column="115" selection-start-line="59" selection-start-column="115" selection-end-line="59" selection-end-column="115" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/account_list.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="509" selection-start-column="509" selection-end-column="509" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/A6799714.csv">
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+          <provider editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/data/ID.csv">
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+          <provider editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
           </provider>
         </entry>
       </file>
@@ -126,8 +153,8 @@
         <option value="$PROJECT_DIR$/src/main.c" />
         <option value="$PROJECT_DIR$/src/security.c" />
         <option value="$PROJECT_DIR$/data/A6799714.csv" />
-        <option value="$PROJECT_DIR$/data/account_list.json" />
         <option value="$PROJECT_DIR$/src/client.c" />
+        <option value="$PROJECT_DIR$/data/account_list.json" />
       </list>
     </option>
   </component>
@@ -264,12 +291,12 @@
       <workItem from="1554202444392" duration="19400000" />
       <workItem from="1554228151906" duration="1820000" />
       <workItem from="1554238604735" duration="1098000" />
-      <workItem from="1554240822919" duration="3049000" />
+      <workItem from="1554240822919" duration="3856000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54998000" />
+    <option name="totallyTimeSpent" value="55805000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-2" width="1680" height="1052" extended-state="6" />
@@ -473,14 +500,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/ID.csv">
-      <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+    <entry file="file://$PROJECT_DIR$/src/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="59" column="115" selection-start-line="59" selection-start-column="115" selection-end-line="59" selection-end-column="115" />
         </state>
       </provider>
-      <provider editor-type-id="csv-table-editor">
-        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/account_list.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="509" selection-start-column="509" selection-end-column="509" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/data/A6799714.csv">
@@ -493,18 +524,14 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/account_list.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="29" column="31" selection-start-line="29" selection-start-column="31" selection-end-line="29" selection-end-column="31" />
+    <entry file="file://$PROJECT_DIR$/data/ID.csv">
+      <provider selected="true" editor-type-id="csv-text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="177" column="46" lean-forward="true" selection-start-line="177" selection-start-column="46" selection-end-line="177" selection-end-column="46" />
-        </state>
+      <provider editor-type-id="csv-table-editor">
+        <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
   </component>
