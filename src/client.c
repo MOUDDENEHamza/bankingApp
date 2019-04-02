@@ -18,20 +18,33 @@ void consult_balance(Client client) {
 }
 
 /**
- * Get the operations list linked over a choosen period
+ * Get the operations list over a chosen period
  */
 void transaction_list(Client client) {
     FILE *fp;
-    char *buffer = (char *) malloc(BUFFER), *str = (char *) malloc(SIZE);
+    char *buffer = (char *) malloc(BUFFER), *str = (char *) malloc(SIZE), *period = (char *) malloc(SIZE);
 
+    printf("\nEnter the period you want to consult your operations list (for example : 5/2019) : ");
+    scanf("%s", period);
     strcpy(str, "data/");
     strcat(str, get_id(client));
     strcat(str, ".csv");
     fp = fopen(str, "r");
     printf("\nDownload transaction file : Loading...\n");
+
+    printf("\nDATE    ,OPERATION,AMOUNT    ,BALANCE\n");
     fread(buffer, 1, BUFFER, fp);
-    printf("\n%s\n", buffer);
-    printf("\n\nCome back the client menu");
+    while (buffer) {
+        char *nextLine = strchr(buffer, '\n');
+        if (nextLine) *nextLine = '\0';
+        if (strstr(buffer, period) != NULL) {
+            printf("\n%s\n", buffer);
+        }
+        if (nextLine) *nextLine = '\n';
+        buffer = nextLine ? (nextLine + 1) : NULL;
+    }
+
+    printf("\n\nCome back the client menu\n");
 }
 
 /**
@@ -43,7 +56,8 @@ void transfer_money(Client client, Json_object json_clients) {
     int done = 0;
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
     char *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
-    char *str_type = (char *) malloc(SIZE), *str_entitled = (char *) malloc(SIZE), *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
+    char *str_type = (char *) malloc(SIZE), *str_entitled = (char *) malloc(SIZE), *str1 = (char *) malloc(
+            SIZE), *str2 = (char *) malloc(SIZE);
     float amount_transfer, recipient_balance, new_balance;
     size_t n_clients, n_accounts;
     time_t t = time(NULL);
@@ -94,7 +108,8 @@ void transfer_money(Client client, Json_object json_clients) {
                             strcat(str2, json_object_get_string(json_id));
                             strcat(str2, ".csv");
                             FP = fopen(str2, "a+");
-                            fprintf(FP, "%d/%d/%d, TRANSFER, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, amount_transfer, recipient_balance);
+                            fprintf(FP, "%d/%d/%d, TRANSFER, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
+                                    amount_transfer, recipient_balance);
                             fclose(FP);
                         }
                     }
@@ -121,7 +136,8 @@ void transfer_money(Client client, Json_object json_clients) {
                     strcat(str1, get_id(client));
                     strcat(str1, ".csv");
                     fp = fopen(str1, "a+");
-                    fprintf(fp, "%d/%d/%d, TRANSFER, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, amount_transfer, get_balance(get_account(client)));
+                    fprintf(fp, "%d/%d/%d, TRANSFER, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
+                            amount_transfer, get_balance(get_account(client)));
                     fclose(fp);
 
                     return;
@@ -180,7 +196,8 @@ void pay_by_card(Client client, Json_object json_clients) {
                                 strcat(str, get_id(client));
                                 strcat(str, ".csv");
                                 fp = fopen(str, "a+");
-                                fprintf(fp, "%d/%d/%d, PAYMENT, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, product_price, get_balance(get_account(client)));
+                                fprintf(fp, "%d/%d/%d, PAYMENT, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1,
+                                        tm.tm_year + 1900, product_price, get_balance(get_account(client)));
                                 printf("\nPayment done\n");
                                 fclose(fp);
 
@@ -237,7 +254,8 @@ void make_deposit(Client client, Json_object json_clients) {
                 json_account = json_object_array_get_idx(json_account_list, j);
                 json_object_object_get_ex(json_account, "TYPE", &json_type);
                 json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
-                if (strcmp(json_object_get_string(json_type), type) == 0 && strcmp(json_object_get_string(json_entitled), entitled) == 0) {
+                if (strcmp(json_object_get_string(json_type), type) == 0 &&
+                    strcmp(json_object_get_string(json_entitled), entitled) == 0) {
                     json_object_object_get_ex(json_account, "BALANCE", &json_balance);
                     json_object_object_foreach(json_account, key, val)
                     {
@@ -252,7 +270,8 @@ void make_deposit(Client client, Json_object json_clients) {
                             strcat(str, get_id(client));
                             strcat(str, ".csv");
                             fp = fopen(str, "a+");
-                            fprintf(fp, "%d/%d/%d, DEPOSIT, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, deposit, get_balance(get_account(client)));
+                            fprintf(fp, "%d/%d/%d, DEPOSIT, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
+                                    deposit, get_balance(get_account(client)));
                             fclose(fp);
 
                             return;

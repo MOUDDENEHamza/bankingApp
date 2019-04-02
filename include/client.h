@@ -9,7 +9,7 @@
 void consult_balance(Client client);
 
 /**
- * Get the operations list linked over a choosen period 
+ * Get the operations list over a chosen period
  */
 void transaction_list(Client client);
 
