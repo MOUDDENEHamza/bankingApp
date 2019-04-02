@@ -36,60 +36,78 @@ int main(int argc, char *argv[]) {
     while (exit) {
         switch (flag) {
 
-            case 1 :
+            case 1 :///CLIENT AREA
+
                 if (log_in == 0) {
                     input_id(id);
                     input_passwd(passwd);
                 }
+
                 if (!valid_client(client, json_clients, id, passwd)) {
                     log_in = 1;
-                    display_client(&exit); //Display the administrator menu
-                    choose_feature(s, &index); //Choose the feature you want to run
+                    display_client(&exit);///Display the administrator menu
+                    choose_feature(s, &index);///Choose the feature you want to run
+
                     switch (index) {
+
                         case 1 :
                             display_client_account_management();
-                            choose_feature(s, &sub_index); //Choose the feature you want to run
+                            choose_feature(s, &sub_index);///Choose the feature you want to run
+
                             switch (sub_index) {
+
                                 case 1 :
-                                    consult_balance(client);//To consult the balance of the client
+                                    consult_balance(client);///To consult the balance of the client
                                     break;
+
                                 case 2 :
-                                    transaction_list();//Get the operations list linked over a choosen period
+                                    transaction_list();///Get the operations list linked over a choosen period
                                     break;
+
                                 case 3 :
-                                    transfer_money(client, json_clients);//Get the transfers list associated to the client
+                                    transfer_money(client, json_clients);///Get the transfers list associated to the client
                                     break;
+
                                 case 4 :
-                                    pay_by_card(client, json_clients);//Pay by card
+                                    pay_by_card(client, json_clients);///Pay by card
                                     break;
-                                default ://Display an error message if the user input an incorrect flag
+
+                                case 5 :
+                                    make_deposit(client, json_clients); ///Make a deposit
+                                    break;
+
+                                default :///Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &sub_index);
-                                    choose_feature(s, &sub_index); //Choose the feature you want to run
+                                    choose_feature(s, &sub_index);///Choose the feature you want to run
                                     goto restart;
                             }
                             break;
+
+
                         case 2 :
                             display_client_administration();
-                            choose_feature(s, &index); //Choose the feature you want to run
-                            //handle_client_administration(s, head, clients, &index, &exit, &index, passwd, id);
+                            choose_feature(s, &index);///Choose the feature you want to run
                             break;
-                        case 3 : //If the user want to sign out the submenu
+
+                        case 3 : ///If the user want to sign out the submenu
                             break;
-                        case 4 : //Check if the user want to quit the program
-                            end_bar(); //Display the end bar.
+
+                        case 4 : ///Check if the user want to quit the program
+                            end_bar();///Display the end bar.
                             exit = 0;
                             break;
-                        default ://Display an error message if the user input an incorrect flag
+
+                        default :///Display an error message if the user input an incorrect flag
                             display_error_flag(s, &flag);
                             break;
                     }
                     break;
                 } else {
-                    display_error_connexion_client();//Display an error message if the user input an incorrect id or password
+                    display_error_connexion_client();///Display an error message if the user input an incorrect id or password
                     break;
                 }
 
-            case 2 :
+            case 2 :///ADMINISTRATOR AREA
                 if (log_in == 0) {
                     input_passwd(passwd);
                 }
