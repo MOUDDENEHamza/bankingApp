@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 2 :
-                                    transaction_list();///Get the operations list linked over a choosen period
+                                    transaction_list(client);///Get the operations list linked over a choosen period
                                     break;
 
                                 case 3 :

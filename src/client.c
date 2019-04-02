@@ -5,22 +5,8 @@
 #include <time.h>
 #include "struct.h"
 
-#define BUFFER 1024
+#define BUFFER 4096
 #define SIZE 64
-
-/**
- * Get fields from .csv file
- */
-char *getfield(char line[], int n) {
-    char *tok;
-
-    for (tok = strtok(line, ","); tok && *tok; tok = strtok(NULL, ",\n")) {
-        if (!--n) {
-            return tok;
-        }
-    }
-    return NULL;
-}
 
 /**
  * To consult the balance of the client
@@ -34,17 +20,17 @@ void consult_balance(Client client) {
 /**
  * Get the operations list linked over a choosen period
  */
-void transaction_list(void) {
+void transaction_list(Client client) {
     FILE *fp;
-    char *line = (char *) malloc(BUFFER);
+    char *buffer = (char *) malloc(BUFFER), *str = (char *) malloc(SIZE);
 
-    fp = fopen("data/account_data.csv", "r");
-    printf("\n\nDownload transaction file : Loading...\n\n");
-    while (fgets(line, 1024, fp)) {
-        char *tmp = strdup(line);
-        printf(" %s,%s\n", getfield(tmp, 1), getfield(tmp, 2));
-        free(tmp);
-    }
+    strcpy(str, "data/");
+    strcat(str, get_id(client));
+    strcat(str, ".csv");
+    fp = fopen(str, "r");
+    printf("\nDownload transaction file : Loading...\n");
+    fread(buffer, 1, BUFFER, fp);
+    printf("\n%s\n", buffer);
     printf("\n\nCome back the client menu");
 }
 

@@ -32,10 +32,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4d4fc0-4ad9-4d50-be29-26e84ea32a45" name="Default Changelist" comment="RELEASE">
-      <change beforePath="$PROJECT_DIR$/data/A6799714.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/A6799714.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/ID.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/ID.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/account_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/account_list.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/client.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/client.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,17 +65,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.c">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/client.c">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="450">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
+              <caret line="45" column="51" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/client.c">
+        <entry file="file://$PROJECT_DIR$/include/client.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="59" column="115" selection-start-line="59" selection-start-column="115" selection-end-line="59" selection-end-column="115" />
+            <state relative-caret-position="120">
+              <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -102,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/ID.csv">
           <provider selected="true" editor-type-id="csv-text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+            <state>
+              <caret column="9" selection-start-column="5" selection-end-column="32" />
             </state>
           </provider>
           <provider editor-type-id="csv-table-editor">
@@ -139,7 +147,6 @@
         <option value="$PROJECT_DIR$/include/struct.h" />
         <option value="$PROJECT_DIR$/src/input.c" />
         <option value="$PROJECT_DIR$/src/displayShell.c" />
-        <option value="$PROJECT_DIR$/include/client.h" />
         <option value="$PROJECT_DIR$/data/E35241FB.csv" />
         <option value="$PROJECT_DIR$/data/account_data.csv" />
         <option value="$PROJECT_DIR$/data/799A84F5.csv" />
@@ -150,11 +157,12 @@
         <option value="$PROJECT_DIR$/data/ID" />
         <option value="$PROJECT_DIR$/data/ID.csv" />
         <option value="$PROJECT_DIR$/src/admin.c" />
-        <option value="$PROJECT_DIR$/src/main.c" />
         <option value="$PROJECT_DIR$/src/security.c" />
         <option value="$PROJECT_DIR$/data/A6799714.csv" />
-        <option value="$PROJECT_DIR$/src/client.c" />
         <option value="$PROJECT_DIR$/data/account_list.json" />
+        <option value="$PROJECT_DIR$/src/main.c" />
+        <option value="$PROJECT_DIR$/include/client.h" />
+        <option value="$PROJECT_DIR$/src/client.c" />
       </list>
     </option>
   </component>
@@ -291,12 +299,12 @@
       <workItem from="1554202444392" duration="19400000" />
       <workItem from="1554228151906" duration="1820000" />
       <workItem from="1554238604735" duration="1098000" />
-      <workItem from="1554240822919" duration="3856000" />
+      <workItem from="1554240822919" duration="4313000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55805000" />
+    <option name="totallyTimeSpent" value="56262000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-2" width="1680" height="1052" extended-state="6" />
@@ -418,13 +426,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/client.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="57" selection-start-line="33" selection-start-column="57" selection-end-line="33" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/E35241FB.csv" />
     <entry file="file://$PROJECT_DIR$/data/account_data.csv" />
     <entry file="file://$PROJECT_DIR$/include/displayShell.h">
@@ -479,13 +480,6 @@
     <entry file="file://$PROJECT_DIR$/data/ID">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/admin.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="571">
@@ -497,13 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="56" column="52" selection-start-line="56" selection-start-column="52" selection-end-line="56" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="59" column="115" selection-start-line="59" selection-start-column="115" selection-end-line="59" selection-end-column="115" />
         </state>
       </provider>
     </entry>
@@ -524,14 +511,35 @@
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="63" column="59" selection-start-line="63" selection-start-column="59" selection-end-line="63" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/client.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/ID.csv">
       <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        <state>
+          <caret column="9" selection-start-column="5" selection-end-column="32" />
         </state>
       </provider>
       <provider editor-type-id="csv-table-editor">
         <state showInfoPanel="true" fixedHeaders="false" rowLines="3" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="45" column="51" selection-start-line="45" selection-start-column="51" selection-end-line="45" selection-end-column="51" />
+        </state>
       </provider>
     </entry>
   </component>
