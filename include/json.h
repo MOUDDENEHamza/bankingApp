@@ -18,4 +18,8 @@ void add_client_json(Client client, Json_object json_clients);
  */
 Json_object parse_json(void);
 
+int import_Client_idx_from_Json(char* ID);
+
+Client import_Client_from_Json(int idx);
+
 #endif
