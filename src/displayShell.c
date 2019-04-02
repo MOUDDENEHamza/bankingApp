@@ -42,7 +42,7 @@ void display_client(int *exit) {
  * Display the client account management submenu
  */
 void display_client_account_management(void) {
-    printf("\n\t\t\t\tAccount management\n\n"BLUE"1)-Check your account balance\n2)-Get your transaction list on a chososen periode\n3)-Transfer money\n4)-Pay by card\n"RESET);
+    printf("\n\t\t\t\tAccount management\n\n"BLUE"1)-Check your account balance\n2)-Get your transaction list on a chosen period\n3)-Transfer money\n4)-Pay by card\n5)-Make a deposit\n"RESET);
 }
 
 /*
