@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "admin.h"
 #include "struct.h"
 #include "displayShell.h"
@@ -9,20 +8,6 @@
 enum boolean {
     true, false
 };
-
-char* concatenate(char* str1,char* str2){
-    char* str=malloc((strlen(str1)+strlen(str2))*sizeof(char));
-    for(int i=0; i<strlen(str1)+strlen(str2); i++){
-        if(i<strlen(str1))
-            str[i]=str1[i];
-        else
-        {
-            str[i]=str2[i-strlen(str1)];
-        }
-        
-    }
-    return str;
-}
 
 /*return the account to edit */
 Account choosen_account(Client client, int choice_type) {
@@ -81,8 +66,7 @@ bool in_1__nb_accounts(int choice, int nb) {
  *Create account to the client
  */
 void create_account(Client client) {
-    printf("\n\nchoose the type of account you want to create\n");
-    printf("you have just to enter the number referenced! \n");
+    printf("choose the type of account you want to create\n");
     display_choose_type();
     input_create_account(client);
 }
@@ -98,7 +82,7 @@ void add_account(Client client) {
  *Edit account to the client
  */
 void edit_account(Client client) {
-    int choice, choice_type;
+    /*int choice, choice_type;
     printf("choose the type of account you want to edit\n");
     back1:
     display_typeAccounts(client);
@@ -117,7 +101,7 @@ void edit_account(Client client) {
                 input_new_balance(choosen_account(client, choice_type));
                 break;
             case 2:
-                input_entitled(client,choosen_account(client, choice_type));
+                input_entitled(choosen_account(client, choice_type));
                 break;
 
             default:
@@ -126,7 +110,7 @@ void edit_account(Client client) {
                 goto back2;
         }
         continue;
-    }
+    }*/
 }
 
 /*
@@ -165,7 +149,6 @@ void delete_account(Client client) {
  */
 void add_client(Client client) {
     input_perso_info(client);
-    create_account(client);
     printf("\nClient has been added. Come back to the administrator menu.\n");
 }
 
