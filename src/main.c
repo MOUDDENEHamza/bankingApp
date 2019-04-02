@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
                                     transaction_list();//Get the operations list linked over a choosen period
                                     break;
                                 case 3 :
-                                    transfer_money();//Get the transfers list associated to the client
+                                    transfer_money(client, json_clients);//Get the transfers list associated to the client
                                     break;
                                 case 4 :
                                     pay_by_card(client);//Pay by card

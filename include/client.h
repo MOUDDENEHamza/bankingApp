@@ -21,7 +21,7 @@ void transaction_list(void);
 /**
  * Get the transfers list associated to the client
  */
-void transfer_money(void);
+void transfer_money(Client client, Json_object json_clients);
 
 /**
  * Pay by card
