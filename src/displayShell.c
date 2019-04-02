@@ -17,7 +17,6 @@ void init_bar(void) {
 
 /*-------------------------------------DISPLAY MAIN MENU------------------------------------------*/
 
-
 /*
  * Display the main menu
  */
