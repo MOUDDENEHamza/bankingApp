@@ -21,6 +21,7 @@ char* getfield(char line[], int n){
  */
 void consult_balance(Client client) {
 	printf("\nLoading...\n");
+	printf("\nThe balance of your %s is : %f\n", get_type(get_account(client)), get_balance(get_account(client)));
 	printf("\nCome back the client menu\n");
 }
 

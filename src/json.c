@@ -24,6 +24,7 @@ void write_file(Json_object json_object, Json_object json_clients) {
  * Add data client to json file
  */
 void add_client_json(Client client, Json_object json_clients) {
+    size_t n_account;
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();
     Json_object json_account = json_object_new_object();
