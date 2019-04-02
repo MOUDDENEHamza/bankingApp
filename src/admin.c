@@ -159,6 +159,7 @@ void add_client(Client client) {
     strcat(get_id(client), ".csv");
     strcat(str, get_id(client));
     fp = fopen(str, "w");
+    fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE");
     fclose(fp);
     printf("\nClient has been added. Come back to the administrator menu.\n");
 }

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <json-c/json.h>
+#include <time.h>
 #include "struct.h"
 
 #define BUFFER 1024
@@ -181,12 +182,16 @@ void pay_by_card(Client client, Json_object json_clients) {
  * Make a deposit
  */
 void make_deposit(Client client, Json_object json_clients) {
+    FILE *fp;
     int i, j;
     char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
     float deposit, new_balance;
     size_t n_clients, n_accounts;
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
 
+    fp = fopen("data/ID.csv", "a+");
     printf("\nMake the deposit to your account\n");
     printf("\nYou want to make the deposit on which account\n");
     printf("\nEnter the type of the account where you want make the deposit : ");
@@ -222,6 +227,7 @@ void make_deposit(Client client, Json_object json_clients) {
 
                         if (strcmp(key, "BALANCE") == 0) {
                             new_balance = json_object_get_double(json_balance) + deposit;
+                            set_balance(get_account(client), &new_balance);
                             json_object_object_add(json_account, key, json_object_new_double(new_balance));
                         }
                     }
@@ -229,6 +235,7 @@ void make_deposit(Client client, Json_object json_clients) {
             }
         }
     }
-
+    fprintf(fp, "%d/%d/%d, DEPOSIT, %f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, deposit, get_balance(get_account(client)));
     printf("\nMake a deposit done with success\n");
+    fclose(fp);
 }

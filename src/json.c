@@ -4,6 +4,8 @@
 #include "json.h"
 #include "struct.h"
 
+#define BUFFER 4096
+
 /*
  * Update json file
  */
@@ -51,8 +53,7 @@ void add_client_json(Client client, Json_object json_clients) {
  */
 Json_object parse_json(void) {
     FILE *fp;
-    //Client new_node = client();
-    char buffer[1024];
+    char *buffer = (char *) malloc(BUFFER);
     char str_id[64], str_passwd[64], str_last_name[64], str_first_name[64], str_birthday[64], str_mail[64], str_phone[64];
     struct json_object *parsed_json;
     struct json_object *clients;
@@ -60,13 +61,15 @@ Json_object parse_json(void) {
     struct json_object *id, *passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone;
     size_t n_clients;
     size_t i;
+
     fp = fopen("data/account_list.json", "r");
-    fread(buffer, 1024, 1, fp);
+    fread(buffer, BUFFER, 1, fp);
     fclose(fp);
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
     //printf("Found %lu clients\n", n_clients);
+
     for (i = 0; i < n_clients; i++) {
         client = json_object_array_get_idx(clients, i);
         //printf("%s\n", json_object_get_string(client));
