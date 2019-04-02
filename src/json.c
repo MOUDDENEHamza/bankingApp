@@ -159,9 +159,9 @@ Client import_Client_from_Json(int idx){
     json_object_object_get_ex(client, "EMAIL", &email_json);
     json_object_object_get_ex(client, "PHONE", &phon_json);
     json_object_object_get_ex(client, "ACCOUNTS LIST", &account_list_json);
-    json_object_object_get_ex(account_list_json, "TYPE" , type_json);
-    json_object_object_get_ex(account_list_json, "ENTITLED" , entitled_json);
-    json_object_object_get_ex(account_list_json, "BALANCE" , balance_json);
+    json_object_object_get_ex(account_list_json, "TYPE" , &type_json);
+    json_object_object_get_ex(account_list_json, "ENTITLED" , &entitled_json);
+    json_object_object_get_ex(account_list_json, "BALANCE" , &balance_json);
 
     char* id=(char*)json_object_get_string(id_json);
     char* pwd=(char*)json_object_get_string(pwd_json);

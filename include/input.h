@@ -66,14 +66,14 @@ Client input_perso_info(Client client);
 /*
  * Ask to the administrator de to enter a new balance
  */
-void input_new_balance(Client client);
+void input_new_balance(Account a);
 
 
 /* input the account type chosen*/
 void input_type(Client client, int *choice);
 
 /*input the entitled of the account*/
-void input_entitled(Client client);
+void input_entitled(Client client,Account a);
 
 /*input all account information*/
 void input_create_account(Client client);
