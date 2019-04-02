@@ -134,10 +134,20 @@ void transfer_money(Client client, Json_object json_clients) {
  * Pay by card
  */
 void pay_by_card(Client client, Json_object json_clients) {
+    FILE *fp;
     int i, j;
     float product_price, new_balance;
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_balance;
     size_t n_clients, n_accounts;
+    char *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    strcpy(str1, "data/");
+    strcpy(str2, get_id(client));
+    strcat(str2, ".csv");
+    strcat(str1, str2);
+    fp = fopen(str1, "a+");
 
     printf("\nSecure payment\n");
     printf("\nEnter the price of the product : ");
@@ -157,7 +167,7 @@ void pay_by_card(Client client, Json_object json_clients) {
                 for (j = 0; j < n_accounts; j++) {
                     json_account = json_object_array_get_idx(json_account_list, j);
                     json_object_object_get_ex(json_account, "TYPE", &json_type);
-                    printf("\n%s\n", json_object_get_string(json_type));
+
                     if (strcmp(json_object_get_string(json_type), "CURRENT") == 0) {
                         json_object_object_get_ex(json_account, "BALANCE", &json_balance);
                         json_object_object_foreach(json_account, key, val)
@@ -166,16 +176,19 @@ void pay_by_card(Client client, Json_object json_clients) {
                             if (strcmp(key, "BALANCE") == 0) {
                                 new_balance = json_object_get_double(json_balance) - product_price;
                                 json_object_object_add(json_account, key, json_object_new_double(new_balance));
+                                set_balance(get_account(client), &new_balance);
+                                fprintf(fp, "%d/%d/%d, PAYMENT, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, product_price, get_balance(get_account(client)));
+                                printf("\nPayment done\n");
+                                fclose(fp);
                             }
                         }
                     }
                 }
             }
         }
-        printf("\nPayment done\n");
-        return;
     }
     printf("\nyour balance is insufficient to perform this operation\n");
+    fclose(fp);
 }
 
 /**
@@ -184,14 +197,19 @@ void pay_by_card(Client client, Json_object json_clients) {
 void make_deposit(Client client, Json_object json_clients) {
     FILE *fp;
     int i, j;
-    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE), *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
     float deposit, new_balance;
     size_t n_clients, n_accounts;
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    fp = fopen("data/ID.csv", "a+");
+    strcpy(str1, "data/");
+    strcpy(str2, get_id(client));
+    strcat(str2, ".csv");
+    strcat(str1, str2);
+    fp = fopen(str1, "a+");
+
     printf("\nMake the deposit to your account\n");
     printf("\nYou want to make the deposit on which account\n");
     printf("\nEnter the type of the account where you want make the deposit : ");
@@ -229,13 +247,16 @@ void make_deposit(Client client, Json_object json_clients) {
                             new_balance = json_object_get_double(json_balance) + deposit;
                             set_balance(get_account(client), &new_balance);
                             json_object_object_add(json_account, key, json_object_new_double(new_balance));
+                            fprintf(fp, "%d/%d/%d, DEPOSIT, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, deposit, get_balance(get_account(client)));
+                            printf("\nMake a deposit done with success\n");
+                            fclose(fp);
+                            return;
                         }
                     }
                 }
             }
         }
     }
-    fprintf(fp, "%d/%d/%d, DEPOSIT, %f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, deposit, get_balance(get_account(client)));
-    printf("\nMake a deposit done with success\n");
+    printf("\nMake a deposit failed, please try again\n");
     fclose(fp);
 }
