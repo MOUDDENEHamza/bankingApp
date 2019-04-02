@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
                                     transfer_money(client, json_clients);//Get the transfers list associated to the client
                                     break;
                                 case 4 :
-                                    pay_by_card(client);//Pay by card
+                                    pay_by_card(client, json_clients);//Pay by card
                                     break;
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &sub_index);

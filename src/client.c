@@ -90,8 +90,8 @@ void transfer_money(Client client, Json_object json_clients) {
                     if (strcmp(type, json_object_get_string(json_type)) == 0 &&
                         strcmp(entitled, json_object_get_string(json_entitled)) == 0) {
                         json_object_object_get_ex(json_account, "BALANCE", &json_balance);
-                        recipient_balance = json_object_get_double(json_balance) + amount_transfer;
-                        set_balance(get_account(client), &recipient_balance);
+                        /*recipient_balance = json_object_get_double(json_balance) + amount_transfer;
+                        set_balance(get_account(client), &recipient_balance);*/
                         printf("\nTransfer done with success\n");
                         return;
                     }
@@ -108,13 +108,42 @@ void transfer_money(Client client, Json_object json_clients) {
 /**
  * Pay by card
  */
-void pay_by_card(Client client) {
-    float product_price;
+void pay_by_card(Client client, Json_object json_clients) {
+    int i, j;
+    float product_price, new_balance;
+    struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_balance;
+    size_t n_clients, n_accounts;
 
     printf("\nSecure payment\n");
     printf("\nEnter the price of the product : ");
     scanf("%f", &product_price);
+
+    printf("%s\n", json_object_get_string(json_clients));
     if (product_price <= get_balance(get_account(client))) {
+        n_clients = json_object_array_length(json_clients);
+
+        for (i = 0; i < n_clients; i++) {
+            json_client = json_object_array_get_idx(json_clients, i);
+            json_object_object_get_ex(json_client, "ID", &json_id);
+
+            if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+                json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+                n_accounts = json_object_array_length(json_account_list);
+
+                for (j = 0; j < n_accounts; j++) {
+                    json_account = json_object_array_get_idx(json_account_list, j);
+                    json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+                    json_object_object_foreach(json_account, key, val)
+                    {
+
+                        if (strcmp(key, "BALANCE") == 0) {
+                            new_balance = json_object_get_double(json_balance) - product_price;
+                            json_object_object_add(json_account, key, json_object_new_double(new_balance));
+                        }
+                    }
+                }
+            }
+        }
         printf("\nPayment done\n");
         return;
     }

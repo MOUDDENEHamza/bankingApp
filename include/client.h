@@ -6,7 +6,7 @@
 /**
  * Get fields from .csv file
  */
-char* getfield(char line[], int n);
+char *getfield(char line[], int n);
 
 /**
  * To consult the balance of the client 
@@ -26,6 +26,6 @@ void transfer_money(Client client, Json_object json_clients);
 /**
  * Pay by card
  */
-void pay_by_card(Client client);
+void pay_by_card(Client client, Json_object json_clients);
 
 #endif
