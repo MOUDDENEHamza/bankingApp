@@ -139,15 +139,9 @@ void pay_by_card(Client client, Json_object json_clients) {
     float product_price, new_balance;
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_balance;
     size_t n_clients, n_accounts;
-    char *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
+    char *str = (char *) malloc(SIZE);
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-
-    strcpy(str1, "data/");
-    strcpy(str2, get_id(client));
-    strcat(str2, ".csv");
-    strcat(str1, str2);
-    fp = fopen(str1, "a+");
 
     printf("\nSecure payment\n");
     printf("\nEnter the price of the product : ");
@@ -177,18 +171,25 @@ void pay_by_card(Client client, Json_object json_clients) {
                                 new_balance = json_object_get_double(json_balance) - product_price;
                                 json_object_object_add(json_account, key, json_object_new_double(new_balance));
                                 set_balance(get_account(client), &new_balance);
+
+                                strcpy(str, "data/");
+                                strcat(str, get_id(client));
+                                strcat(str, ".csv");
+                                fp = fopen(str, "a+");
                                 fprintf(fp, "%d/%d/%d, PAYMENT, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, product_price, get_balance(get_account(client)));
                                 printf("\nPayment done\n");
                                 fclose(fp);
+
+                                return;
                             }
                         }
                     }
                 }
             }
         }
+
     }
     printf("\nyour balance is insufficient to perform this operation\n");
-    fclose(fp);
 }
 
 /**
@@ -197,18 +198,12 @@ void pay_by_card(Client client, Json_object json_clients) {
 void make_deposit(Client client, Json_object json_clients) {
     FILE *fp;
     int i, j;
-    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE), *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE), *str = (char *) malloc(SIZE);
     struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
     float deposit, new_balance;
     size_t n_clients, n_accounts;
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-
-    strcpy(str1, "data/");
-    strcpy(str2, get_id(client));
-    strcat(str2, ".csv");
-    strcat(str1, str2);
-    fp = fopen(str1, "a+");
 
     printf("\nMake the deposit to your account\n");
     printf("\nYou want to make the deposit on which account\n");
@@ -247,9 +242,15 @@ void make_deposit(Client client, Json_object json_clients) {
                             new_balance = json_object_get_double(json_balance) + deposit;
                             set_balance(get_account(client), &new_balance);
                             json_object_object_add(json_account, key, json_object_new_double(new_balance));
-                            fprintf(fp, "%d/%d/%d, DEPOSIT, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, deposit, get_balance(get_account(client)));
                             printf("\nMake a deposit done with success\n");
+
+                            strcpy(str, "data/");
+                            strcat(str, get_id(client));
+                            strcat(str, ".csv");
+                            fp = fopen(str, "a+");
+                            fprintf(fp, "%d/%d/%d, DEPOSIT, +%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, deposit, get_balance(get_account(client)));
                             fclose(fp);
+
                             return;
                         }
                     }
@@ -258,5 +259,4 @@ void make_deposit(Client client, Json_object json_clients) {
         }
     }
     printf("\nMake a deposit failed, please try again\n");
-    fclose(fp);
 }

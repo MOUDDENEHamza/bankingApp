@@ -152,15 +152,14 @@ void delete_account(Client client) {
  */
 void add_client(Client client) {
     FILE *fp;
-    char *str1 = (char *) malloc(SIZE), *str2 = (char *) malloc(SIZE);
+    char *str = (char *) malloc(SIZE);
 
     input_perso_info(client);
 
-    strcpy(str1, "data/");
-    strcpy(str2, get_id(client));
-    strcat(str2, ".csv");
-    strcat(str1, str2);
-    fp = fopen(str1, "a+");
+    strcpy(str, "data/");
+    strcat(str, get_id(client));
+    strcat(str, ".csv");
+    fp = fopen(str, "a+");
     fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE\n");
     fclose(fp);
 
