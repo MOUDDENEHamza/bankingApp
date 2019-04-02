@@ -10,8 +10,10 @@
 int valid_client(Client client, Json_object json_clients, char *id, char *passwd) {
     int i;
     int j;
+    float f;
     char str_last_name[64], str_first_name[64], str_birthday[64], str_mail[64], str_phone[64], str_type[64], str_entitled[64];
-    struct json_object *json_client, *json_account_list, *json_account, *json_id, *json_passwd, *last_name, *first_name, *birthday, *mail, *phone, *type, *entitled, *balance;
+    struct json_object *json_client, *json_account_list, *json_account, *json_id, *json_passwd, *last_name, *first_name,
+            *birthday, *mail, *phone, *type, *entitled, *balance;
     size_t n_clients;
     size_t n_accounts;
     n_clients = json_object_array_length(json_clients);
@@ -48,6 +50,9 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
                 json_object_object_get_ex(json_account, "ENTITLED", &entitled);
                 strcpy(str_entitled, json_object_get_string(entitled));
                 set_entitled(get_account(client), str_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &balance);
+                f = json_object_get_double(balance);
+                set_balance(get_account(client), &f);
             }
             return 0;
         }
