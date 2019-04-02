@@ -187,7 +187,7 @@ Client input_perso_info(Client client) {
  */
 void input_new_balance(Client client) {
     float balance;
-    printf("\nEnter new balance :\n");
+    printf("\nEnter new balance : ");
     scanf("%f", &balance);
     set_balance(get_account(client), &balance);
 }
@@ -230,7 +230,7 @@ void input_type(Client client, int *choice) {
 /*input the entitled of the account*/
 void input_entitled(Client client) {
     char *entitled = (char *) malloc(SIZE);
-    printf("Enter the entitled\n");
+    printf("\nEnter the entitled : ");
     scanf("%s", entitled);
     set_entitled(get_account(client), entitled);
 }
