@@ -198,27 +198,27 @@ void input_type(Client client, int *choice) {
     back:
     switch (*choice) {
         case 1 :
-            strcpy(type, "CURRENT ACCOUNT");
+            strcpy(type, "CURRENT");
             set_type(get_account(client), type);
             break;
         case 2 :
-            strcpy(type, "SAVINGS ACCOUNT");
+            strcpy(type, "SAVINGS");
             set_type(get_account(client), type);
             break;
         case 3 :
-            strcpy(type, "TERM ACCOUNT");
+            strcpy(type, "TERM");
             set_type(get_account(client), type);
             break;
         case 4 :
-            strcpy(type, "TITLE ACCOUNT");
+            strcpy(type, "TITLE");
             set_type(get_account(client), type);
             break;
         case 5 :
-            strcpy(type, "INDIVIDUAL ACCOUNT");
+            strcpy(type, "INDIVIDUAL");
             set_type(get_account(client), type);
             break;
         case 6 :
-            strcpy(type, "JOINT ACCOUNT");
+            strcpy(type, "JOINT");
             set_type(get_account(client), type);
             break;
         default :
@@ -238,6 +238,8 @@ void input_entitled(Client client) {
 /*input all account information*/
 void input_create_account(Client client) {
     int choice;
+    printf("\nEnter your choice : ");
+    scanf("%d", &choice);
     input_type(client, &choice);
     input_entitled(client);
     input_new_balance(client);
