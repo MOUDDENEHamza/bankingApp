@@ -178,18 +178,18 @@ Client input_perso_info(Client client) {
     input_type(client, &by_default);
     printf("\nYour balance is initialized to 0\n");
     set_balance(get_account(client), &init_balance);
-    input_entitled(client,get_account(client));
+    input_entitled(client);
     return client;
 }
 
 /*
  * Ask to the administrator de to enter a new balance
  */
-void input_new_balance(Account a) {
+void input_new_balance(Client client) {
     float balance;
     printf("\nEnter new balance : ");
     scanf("%f", &balance);
-    set_balance(a, &balance);
+    set_balance(get_account(client), &balance);
 }
 
 /* input the account type choosen*/
@@ -228,29 +228,29 @@ void input_type(Client client, int *choice) {
 }
 
 /*input the entitled of the account*/
-void input_entitled(Client client, Account a) {
-    char *entitled = malloc(sizeof(char*));
-    entitled=concatenate(get_last_name(get_perso_info(client)),get_first_name(get_perso_info(client)));
-    set_entitled(a, entitled);
+void input_entitled(Client client) {
+    char *entitled = (char *) malloc(SIZE);
+    printf("\nEnter the entitled : ");
+    scanf("%s", entitled);
+    set_entitled(get_account(client), entitled);
 }
 
 /*input all account information*/
 void input_create_account(Client client) {
-    int choice_type;
-    scanf("%d",&choice_type);
-    input_type(client, &choice_type);
-    input_entitled(client,get_account(client));
-    input_new_balance(get_account(client));
+    int choice;
+    printf("\nEnter your choice : ");
+    scanf("%d", &choice);
+    input_type(client, &choice);
+    input_entitled(client);
+    input_new_balance(client);
     set_account(client, get_account(client));
 }
 
 /*input a new account*/
 void input_add_account(Client client) {
-    Account a=new_account();
     int choice;
-    scanf("%d",choice);
     input_type(client, &choice);
-    input_entitled(client,a);
-    input_new_balance(a);
-    set_nextOfLastAccout(client,a);
+    input_entitled(client);
+    input_new_balance(client);
+    set_nextOfLastAccout(client, get_account(client));
 }
