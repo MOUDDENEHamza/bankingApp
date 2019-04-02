@@ -1,1 +1,36 @@
-{ "CLIENTS": [ { "ID": "ID", "PASSWD": "PASSWD", "LAST NAME": "LAST NAME", "FIRST NAME": "FIRST NAME", "BIRTHDAY": "BIRTHDAY", "EMAIL": "MAIL", "PHONE": "PHONE", "ACCOUNT LIST": [ { "TYPE": "TYPE", "ENTITLED": "ENTITLED", "BALANCE": 15 } ] }, { "ID": "423DFFCF", "PASSWD": "123456", "LAST NAME": "MOUDDENE", "FIRST NAME": "Hamza", "BIRTHDAY": "28\/05\/1998", "EMAIL": "hz.mouddene@gmail.com", "PHONE": "06-41-13-22-30", "ACCOUNT LIST": [ { "TYPE": "CURRENT", "ENTITLED": "MOUDDENE", "BALANCE": 0 } ] } ] }
+{
+  "CLIENTS": [
+    {
+      "ID": "ID",
+      "PASSWD": "PASSWD",
+      "LAST NAME": "LAST NAME",
+      "FIRST NAME": "FIRST NAME",
+      "BIRTHDAY": "BIRTHDAY",
+      "EMAIL": "MAIL",
+      "PHONE": "PHONE",
+      "ACCOUNT LIST": [
+        {
+          "TYPE": "CURRENT",
+          "ENTITLED": "ENTITLED",
+          "BALANCE": 2.5
+        }
+      ]
+    },
+    {
+      "ID": "423DFFCF",
+      "PASSWD": "123456",
+      "LAST NAME": "MOUDDENE",
+      "FIRST NAME": "Hamza",
+      "BIRTHDAY": "28\/05\/1998",
+      "EMAIL": "hz.mouddene@gmail.com",
+      "PHONE": "06-41-13-22-30",
+      "ACCOUNT LIST": [
+        {
+          "TYPE": "CURRENT",
+          "ENTITLED": "MOUDDENE",
+          "BALANCE": 7.5
+        }
+      ]
+    }
+  ]
+}
