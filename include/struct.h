@@ -87,11 +87,6 @@ char *get_mail(Coordinates c);
  */
 char *get_phone(Coordinates c);
 
-/*
- * Get the address of client from the structure
- */
-char *get_address(Coordinates c);
-
 /*--------------Setters---------------*/
 
 /*
@@ -103,11 +98,6 @@ void set_mail(Coordinates c, char *mail);
  * Set the phone of client into the structure
  */
 void set_phone(Coordinates c, char *phone);
-
-/*
- * Set the address of client into the structure
- */
-void set_address(Coordinates c, char *address);
 
 /*----------------------------------------------------------------------------*/
 

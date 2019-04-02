@@ -165,6 +165,8 @@ void input_birthday(Client client) {
  * input all personnal information
  */
 Client input_perso_info(Client client) {
+    int by_default = 1;
+    float init_balance = 0;
     generate_unique_id(client);
     create_passwd(client);
     input_last_name(client);
@@ -172,74 +174,81 @@ Client input_perso_info(Client client) {
     input_birthday(client);
     input_mail(client);
     input_phone(client);
+    printf("\nAutomatic creation of a current account\n");
+    input_type(client, &by_default);
+    printf("\nYour balance is initialized to 0\n");
+    set_balance(get_account(client), &init_balance);
+    input_entitled(client);
     return client;
 }
 
 /*
  * Ask to the administrator de to enter a new balance
  */
-void input_new_balance(Account account) {
+void input_new_balance(Client client) {
     float balance;
     printf("\nEnter new balance :\n");
     scanf("%f", &balance);
-    set_balance(account, &balance);
+    set_balance(get_account(client), &balance);
 }
 
 /* input the account type choosen*/
-void input_type(Account account) {
-    int choice;
+void input_type(Client client, int *choice) {
+    char *type = (char *) malloc(SIZE);
     back:
-    scanf("%d", &choice);
-    switch (choice) {
+    switch (*choice) {
         case 1 :
-            set_type(account, "courant");
+            strcpy(type, "CURRENT ACCOUNT");
+            set_type(get_account(client), type);
             break;
         case 2 :
-            set_type(account, "epargne");
+            strcpy(type, "SAVINGS ACCOUNT");
+            set_type(get_account(client), type);
             break;
         case 3 :
-            set_type(account, "compte a terme");
+            strcpy(type, "TERM ACCOUNT");
+            set_type(get_account(client), type);
             break;
         case 4 :
-            set_type(account, "compte a titre");
+            strcpy(type, "TITLE ACCOUNT");
+            set_type(get_account(client), type);
             break;
         case 5 :
-            set_type(account, "individuel");
+            strcpy(type, "INDIVIDUAL ACCOUNT");
+            set_type(get_account(client), type);
             break;
         case 6 :
-            set_type(account, "joint");
+            strcpy(type, "JOINT ACCOUNT");
+            set_type(get_account(client), type);
             break;
         default :
-            printf("unexistant choice !\n");
-            printf("try again !\n");
+            printf("\nWrong choice. Please try again\n");
             goto back;
     }
 }
 
 /*input the entitled of the account*/
-void input_entitled(Account account) {
-    char *entitled;
+void input_entitled(Client client) {
+    char *entitled = (char *) malloc(SIZE);
     printf("Enter the entitled\n");
     scanf("%s", entitled);
-    set_entitled(account, entitled);
+    set_entitled(get_account(client), entitled);
 }
 
 /*input all account information*/
 void input_create_account(Client client) {
-    Account a = new_account();
-    input_type(a);
-    input_entitled(a);
-    input_new_balance(a);
-    set_account(client, a);
+    int choice;
+    input_type(client, &choice);
+    input_entitled(client);
+    input_new_balance(client);
+    set_account(client, get_account(client));
 }
 
 /*input a new account*/
 void input_add_account(Client client) {
-    Account
-    new = new_account();
-    input_type(new);
-    input_entitled(new);
-    input_new_balance(new);
-    set_nextOfLastAccout(client, new);
+    int choice;
+    input_type(client, &choice);
+    input_entitled(client);
+    input_new_balance(client);
+    set_nextOfLastAccout(client, get_account(client));
 }
-

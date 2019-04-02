@@ -82,7 +82,7 @@ void add_account(Client client) {
  *Edit account to the client
  */
 void edit_account(Client client) {
-    int choice, choice_type;
+    /*int choice, choice_type;
     printf("choose the type of account you want to edit\n");
     back1:
     display_typeAccounts(client);
@@ -110,7 +110,7 @@ void edit_account(Client client) {
                 goto back2;
         }
         continue;
-    }
+    }*/
 }
 
 /*

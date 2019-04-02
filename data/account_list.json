@@ -1,1 +1,20 @@
-{ "CLIENTS": [ { "ID": "ID", "PASSWD": "PASSWD", "LAST NAME": "LAST NAME", "FIRST NAME": "FIRST NAME", "BIRTHDAY": "BIRTHDAY", "EMAIL": "MAIL", "PHONE": "PHONE", "ACCOUNT LIST": [ "TYPE" ] }, { "ID": "26F5B2D8", "PASSWD": "123456", "LAST NAME": "MOUDDENE", "FIRST NAME": "Hamza", "BIRTHDAY": "28\/05\/1998", "EMAIL": "hz.mouddene@gmail.com", "PHONE": "06-41-13-22-30", "ACCOUNT LIST": [ "" ] }, { "ID": "2FFF7E18", "PASSWD": "654321", "LAST NAME": "KANE", "FIRST NAME": "Nouhou", "BIRTHDAY": "20\/02\/1998", "EMAIL": "kane.nouhou54@gmail.com", "PHONE": "06-13-50-41-20", "ACCOUNT LIST": [ "" ] } ] }
+{
+  "CLIENTS": [
+    {
+      "ID": "ID",
+      "PASSWD": "PASSWD",
+      "LAST NAME": "LAST NAME",
+      "FIRST NAME": "FIRST NAME",
+      "BIRTHDAY": "BIRTHDAY",
+      "EMAIL": "MAIL",
+      "PHONE": "PHONE",
+      "ACCOUNT LIST": [
+        {
+          "TYPE": "TYPE",
+          "ENTITLED": "ENTITLED",
+          "BALANCE": "BALANCE"
+        }
+      ]
+    }
+  ]
+}

@@ -99,7 +99,6 @@ void set_sub_index(Symbol s, int *val) {
 struct coordinates {
     char *mail;
     char *phone;
-    char *address;
 };
 
 /*--------------Constructor---------------*/
@@ -111,7 +110,6 @@ Coordinates new_coordinates(void) {
     Coordinates c = malloc(sizeof(Coordinates));
     c->mail = malloc(sizeof(char *));
     c->phone = malloc(sizeof(char *));
-    c->address = malloc(sizeof(char *));
     return c;
 }
 
@@ -131,13 +129,6 @@ char *get_phone(Coordinates c) {
     return c->phone;
 }
 
-/*
- * Get the address of client from the structure
- */
-char *get_address(Coordinates c) {
-    return c->address;
-}
-
 /*--------------Setters---------------*/
 
 /*
@@ -152,13 +143,6 @@ void set_mail(Coordinates c, char *mail) {
  */
 void set_phone(Coordinates c, char *phone) {
     strcpy(c->phone, phone);
-}
-
-/*
- * Set the address of client into the structure
- */
-void set_address(Coordinates c, char *address) {
-    strcpy(c->address, address);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -290,7 +274,7 @@ char *get_type(Account a) {
  * Get the entitled of account from the structure
  */
 char *get_entitled(Account a) {
-    return a->type;
+    return a->entitled;
 }
 
 /*

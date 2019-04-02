@@ -51,7 +51,6 @@ int main(int argc, char *argv[]) {
                             choose_feature(s, &sub_index); //Choose the feature you want to run
                             switch (sub_index) {
                                 case 1 :
-                                    printf("\ntest : %s\n", get_last_name(get_perso_info(client)));
                                     consult_balance(client);//To consult the balance of the client
                                     break;
                                 case 2 :

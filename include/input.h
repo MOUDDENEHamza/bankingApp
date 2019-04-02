@@ -59,21 +59,21 @@ void input_phone(Client client);
 void input_birthday(Client client);
 
 /*
- * input all personnal information
+ * input all personal information
  */
 Client input_perso_info(Client client);
 
 /*
  * Ask to the administrator de to enter a new balance
  */
-void input_new_balance(Account account);
+void input_new_balance(Client client);
 
 
-/* input the account type choosen*/
-void input_type(Account account);
+/* input the account type chosen*/
+void input_type(Client client, int *choice);
 
 /*input the entitled of the account*/
-void input_entitled(Account account);
+void input_entitled(Client client);
 
 /*input all account information*/
 void input_create_account(Client client);
