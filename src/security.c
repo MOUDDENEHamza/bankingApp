@@ -10,6 +10,27 @@
 #define SIZE 64
 
 /**
+ * Encrypt the password
+ */
+ char* encrypt_passwd(char *passwd) {
+    FILE *fp;
+    char *path = (char *) malloc(SIZE), *cmd = (char *) malloc(SIZE);
+
+
+    strcpy(cmd, "echo -n \"");
+    strcat(cmd, passwd);
+    strcat(cmd, "\" | md5sum | cut -d \"-\" -f1 -");
+    fp = popen(cmd, "r");
+
+    strcpy(path, "~/Desktop/bankingApp");
+    while (fgets(path, 64, fp) != NULL)
+        return path;
+
+    pclose(fp);
+
+}
+
+/**
  * Check if the ID and the password of the client is valid when connecting
  */
 int valid_client(Client client, Json_object json_clients, char *id, char *passwd) {
@@ -78,16 +99,16 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
 int connect_admin(char *passwd) {
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER);
-    struct json_object *parsed_json, *admin;
+    struct json_object *parsed_json, *json_passwd;
 
     fp = fopen("data/admin.json", "r");
     fread(buffer, BUFFER, 1, fp);
     fclose(fp);
 
     parsed_json = json_tokener_parse(buffer);
-    json_object_object_get_ex(parsed_json, "PASSWD", &admin);
+    json_object_object_get_ex(parsed_json, "PASSWD", &json_passwd);;
 
-    if (strcmp(passwd, json_object_get_string(admin)) == 0) {
+    if (strcmp(encrypt_passwd(passwd), json_object_get_string(json_passwd)) == 32) {
         return 0;
     }
 

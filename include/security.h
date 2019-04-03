@@ -4,6 +4,11 @@
 #include "struct.h"
 
 /**
+ * Encrypt the password
+ */
+char* encrypt_passwd(char *passwd);
+
+/**
  * Check if the ID and the password of the client is valid when connecting
  */
 int valid_client(Client client, Json_object json_clients, char *id, char *passwd);
