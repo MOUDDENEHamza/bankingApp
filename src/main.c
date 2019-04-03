@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
                                     import_Client_idx_from_Json("3CAFC048.csv",idx);
                                     printf("\n idx = %d\n",*idx);
                                     import_Client_from_Json(idx,client);
-                                    printf("\n%s %s %f %s \n",get_first_name(get_perso_info(client)),get_passwd(client),get_type(get_account(client)),get_birthday(get_perso_info(client)));
+                                    printf("\n%s  \n",get_type(get_account(client)));
                                     //printf("\n ID = %s\n",get_id(client));
                                     //modify_client(client,json_clients);
                                     //write_file(json_object, json_clients);

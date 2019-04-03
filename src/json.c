@@ -23,62 +23,45 @@ void write_file(Json_object json_object, Json_object json_clients) {
     fclose(fp);
 }
 
+Json_object client_To_objectClient(Client client){
+        size_t n_account;
+    Account a = get_account(client);
+    Json_object json_client = json_object_new_object();
+    Json_object json_account_list = json_object_new_array();
+    Json_object json_account = json_object_new_object();
+    json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
+    json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
+    json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
+    json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
+    json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
+    json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
+    json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
+    while (a != NULL) {
+        json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
+        json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
+        json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
+        json_object_array_add(json_account_list, json_account);
+        a = get_nextAccount(a);
+        json_account = json_object_new_object();
+    }
+    json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
+    //printf("%s\n", json_object_to_json_string(json_client));
+    return json_client;
+}
+
 /*
  * Add data client to json file
  */
 void add_client_json(Client client, Json_object json_clients) {
-    size_t n_account;
-    Account a = get_account(client);
-    Json_object json_client = json_object_new_object();
-    Json_object json_account_list = json_object_new_array();
-    Json_object json_account = json_object_new_object();
-    json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
-    json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
-    json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
-    json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
-    json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
-    json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
-    json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
-    while (a != NULL) {
-        json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
-        json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
-        json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
-        json_object_array_add(json_account_list, json_account);
-        a = get_nextAccount(a);
-        json_account = json_object_new_object();
-    }
-    json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
-    //printf("%s\n", json_object_to_json_string(json_client));
-    json_object_array_add(json_clients, json_client);
+
+    json_object_array_add(json_clients, client_To_objectClient(client));
     //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
 void modify_client(Client client, Json_object json_clients){
-    size_t n_account;
-    int idx;
-    Account a = get_account(client);
-    Json_object json_client = json_object_new_object();
-    Json_object json_account_list = json_object_new_array();
-    Json_object json_account = json_object_new_object();
-    import_Client_idx_from_Json(get_id(client),&idx);
-    json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
-    json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
-    json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
-    json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
-    json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
-    json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
-    json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
-    while (a != NULL) {
-        json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
-        json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
-        json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
-        json_object_array_add(json_account_list, json_account);
-        a = get_nextAccount(a);
-        json_account = json_object_new_object();
-    }
-    json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
-    //printf("%s\n", json_object_to_json_string(json_client));
-    json_object_array_put_idx(json_clients, idx, json_client);
+    int *idx=malloc(sizeof(int));
+    import_Client_idx_from_Json(get_id(client),idx);
+    json_object_array_put_idx(json_clients, idx[0], client_To_objectClient(client));
     //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
