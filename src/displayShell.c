@@ -111,8 +111,8 @@ void display_error_connexion_admin(void) {
 /*
  * Display a message while deleting account
  */
-void display_deleting_msg(void) {
-    printf("\nAccount has been deleted.\n");
+void display_account_type(void) {
+    printf("\nBefore creating the new account you should specify what kind of account you want to create\n\n\t1)-CURRENT\n\t2)-SAVING\n\t3)-JOINT\n");
 }
 
 /*
@@ -122,33 +122,4 @@ void end_bar(void) {
     printf("\nGOODBYE!\n");
     printf("\n\n\t\t\t\t"GREEN"THE END"RESET"\t\t\t\n");
     printf("\n******************************************************************************\n\n");
-}
-
-/*display a list of accounts */
-void display_choose_type() {
-    printf("1: courant");
-    printf("2: epargne");
-    printf("3: compte a terme");
-    printf("4: titre");
-    printf("5: individuel");
-    printf("6: joint");
-}
-
-/*ask to edit the information of account to edit*/
-void display_choose_edit() {
-    printf("choose what you want to edit");
-    printf("1 : balance");
-    printf("2 : entitled");
-}
-
-
-/*display all accounts of the client*/
-void display_typeAccounts(Client client) {
-    Account a = get_account(client);
-    int i = 1;
-    while (a != NULL) {
-        printf("%d : %s\n", i, get_type(a));
-        a = get_nextAccount(a);
-        i++;
-    }
 }

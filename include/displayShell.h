@@ -74,26 +74,11 @@ void display_error_connexion_admin(void);
 /*
  * Display a message while deleting account
  */
-void display_deleting_msg(void);
+void display_account_type(void);
 
 /*
  * Display the end bar
  */
 void end_bar(void);
-
-/*
- * Display a list of accounts
- */
-void display_choose_type();
-
-/*
- * Ask to edit the information of account to edit
- */
-void display_choose_edit();
-
-/*
- * Display all accounts of the client
- */
-void display_typeAccounts(Client client);
 
 #endif

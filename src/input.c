@@ -10,7 +10,7 @@
 
 #define SIZE 64
 
-/*
+/**
  * Choose the feature you want to run
  */
 void choose_feature(Symbol s, int *flag) {
@@ -19,7 +19,7 @@ void choose_feature(Symbol s, int *flag) {
     set_flag(s, flag);
 }
 
-/*
+/**
  * input and encrypt the password by putting * character
  */
 void hide_passwd(char *passwd) {
@@ -50,7 +50,7 @@ void hide_passwd(char *passwd) {
     fputc('\n', stdout);
 }
 
-/*
+/**
  * Generate unique id for the client
  */
 void generate_unique_id(Client client) {
@@ -88,7 +88,7 @@ void generate_unique_id(Client client) {
     set_id(client, id);
 }
 
-/*
+/**
  * Ask to client to input his id
  */
 void input_id(char *id) {
@@ -96,7 +96,7 @@ void input_id(char *id) {
     scanf("%s", id);
 }
 
-/*
+/**
  * Ask to user or administrator to input the password
  */
 void input_passwd(char *passwd) {
@@ -104,7 +104,7 @@ void input_passwd(char *passwd) {
     hide_passwd(passwd);
 }
 
-/*
+/**
  * Ask to user to create his own password
  */
 void create_passwd(Client client) {
@@ -114,7 +114,7 @@ void create_passwd(Client client) {
     set_passwd(client, passwd);
 }
 
-/*
+/**
  * Ask to user or administrator to input her last name
  */
 void input_last_name(Client client) {
@@ -124,7 +124,7 @@ void input_last_name(Client client) {
     set_last_name(get_perso_info(client), last_name);
 }
 
-/*
+/**
  * Ask to user or administrator to input her first name
  */
 void input_first_name(Client client) {
@@ -134,27 +134,7 @@ void input_first_name(Client client) {
     set_first_name(get_perso_info(client), first_name);
 }
 
-/*
- * Ask to user or administrator to input his Email address
- */
-void input_mail(Client client) {
-    char *mail = (char *) malloc(SIZE);
-    printf("\nEnter your E-mail : ");
-    scanf("%s", mail);
-    set_mail(get_coordinates(get_perso_info(client)), mail);
-}
-
-/*
- * Ask to user or administrator to input her phone number
- */
-void input_phone(Client client) {
-    char *phone = (char *) malloc(SIZE);
-    printf("\nEnter your phone : ");
-    scanf("%s", phone);
-    set_phone(get_coordinates(get_perso_info(client)), phone);
-}
-
-/*
+/**
  * Ask to user or administrator to input his birthday
  */
 void input_birthday(Client client) {
@@ -165,8 +145,63 @@ void input_birthday(Client client) {
 
 }
 
+/**
+ * Ask to user or administrator to input his Email address
+ */
+void input_mail(Client client) {
+    char *mail = (char *) malloc(SIZE);
+    printf("\nEnter your E-mail : ");
+    scanf("%s", mail);
+    set_mail(get_coordinates(get_perso_info(client)), mail);
+}
+
+/**
+ * Ask to user or administrator to input her phone number
+ */
+void input_phone(Client client) {
+    char *phone = (char *) malloc(SIZE);
+    printf("\nEnter your phone : ");
+    scanf("%s", phone);
+    set_phone(get_coordinates(get_perso_info(client)), phone);
+}
+
+/**
+ * Ask to user to input the account type
+ */
+void input_type(Client client, int *choice) {
+    char *type = (char *) malloc(SIZE);
+    back:
+    switch (*choice) {
+        case 1 :
+            strcpy(type, "CURRENT");
+            set_type(get_account(client), type);
+            break;
+        case 2 :
+            strcpy(type, "SAVINGS");
+            set_type(get_account(client), type);
+            break;
+        case 3 :
+            strcpy(type, "JOINT");
+            set_type(get_account(client), type);
+            break;
+        default :
+            printf("\nWrong choice. Please try again\n");
+            goto back;
+    }
+}
+
+/**
+ * Ask user to input the entitled of the account
+ */
+void input_entitled(Client client) {
+    char *entitled = (char *) malloc(SIZE);
+    printf("\nEnter the entitled : ");
+    scanf("%s", entitled);
+    set_entitled(get_account(client), entitled);
+}
+
 /*
- * input all personnal information
+ * input all personal information
  */
 Client input_perso_info(Client client) {
     int by_default = 1;
@@ -184,77 +219,4 @@ Client input_perso_info(Client client) {
     set_balance(get_account(client), &init_balance);
     input_entitled(client);
     return client;
-}
-
-/*
- * Ask to the administrator de to enter a new balance
- */
-void input_new_balance(Client client) {
-    float balance;
-    printf("\nEnter new balance : ");
-    scanf("%f", &balance);
-    set_balance(get_account(client), &balance);
-}
-
-/* input the account type choosen*/
-void input_type(Client client, int *choice) {
-    char *type = (char *) malloc(SIZE);
-    back:
-    switch (*choice) {
-        case 1 :
-            strcpy(type, "CURRENT");
-            set_type(get_account(client), type);
-            break;
-        case 2 :
-            strcpy(type, "SAVINGS");
-            set_type(get_account(client), type);
-            break;
-        case 3 :
-            strcpy(type, "TERM");
-            set_type(get_account(client), type);
-            break;
-        case 4 :
-            strcpy(type, "TITLE");
-            set_type(get_account(client), type);
-            break;
-        case 5 :
-            strcpy(type, "INDIVIDUAL");
-            set_type(get_account(client), type);
-            break;
-        case 6 :
-            strcpy(type, "JOINT");
-            set_type(get_account(client), type);
-            break;
-        default :
-            printf("\nWrong choice. Please try again\n");
-            goto back;
-    }
-}
-
-/*input the entitled of the account*/
-void input_entitled(Client client) {
-    char *entitled = (char *) malloc(SIZE);
-    printf("\nEnter the entitled : ");
-    scanf("%s", entitled);
-    set_entitled(get_account(client), entitled);
-}
-
-/*input all account information*/
-void input_create_account(Client client) {
-    int choice;
-    printf("\nEnter your choice : ");
-    scanf("%d", &choice);
-    input_type(client, &choice);
-    input_entitled(client);
-    input_new_balance(client);
-    set_account(client, get_account(client));
-}
-
-/*input a new account*/
-void input_add_account(Client client) {
-    int choice;
-    input_type(client, &choice);
-    input_entitled(client);
-    input_new_balance(client);
-    set_nextOfLastAccout(client, get_account(client));
 }

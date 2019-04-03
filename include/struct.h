@@ -195,7 +195,7 @@ float get_balance(Account a);
 /*
  * Get the next account of the same client
  */
-Account get_nextAccount(Account a);
+Account get_next_account(Account a);
 
 /*---------------Setters--------------*/
 
@@ -215,7 +215,7 @@ void set_entitled(Account a, char *entitled);
 void set_balance(Account a, float *balance);
 
 /*set the next account of the same client  */
-void set_nextAccount(Account a, Account next);
+void set_next_account(Account a, Account next);
 
 /*----------------------------------------------------------------------------*/
 

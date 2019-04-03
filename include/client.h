@@ -6,7 +6,7 @@
 /**
  * To consult the balance of the client 
  */
-void consult_balance(Client client);
+void consult_balance(Client client, Json_object json_clients);
 
 /**
  * Get the operations list over a chosen period

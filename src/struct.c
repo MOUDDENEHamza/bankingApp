@@ -235,21 +235,21 @@ void set_coordinates(Perso_info p, Coordinates c) {
 
 /*----------------------------------------------------------------------------*/
 
-/*-----------------------------------Structure--------------------------------*/
+/**-----------------------------------Structure--------------------------------**/
 
-/*
+/**
  * Introduce a simple structure handling account client
  */
 struct account {
     char *type;
     char *entitled;
     float balance;
-    Account nextAccount;
+    Account next_account;
 };
 
-/*--------------Constructor---------------*/
+/**--------------Constructor---------------**/
 
-/*
+/**
  *Constructor of the structure
  */
 Account new_account(void) {
@@ -257,71 +257,71 @@ Account new_account(void) {
     a->type = malloc(sizeof(char *));
     a->entitled = malloc(sizeof(char *));
     a->balance = 0;
-    a->nextAccount = NULL;
+    a->next_account = NULL;
     return a;
 }
 
-/*---------------Getters--------------*/
+/**---------------Getters--------------**/
 
-/*
+/**
  * Get the type of account from the structure
  */
 char *get_type(Account a) {
     return a->type;
 }
 
-/*
+/**
  * Get the entitled of account from the structure
  */
 char *get_entitled(Account a) {
     return a->entitled;
 }
 
-/*
+/**
  * Get the balance of account from the structure
  */
 float get_balance(Account a) {
     return a->balance;
 }
 
-/*
+/**
  * get the next account of the same client int the account
  */
-Account get_nextAccount(Account a) {
-    return a->nextAccount;
+Account get_next_account(Account a) {
+    return a->next_account;
 }
 
-/*---------------Setters--------------*/
+/**---------------Setters--------------**/
 
-/*
+/**
  * Set the type of account into the structure
  */
 void set_type(Account a, char *type) {
     strcpy(a->type, type);
 }
 
-/*
+/**
  * Set the entitled of account from the structure
  */
 void set_entitled(Account a, char *entitled) {
     strcpy(a->entitled, entitled);
 }
 
-/*
+/**
  * Set the balance of account from the structure
  */
 void set_balance(Account a, float *balance) {
     a->balance = *balance;
 }
 
-/*
+/**
  * Set the next account of the same client int the account
  */
-void set_nextAccount(Account a, Account next) {
-    a->nextAccount = next;
+void set_next_account(Account a, Account next) {
+    a->next_account = next;
 }
 
-/*----------------------------------------------------------------------------*/
+/**----------------------------------------------------------------------------**/
 
 /*-----------------------------------Structure--------------------------------*/
 

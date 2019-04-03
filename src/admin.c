@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <json-c/json.h>
 #include "admin.h"
 #include "struct.h"
 #include "displayShell.h"
@@ -8,147 +9,8 @@
 
 #define SIZE 64
 
-enum boolean {
-    true, false
-};
-
-/*return the account to edit */
-Account choosen_account(Client client, int choice_type) {
-    Account a = get_account(client);
-    if (choice_type == 1) {
-        return a;
-    } else {
-        for (int i = 1; i < choice_type; i++) {
-            a = get_nextAccount(a);
-        }
-        return a;
-    }
-}
-
-/*get the last added account of the client in list list of account*/
-Account get_lastAccount(Client client) {
-    Account a = get_account(client);
-    while (get_nextAccount(a) != NULL) {
-        a = get_nextAccount(a);
-    }
-    return a;
-}
-
-/*set the next account of the last account as a real account*/
-void set_nextOfLastAccout(Client client, Account account) {
-    Account last = get_lastAccount(client);
-    set_nextAccount(last, account);
-}
-
-/*get the number of acount that have the client*/
-int nb_accounts(Client client) {
-    Account a = get_account(client);
-    int nb = 0;
-    while (a != NULL) {
-        a = get_nextAccount(a);
-        nb++;
-    }
-    return nb;
-}
-
-/*return true if the input of admin or user is in list of choice*/
-bool in_1__nb_accounts(int choice, int nb) {
-    int i = 1;
-    while (i <= nb && i != choice) {
-        i++;
-    }
-    if (i <= nb) {
-        return true;
-    } else {
-        return false;
-    }
-
-}
-
-/*
- *Create account to the client
- */
-void create_account(Client client) {
-    printf("choose the type of account you want to create\n");
-    display_choose_type();
-    input_create_account(client);
-}
-
-/* add another account type for the client*/
-void add_account(Client client) {
-    printf("choose the type of account you want to add\n");
-    display_choose_type();
-    input_add_account(client);
-}
-
-/*
- *Edit account to the client
- */
-void edit_account(Client client) {
-    /*int choice, choice_type;
-    printf("choose the type of account you want to edit\n");
-    back1:
-    display_typeAccounts(client);
-    scanf("%d", &choice_type);
-    while (!in_1__nb_accounts(choice_type, nb_accounts(client))) {
-        printf("unexistant choice !\n");
-        printf("retry again");
-        goto back1;
-    }
-    back2:
-    display_choose_edit();
-    scanf("%d", &choice);
-    while (1) {
-        switch (choice) {
-            case 1:
-                input_new_balance(choosen_account(client, choice_type));
-                break;
-            case 2:
-                input_entitled(choosen_account(client, choice_type));
-                break;
-
-            default:
-                printf("unexistant choice !\n");
-                printf("retry again\n");
-                goto back2;
-        }
-        continue;
-    }*/
-}
-
-/*
- *delete account
- */
-void delete_account(Client client) {
-    printf("choose the acount type you want to delete\n");
-    int choice_type;
-    back:
-    display_typeAccounts(client);
-    scanf("%d", &choice_type);
-    while (!in_1__nb_accounts(choice_type, nb_accounts(client))) {
-        printf("unexistant choice !\n");
-        printf("retry again\n");
-        goto back;
-    }
-    Account temp;
-    if (choice_type == 1) {
-        temp = get_account(client);
-        set_account(client, get_nextAccount(temp));
-        free(temp);
-    } else {
-        if (choosen_account(client, choice_type) == get_lastAccount(client)) {
-            free(get_lastAccount(client));
-        } else {
-            Account a = choosen_account(client, choice_type - 1);
-            temp = get_nextAccount(a);
-            set_nextAccount(a, get_nextAccount(temp));
-            free(temp);
-        }
-    }
-}
-
-/*
- *Add client
+/**
+ * Add new client to the bank
  */
 void add_client(Client client) {
     FILE *fp;
@@ -166,11 +28,71 @@ void add_client(Client client) {
     printf("\nClient has been added. Restart the APP.\n");
 }
 
-/*
- *Edit the personal information of the client
+/**
+ * Create a new account to a given client
  */
-void edit_perso_info_client(Client client) {
-    printf("\nChange the coordinates : loading...\n");
-    free(get_perso_info(client));
-    printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
+void create_account(Client client, Json_object json_clients) {
+    int i;
+    Account temp = get_account(client);
+    Account new_node = new_account();
+    struct json_object *json_client, *json_id, *json_account_list, *json_type, *json_entitled, *json_balance;
+    Json_object json_account = json_object_new_object();
+    size_t n_clients, n_accounts;
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
+    int choice;
+    float init_balance = 0;
+
+    printf("\nCreate a new account\n");
+
+    display_account_type();
+    printf("\nEnter your choice : ");
+    scanf("%d", &choice);
+
+    back:
+    switch (choice) {
+        case 1 :
+            strcpy(type, "CURRENT");
+            set_type(new_node, type);
+            break;
+        case 2 :
+            strcpy(type, "SAVINGS");
+            set_type(new_node, type);
+            break;
+        case 3 :
+            strcpy(type, "JOINT");
+            set_type(new_node, type);
+            break;
+        default :
+            printf("\nWrong choice. Please try again\n");
+            goto back;
+    }
+
+    printf("\nEnter the entitled : ");
+    scanf("%s", entitled);
+    set_entitled(new_node, entitled);
+
+    set_balance(new_node, &init_balance);
+
+    while (get_next_account(temp) != NULL) {
+        temp = get_next_account(temp);
+    }
+
+    set_next_account(temp, new_node);
+
+    n_clients = json_object_array_length(json_clients);
+
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+
+        if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
+
+            json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(new_node)));
+            json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(new_node)));
+            json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(new_node)));
+            json_object_array_add(json_account_list, json_account);
+        }
+    }
 }

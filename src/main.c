@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
                             switch (sub_index) {
 
                                 case 1 :
-                                    consult_balance(client);///To consult the balance of the client
+                                    consult_balance(client, json_clients);///To consult the balance of the client
                                     break;
 
                                 case 2 :
@@ -105,10 +105,12 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 2 :
-                                    /*create_account(client, json_clients); ///Create an account
+                                    create_account(client, json_clients); ///Create an account
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
-                                    */break;
+
+
+                                    break;
 
                                 case 3 :
                                     /*delete_account(client, json_clients); ///Delete an account
@@ -228,6 +230,5 @@ int main(int argc, char *argv[]) {
         continue;
     }
 
-    write_file(json_object, json_clients);///Update the JSON file
     return 0;
 }

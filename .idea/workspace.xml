@@ -32,12 +32,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4d4d4fc0-4ad9-4d50-be29-26e84ea32a45" name="Default Changelist" comment="RELEASE">
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/A9CFCB8B.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/A9CFCB8B.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/BA4798F7.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/BA4798F7.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/ED0D4195.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/ED0D4195.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/account_list.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/account_list.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/admin.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/admin.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/displayShell.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/displayShell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/input.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/input.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/struct.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/struct.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/admin.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/admin.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/displayShell.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/displayShell.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/input.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/input.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/json.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/json.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/struct.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/struct.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,11 +71,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="271">
-              <caret line="116" column="38" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
+            <state relative-caret-position="465">
+              <caret line="61" column="72" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/admin.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="451">
+              <caret line="37" column="9" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="109" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/client.c">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="42" column="20" lean-forward="true" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/account_list.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -93,32 +126,33 @@
         <option value="$PROJECT_DIR$/src/setting.c" />
         <option value="$PROJECT_DIR$/include/setting.h" />
         <option value="$PROJECT_DIR$/include/json.h" />
-        <option value="$PROJECT_DIR$/include/admin.h" />
-        <option value="$PROJECT_DIR$/include/input.h" />
-        <option value="$PROJECT_DIR$/include/struct.h" />
-        <option value="$PROJECT_DIR$/src/displayShell.c" />
         <option value="$PROJECT_DIR$/data/E35241FB.csv" />
         <option value="$PROJECT_DIR$/data/account_data.csv" />
         <option value="$PROJECT_DIR$/data/799A84F5.csv" />
         <option value="$PROJECT_DIR$/data/7D672394.csv" />
         <option value="$PROJECT_DIR$/data/3CAFC048.csv" />
-        <option value="$PROJECT_DIR$/src/struct.c" />
         <option value="$PROJECT_DIR$/data/ID" />
         <option value="$PROJECT_DIR$/data/A6799714.csv" />
         <option value="$PROJECT_DIR$/data/ID.csv" />
         <option value="$PROJECT_DIR$/include/client.h" />
-        <option value="$PROJECT_DIR$/src/input.c" />
         <option value="$PROJECT_DIR$/data/admin.json" />
         <option value="$PROJECT_DIR$/include/security.h" />
-        <option value="$PROJECT_DIR$/src/json.c" />
-        <option value="$PROJECT_DIR$/src/admin.c" />
         <option value="$PROJECT_DIR$/src/security.c" />
         <option value="$PROJECT_DIR$/data/ED0D4195.csv" />
         <option value="$PROJECT_DIR$/data/BA4798F7.csv" />
-        <option value="$PROJECT_DIR$/src/client.c" />
         <option value="$PROJECT_DIR$/data/A9CFCB8B.csv" />
+        <option value="$PROJECT_DIR$/include/input.h" />
+        <option value="$PROJECT_DIR$/src/struct.c" />
+        <option value="$PROJECT_DIR$/include/struct.h" />
+        <option value="$PROJECT_DIR$/include/displayShell.h" />
+        <option value="$PROJECT_DIR$/src/displayShell.c" />
+        <option value="$PROJECT_DIR$/src/input.c" />
+        <option value="$PROJECT_DIR$/include/admin.h" />
+        <option value="$PROJECT_DIR$/src/admin.c" />
         <option value="$PROJECT_DIR$/data/account_list.json" />
+        <option value="$PROJECT_DIR$/src/json.c" />
         <option value="$PROJECT_DIR$/src/main.c" />
+        <option value="$PROJECT_DIR$/src/client.c" />
       </list>
     </option>
   </component>
@@ -148,11 +182,6 @@
               <item name="bankingApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="bankingApp" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bankingApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bankingApp" type="462c0819:PsiDirectoryNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bankingApp" type="b2602c69:ProjectViewProjectNode" />
@@ -261,12 +290,12 @@
       <workItem from="1554240822919" duration="13113000" />
       <workItem from="1554281285704" duration="13324000" />
       <workItem from="1554305722022" duration="2397000" />
-      <workItem from="1554312579458" duration="316000" />
+      <workItem from="1554312579458" duration="10607000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81099000" />
+    <option name="totallyTimeSpent" value="91390000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="-2" width="1680" height="1052" extended-state="6" />
@@ -296,11 +325,11 @@
       <window_info anchor="right" id="make" order="4" weight="0.32986537" />
     </layout>
     <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13953489" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14504284" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32936078" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.49945828" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -346,61 +375,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/struct.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="82">
-          <caret line="87" column="31" selection-start-line="87" selection-start-column="31" selection-end-line="87" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/input.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="72" column="42" selection-start-line="72" selection-start-column="42" selection-end-line="72" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/admin.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/displayShell.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="44" column="184" selection-start-line="44" selection-start-column="184" selection-end-line="44" selection-end-column="184" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/E35241FB.csv" />
     <entry file="file://$PROJECT_DIR$/data/account_data.csv" />
-    <entry file="file://$PROJECT_DIR$/include/displayShell.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-434" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/struct.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="316" selection-start-line="316" selection-end-line="321" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/3CAFC048.csv" />
     <entry file="file://$PROJECT_DIR$/data/7D672394.csv" />
     <entry file="file://$PROJECT_DIR$/data/799A84F5.csv" />
     <entry file="file://$PROJECT_DIR$/data/ID" />
     <entry file="file://$PROJECT_DIR$/data/A6799714.csv" />
     <entry file="file://$PROJECT_DIR$/data/ID.csv" />
-    <entry file="file://$PROJECT_DIR$/include/client.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/86082CF1.csv" />
     <entry file="file://$PROJECT_DIR$/include/security.h">
       <provider selected="true" editor-type-id="text-editor">
@@ -413,27 +395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/input.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2010">
-          <caret line="4" column="14" selection-start-line="4" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/json.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="10" selection-start-line="19" selection-start-column="4" selection-end-line="22" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/admin.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="641">
-          <caret line="165" column="52" selection-start-line="165" selection-start-column="52" selection-end-line="165" selection-end-column="52" />
         </state>
       </provider>
     </entry>
@@ -467,31 +428,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/account_list.json">
+    <entry file="file://$PROJECT_DIR$/include/struct.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" column="1" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+        <state relative-caret-position="406">
+          <caret line="197" column="17" selection-start-line="197" selection-start-column="17" selection-end-line="197" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/client.c">
+    <entry file="file://$PROJECT_DIR$/include/displayShell.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="266" selection-start-line="266" selection-end-line="266" />
+        <state relative-caret-position="661">
+          <caret line="76" column="25" selection-start-line="76" selection-start-column="25" selection-end-line="76" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/displayShell.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="631">
+          <caret line="114" column="33" selection-start-line="114" selection-start-column="33" selection-end-line="114" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/input.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="766">
+          <caret line="71" column="1" lean-forward="true" selection-start-line="71" selection-start-column="1" selection-end-line="71" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/input.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="197" column="18" lean-forward="true" selection-start-line="196" selection-start-column="4" selection-end-line="199" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/struct.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="319" column="14" selection-start-line="319" selection-start-column="14" selection-end-line="319" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/admin.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/client.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="35" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/security.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
+        <state relative-caret-position="1125">
           <caret line="147" column="115" selection-start-line="147" selection-start-column="115" selection-end-line="147" selection-end-column="115" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/account_list.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/json.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="53" column="11" lean-forward="true" selection-start-line="53" selection-start-column="11" selection-end-line="53" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="116" column="38" selection-start-line="116" selection-start-column="38" selection-end-line="116" selection-end-column="38" />
+        <state relative-caret-position="465">
+          <caret line="61" column="72" selection-start-line="61" selection-start-column="72" selection-end-line="61" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/admin.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="451">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="20" lean-forward="true" selection-start-line="42" selection-start-column="20" selection-end-line="42" selection-end-column="20" />
         </state>
       </provider>
     </entry>

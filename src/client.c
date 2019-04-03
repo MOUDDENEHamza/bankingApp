@@ -11,10 +11,44 @@
 /**
  * To consult the balance of the client
  */
-void consult_balance(Client client) {
+void consult_balance(Client client, Json_object json_clients) {
+    int i, j;
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
+    struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
+    size_t n_clients, n_accounts;
+
     printf("\nLoading...\n");
-    printf("\nThe balance of your %s is : %f\n", get_type(get_account(client)), get_balance(get_account(client)));
-    printf("\nCome back the client menu\n");
+    printf("\nEnter the type of the account you want consult the balance : ");
+    scanf("%s", type);
+    printf("\nEnter the entitled of the account you want consult the balance : ");
+    scanf("%s", entitled);
+
+    n_clients = json_object_array_length(json_clients);
+
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+
+        if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
+
+            for (j = 0; i < n_accounts; j++) {
+                json_account = json_object_array_get_idx(json_account_list, j);
+                json_object_object_get_ex(json_account, "TYPE", &json_type);
+                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+
+                if (strcmp(type, json_object_get_string(json_type)) == 0 && strcmp(entitled, json_object_get_string(json_entitled)) == 0) {
+                    printf("\nThe balance of your %s is : %f\n", json_object_get_string(json_type), json_object_get_double(json_balance));
+                    return;
+                }
+            }
+        }
+    }
+
+    printf("\nWrong input, please try again\n");
+    return;
 }
 
 /**
