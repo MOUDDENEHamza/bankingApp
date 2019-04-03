@@ -69,16 +69,19 @@ int main(int argc, char *argv[]) {
                                 case 3 :
                                     transfer_money(client, json_clients);///Get the transfers list associated to the client
                                     write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
 
                                 case 4 :
                                     pay_by_card(client, json_clients);///Pay by card
                                     write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
 
                                 case 5 :
                                     make_deposit(client, json_clients); ///Make a deposit
                                     write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
 
                                 default :///Display an error message if the user input an incorrect flag
@@ -161,8 +164,6 @@ int main(int argc, char *argv[]) {
                                 case 1 :
                                     add_client(client);///Add new client to the structure
                                     add_client_json(client, json_clients);///Add the new client to the JSON structure
-                                    write_file(json_object, json_clients);
-                                    goto back;
 
                                 case 2 :
                                     break;
@@ -172,7 +173,7 @@ int main(int argc, char *argv[]) {
 
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &flag);
-                                    choose_feature(s, &flag); //Choose the feature you want to run
+                                    choose_feature(s, &flag);///Choose the feature you want to run
                                     goto restart;
                             }
                             break;
@@ -223,5 +224,6 @@ int main(int argc, char *argv[]) {
         continue;
     }
 
+    write_file(json_object, json_clients);///Update the JSON file
     return 0;
 }
