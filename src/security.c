@@ -23,7 +23,7 @@
     fp = popen(cmd, "r");
 
     strcpy(path, "~/Desktop/bankingApp");
-    while (fgets(path, 64, fp) != NULL)
+    while (fgets(path, 33, fp) != NULL)
         return path;
 
     pclose(fp);
@@ -108,7 +108,7 @@ int connect_admin(char *passwd) {
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "PASSWD", &json_passwd);;
 
-    if (strcmp(encrypt_passwd(passwd), json_object_get_string(json_passwd)) == 32) {
+    if (strcmp(encrypt_passwd(passwd), json_object_get_string(json_passwd)) == 0) {
         return 0;
     }
 
@@ -162,7 +162,7 @@ void change_client_passwd(Client client, Json_object json_clients) {
 /**
  * Change the administrator password
  */
-void change_administrator_passwd(void) {
+int change_administrator_passwd(void) {
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
     struct json_object *parsed_json;
@@ -174,18 +174,15 @@ void change_administrator_passwd(void) {
     hide_passwd(new_passwd2);
 
     if (strcmp(new_passwd1, new_passwd2) == 0) {
-
         fp = fopen("data/admin.json", "r");
         fread(buffer, BUFFER, 1, fp);
         fclose(fp);
-
         parsed_json = json_tokener_parse(buffer);
         json_object_object_foreach(parsed_json, key, val)
         {
 
             if (strcmp(key, "PASSWD") == 0) {
-
-                json_object_object_add(parsed_json, key, json_object_new_string(new_passwd1));
+                json_object_object_add(parsed_json, key, json_object_new_string(encrypt_passwd(new_passwd1)));
 
                 fp = fopen("data/admin.json", "w");
                 fwrite(json_object_get_string(parsed_json), strlen(json_object_get_string(parsed_json)), 1, fp);
@@ -194,8 +191,11 @@ void change_administrator_passwd(void) {
                 printf("\nChanging password done with success\n");
                 printf("\nSign out\n");
 
-                return;
+                return 1;
             }
         }
     }
+
+    printf("\nYour input is wrong, please try later\n");
+    return 0;
 }
