@@ -171,12 +171,12 @@ void import_Client_from_Json(int *idx, Client client_imported){
     struct json_object *bday_json;
     struct json_object *email_json;
     struct json_object *phon_json;
-   /* struct json_object *account_list_json;
+    struct json_object *account_list_json;
     struct json_object *account;
     struct json_object *type_json;
     struct json_object *entitled_json; 
     struct json_object *balance_json;
-    float* bal=malloc(sizeof(float)); */
+    float* bal=malloc(sizeof(float));
     size_t n_clients;
     size_t i,j;
     size_t n_accounts;
@@ -197,11 +197,11 @@ void import_Client_from_Json(int *idx, Client client_imported){
     json_object_object_get_ex(client, "BIRTHDAY", &bday_json);
     json_object_object_get_ex(client, "EMAIL", &email_json);
     json_object_object_get_ex(client, "PHONE", &phon_json);
- /*   json_object_object_get_ex(client, "ACCOUNTS LIST", &account_list_json);
+    json_object_object_get_ex(client, "ACCOUNT LIST", &account_list_json);
     n_accounts = json_object_array_length(account_list_json);
+    Account account_temp=new_account();
     for(j=0; j<n_accounts; j++){
-        Account account_temp=new_account();
-        account = json_object_array_get_idx(account_list_json,1);
+        account = json_object_array_get_idx(account_list_json,j);
         json_object_object_get_ex(account, "TYPE" , &type_json);
         set_type(account_temp,(char*)json_object_get_string(type_json));
         json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
@@ -210,33 +210,12 @@ void import_Client_from_Json(int *idx, Client client_imported){
         *bal=(float)json_object_get_double(balance_json);
         set_balance(account_temp,bal);
         set_nextOfLastAccout(client_imported,account_temp);
-    }*/
+        account_temp=new_account();
+    }
     printf("ok");
-/*
-    char* id=(char*)malloc(strlen(json_object_get_string(id_json))*sizeof(char));
-    strcpy(id,json_object_get_string(id_json));
-    char* pwd=(char*)malloc(strlen(json_object_get_string(pwd_json))*sizeof(char));
-    strcpy(pwd,json_object_get_string(pwd_json));
-   char* lname=(char*)malloc(strlen(json_object_get_string(lname_json))*sizeof(char));
-    strcpy(lname,json_object_get_string(lname_json));
-    char* fname=(char*)malloc(strlen(json_object_get_string(fname_json))*sizeof(char));
-    strcpy(fname,json_object_get_string(fname_json));
-    char* bday=(char*)malloc(strlen(json_object_get_string(bday_json))*sizeof(char));
-    strcpy(bday,json_object_get_string(bday_json));
-    char* email=(char*)malloc(strlen(json_object_get_string(email_json))*sizeof(char));
-    strcpy(email,json_object_get_string(email_json));
-    char* phon=(char*)malloc(strlen(json_object_get_string(phon_json))*sizeof(char));
-    strcpy(phon,json_object_get_string(phon_json));
-    char* type=(char*)malloc(strlen(json_object_get_string(type_json))*sizeof(char));
-    strcpy(type,json_object_get_string(type_json));
-    char* entitled=(char*)malloc(strlen(json_object_get_string(entitled_json))*sizeof(char));
-    strcpy(entitled,json_object_get_string(entitled_json));
-    float balance_c=(float)json_object_get_double(balance_json);
-    float* balance=malloc(sizeof(float));
-    *balance=balance_c;
-*/
+
     set_id(client_imported,(char*)json_object_get_string(id_json));
-   set_passwd(client_imported,(char*)json_object_get_string(pwd_json));
+    set_passwd(client_imported,(char*)json_object_get_string(pwd_json));
     Perso_info p=new_perso_info();
     set_last_name(p,(char*)json_object_get_string(lname_json));
     set_first_name(p,(char*)json_object_get_string(fname_json));
