@@ -95,26 +95,26 @@ void change_client_passwd(Client client, Json_object json_clients) {
     hide_passwd(new_passwd1);
     write(STDOUT_FILENO, "\nConfirm your new password : ", 29);
     hide_passwd(new_passwd2);
+
     if (strcmp(new_passwd1, new_passwd2) == 0) {
-        printf("%s\n", json_object_get_string(json_clients));
         n_clients = json_object_array_length(json_clients);
+
         for (i = 0; i < n_clients; i++) {
-            printf("%s\n", json_object_get_string(json_client));
             json_client = json_object_array_get_idx(json_clients, i);
             json_object_object_get_ex(json_client, "ID", &json_id);
             json_object_object_get_ex(json_client, "PASSWD", &json_passwd);
+
             if (strcmp(get_id(client), json_object_get_string(json_id)) == 0 &&
                 strcmp(get_passwd(client), json_object_get_string(json_passwd)) == 0) {
+
                 json_object_object_foreach(json_client, key, val)
                 {
-                    printf("%s\n", key);
                     if (strcmp(key, "PASSWD") == 0) {
                         set_passwd(client, new_passwd1);
                         json_object_object_add(json_client, key, json_object_new_string(new_passwd1));
-                        printf("%s\n", json_object_get_string(json_client));
-                        printf("%s && %s\n", get_id(client), get_passwd(client));
                         printf("\nChanging password done with success\n");
                         printf("\nSign out\n");
+
                         return;
                     }
                 }

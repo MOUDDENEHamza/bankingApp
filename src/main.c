@@ -66,14 +66,17 @@ int main(int argc, char *argv[]) {
 
                                 case 3 :
                                     transfer_money(client, json_clients);///Get the transfers list associated to the client
+                                    write_file(json_object, json_clients);///Update the JSON file
                                     break;
 
                                 case 4 :
                                     pay_by_card(client, json_clients);///Pay by card
+                                    write_file(json_object, json_clients);///Update the JSON file
                                     break;
 
                                 case 5 :
                                     make_deposit(client, json_clients); ///Make a deposit
+                                    write_file(json_object, json_clients);///Update the JSON file
                                     break;
 
                                 default :///Display an error message if the user input an incorrect flag
@@ -92,15 +95,16 @@ int main(int argc, char *argv[]) {
 
                                 case 1 :
                                     change_client_passwd(client, json_clients);///To permit to client to change his password
+                                    write_file(json_object, json_clients);
                                     index = 3;///Sign out the session
                                     break;
 
                                 case 2 :
-                                    transaction_list(client);///Get the operations list linked over a choosen period
+
                                     break;
 
                                 case 3 :
-                                    transfer_money(client, json_clients);///Get the transfers list associated to the client
+
                                     break;
 
                                 default :///Display an error message if the user input an incorrect flag
@@ -198,6 +202,8 @@ int main(int argc, char *argv[]) {
 
         continue;
     }
-    write_file(json_object, json_clients);
+
+    //write_file(json_object, json_clients);
+
     return 0;
 }
