@@ -6,6 +6,7 @@
 #include "security.h"
 #include "input.h"
 
+#define BUFFER 4096
 #define SIZE 64
 
 /**
@@ -15,8 +16,10 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
     int i;
     int j;
     float f;
-    char *str_last_name = (char *) malloc(SIZE), *str_first_name = (char *) malloc(SIZE), *str_birthday = (char *) malloc(SIZE),
-    *str_mail = (char *) malloc(SIZE), *str_phone = (char *) malloc(SIZE), *str_type = (char *) malloc(SIZE), *str_entitled = (char *) malloc(SIZE);
+    char *str_last_name = (char *) malloc(SIZE), *str_first_name = (char *) malloc(
+            SIZE), *str_birthday = (char *) malloc(SIZE),
+            *str_mail = (char *) malloc(SIZE), *str_phone = (char *) malloc(SIZE), *str_type = (char *) malloc(
+            SIZE), *str_entitled = (char *) malloc(SIZE);
     struct json_object *json_client, *json_account_list, *json_account, *json_id, *json_passwd, *last_name, *first_name,
             *birthday, *mail, *phone, *type, *entitled, *balance;
     size_t n_clients;
@@ -73,8 +76,18 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
  * Allow to administrator to connect to the application
  */
 int connect_admin(char *passwd) {
+    FILE *fp;
+    char *buffer = (char *) malloc(BUFFER);
+    struct json_object *parsed_json, *admin;
 
-    if (strcmp(passwd, "admin") == 0) {
+    fp = fopen("data/admin.json", "r");
+    fread(buffer, BUFFER, 1, fp);
+    fclose(fp);
+
+    parsed_json = json_tokener_parse(buffer);
+    json_object_object_get_ex(parsed_json, "PASSWD", &admin);
+
+    if (strcmp(passwd, json_object_get_string(admin)) == 0) {
         return 0;
     }
 

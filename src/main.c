@@ -9,11 +9,11 @@
 #include "client.h"
 #include "json.h"
 
-#define SIZE 255
+#define SIZE 64
 
 /*Main function*/
 int main(int argc, char *argv[]) {
-    /*Initialize variables*/
+    /**Initialize variables**/
     Symbol s = new_symbol();
     Client client = new_client();
     Json_object json_object, json_clients;
@@ -24,16 +24,18 @@ int main(int argc, char *argv[]) {
     int flag = get_flag(s);
     int index = get_index(s);
     int sub_index = get_sub_index(s);
-    char id[SIZE], passwd[SIZE];
+    char *id = (char *) malloc(SIZE), *passwd = (char *) malloc(SIZE);
 
-    /*Start program*/
-    init_bar(); //Display the init bar.
+    /**Start program**/
+    init_bar();///Display the init bar.
     back:
     log_in = 0;
-    display_menu(&exit); //Display the main menu.
-    json_clients = parse_json();//Parse the json file containing the client data
-    choose_feature(s, &flag); //Choose the feature you want to run
+    display_menu(&exit);///Display the main menu.
+    json_clients = parse_json();///Parse the json file containing the client data
+    choose_feature(s, &flag);///Choose the feature you want to run
+
     while (exit) {
+
         switch (flag) {
 
             case 1 :///CLIENT AREA
@@ -95,7 +97,7 @@ int main(int argc, char *argv[]) {
 
                                 case 1 :
                                     change_client_passwd(client, json_clients);///To permit to client to change his password
-                                    write_file(json_object, json_clients);
+                                    write_file(json_object, json_clients);///Update the JSON file
                                     index = 3;///Sign out the session
                                     break;
 
@@ -134,47 +136,60 @@ int main(int argc, char *argv[]) {
                 }
 
             case 2 :///ADMINISTRATOR AREA
+
                 if (log_in == 0) {
                     input_passwd(passwd);
                 }
+
                 if (!connect_admin(passwd)) {
                     display_administrator(&exit); //Display the administrator menu
                     choose_feature(s, &index); //Choose the feature you want to run
+
                     switch (index) {
+
                         case 1 :
                             display_admin_account_management();
                             break;
+
                         case 2 :
                             display_admin_client_management();
                             choose_feature(s, &sub_index); //Choose the feature you want to run
-                        restart:
+
+                            restart:
                             switch (sub_index) {
+
                                 case 1 :
                                     add_client(client);//Add new client
                                     add_client_json(client, json_clients);
                                     client = new_client();
                                     break;
-                                case 2 :
 
+                                case 2 :
                                     break;
+
                                 case 3 :
                                     break;
+
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &flag);
                                     choose_feature(s, &flag); //Choose the feature you want to run
                                     goto restart;
                             }
                             break;
+
                         case 3 :
-                            display_admin_administration();
+                            display_admin_administration();///Display submenu of administration
                             break;
-                        case 4 : //If the user want to sign out the submenu
+
+                        case 4 :///If the user want to sign out the submenu
                             break;
-                        case 5 : //Check if the user want to quit the program
-                            end_bar(); //Display the end bar.
+
+                        case 5 :///Check if the user want to quit the program
+                            end_bar();///Display the end bar.
                             exit = 0;
                             break;
-                        default ://Display an error message if the user input an incorrect flag
+
+                        default :///Display an error message if the user input an incorrect flag
                             display_error_flag(s, &flag);
                             break;
                     }
