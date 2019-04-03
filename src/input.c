@@ -25,6 +25,7 @@ void choose_feature(Symbol s, int *flag) {
 void hide_passwd(char *passwd) {
     char *in = passwd;
     struct termios tty_orig;
+
     tcgetattr(STDIN_FILENO, &tty_orig);
     char c;
     struct termios tty_work = tty_orig;
@@ -33,7 +34,7 @@ void hide_passwd(char *passwd) {
     tty_work.c_cc[VMIN] = 1;
     tty_work.c_cc[VTIME] = 0;
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty_work);
-    write(STDOUT_FILENO, "\nEnter your password : ", 24);
+
     while (1) {
         if (read(STDIN_FILENO, &c, sizeof c) > 0) {
             if ('\n' == c) {
@@ -43,6 +44,7 @@ void hide_passwd(char *passwd) {
             write(STDOUT_FILENO, "*", 1);
         }
     }
+
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty_orig);
     *in = '\0';
     fputc('\n', stdout);
@@ -98,6 +100,7 @@ void input_id(char *id) {
  * Ask to user or administrator to input the password
  */
 void input_passwd(char *passwd) {
+    write(STDOUT_FILENO, "\nEnter your password : ", 24);
     hide_passwd(passwd);
 }
 
@@ -106,6 +109,7 @@ void input_passwd(char *passwd) {
  */
 void create_passwd(Client client) {
     char *passwd = (char *) malloc(SIZE);
+    write(STDOUT_FILENO, "\nEnter your password : ", 24);
     hide_passwd(passwd);
     set_passwd(client, passwd);
 }

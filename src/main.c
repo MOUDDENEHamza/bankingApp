@@ -79,14 +79,36 @@ int main(int argc, char *argv[]) {
                                 default :///Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &sub_index);
                                     choose_feature(s, &sub_index);///Choose the feature you want to run
-                                    goto restart;
+                                    break;
                             }
-                            break;
 
+                            break;
 
                         case 2 :
                             display_client_administration();
-                            choose_feature(s, &index);///Choose the feature you want to run
+                            choose_feature(s, &sub_index);///Choose the feature you want to run
+
+                            switch (sub_index) {
+
+                                case 1 :
+                                    change_client_passwd(client, json_clients);///To permit to client to change his password
+                                    index = 3;///Sign out the session
+                                    break;
+
+                                case 2 :
+                                    transaction_list(client);///Get the operations list linked over a choosen period
+                                    break;
+
+                                case 3 :
+                                    transfer_money(client, json_clients);///Get the transfers list associated to the client
+                                    break;
+
+                                default :///Display an error message if the user input an incorrect flag
+                                    display_error_flag(s, &sub_index);
+                                    choose_feature(s, &sub_index);///Choose the feature you want to run
+                                    break;
+                            }
+
                             break;
 
                         case 3 : ///If the user want to sign out the submenu

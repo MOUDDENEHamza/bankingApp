@@ -3,24 +3,24 @@
 
 #include "struct.h"
 
-/*
- * Check if the id and the password of the client is valid
+/**
+ * Check if the ID and the password of the client is valid when connecting
  */
 int valid_client(Client client, Json_object json_clients, char *id, char *passwd);
 
-/*
+/**
  * Allow to administrator to connect to the application
  */
 int connect_admin(char *passwd);
 
-/*
+/**
  * Change the client password
  */
-void change_client_password(void);
+void change_client_passwd(Client client, Json_object json_clients);
 
-/*
+/**
  * Change the administrator password
  */
-void change_administrator_password(void);
+void change_administrator_passwd(void);
 
 #endif
