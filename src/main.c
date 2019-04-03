@@ -105,12 +105,16 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 2 :
-
-                                    break;
+                                    /*create_account(client, json_clients); ///Create an account
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
+                                    */break;
 
                                 case 3 :
-
-                                    break;
+                                    /*delete_account(client, json_clients); ///Delete an account
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
+                                    */break;
 
                                 default :///Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &sub_index);
