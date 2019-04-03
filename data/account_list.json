@@ -1,24 +1,8 @@
 {
   "CLIENTS": [
     {
-      "ID": "ID",
-      "PASSWD": "654321",
-      "LAST NAME": "LAST NAME",
-      "FIRST NAME": "FIRST NAME",
-      "BIRTHDAY": "BIRTHDAY",
-      "EMAIL": "MAIL",
-      "PHONE": "PHONE",
-      "ACCOUNT LIST": [
-        {
-          "TYPE": "CURRENT",
-          "ENTITLED": "ENTITLED",
-          "BALANCE": 17.5
-        }
-      ]
-    },
-    {
-      "ID": "A6799714",
-      "PASSWD": "123456",
+      "ID": "ED0D4195",
+      "PASSWD": "e10adc3949ba59abbe56e057f20f883e",
       "LAST NAME": "MOUDDENE",
       "FIRST NAME": "Hamza",
       "BIRTHDAY": "28\/05\/1998",
@@ -28,7 +12,23 @@
         {
           "TYPE": "CURRENT",
           "ENTITLED": "MOUDDENE",
-          "BALANCE": 15
+          "BALANCE": 0
+        }
+      ]
+    },
+    {
+      "ID": "BA4798F7",
+      "PASSWD": "c33367701511b4f6020ec61ded352059",
+      "LAST NAME": "KANE",
+      "FIRST NAME": "Nouhou",
+      "BIRTHDAY": "20\/02\/1998",
+      "EMAIL": "nouhou.kane@univ-tlse3.fr",
+      "PHONE": "06-13-50-41-20",
+      "ACCOUNT LIST": [
+        {
+          "TYPE": "CURRENT",
+          "ENTITLED": "KANE",
+          "BALANCE": 0
         }
       ]
     }

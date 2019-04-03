@@ -163,7 +163,7 @@ void add_client(Client client) {
     fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE\n");
     fclose(fp);
 
-    printf("\nClient has been added. Come back to the administrator menu.\n");
+    printf("\nClient has been added. Restart the APP.\n");
 }
 
 /*

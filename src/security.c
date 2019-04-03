@@ -54,9 +54,9 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
         json_object_object_get_ex(json_client, "PASSWD", &json_passwd);
 
         if (strcmp(id, json_object_get_string(json_id)) == 0 &&
-            strcmp(passwd, json_object_get_string(json_passwd)) == 0) {
+            strcmp(encrypt_passwd(passwd), json_object_get_string(json_passwd)) == 0) {
             set_id(client, id);
-            set_passwd(client, passwd);
+            set_passwd(client, encrypt_passwd(passwd));
             json_object_object_get_ex(json_client, "LAST NAME", &last_name);
             strcpy(str_last_name, json_object_get_string(last_name));
             set_last_name(get_perso_info(client), str_last_name);
@@ -145,7 +145,7 @@ void change_client_passwd(Client client, Json_object json_clients) {
                 {
                     if (strcmp(key, "PASSWD") == 0) {
                         set_passwd(client, new_passwd1);
-                        json_object_object_add(json_client, key, json_object_new_string(new_passwd1));
+                        json_object_object_add(json_client, key, json_object_new_string(encrypt_passwd(new_passwd1)));
                         printf("\nChanging password done with success\n");
                         printf("\nSign out\n");
 

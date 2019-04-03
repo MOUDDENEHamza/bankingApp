@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
         switch (flag) {
 
-            case 1 :///CLIENT AREA
+            case 1 :///////////////////////////////////////////CLIENT AREA//////////////////////////////////////////////
 
                 if (log_in == 0) {
                     input_id(id);
@@ -135,7 +135,7 @@ int main(int argc, char *argv[]) {
                     break;
                 }
 
-            case 2 :///ADMINISTRATOR AREA
+            case 2 :///////////////////////////////////////ADMINISTRATOR AREA///////////////////////////////////////////
 
                 if (log_in == 0) {
                     input_passwd(passwd);
@@ -159,10 +159,10 @@ int main(int argc, char *argv[]) {
                             switch (sub_index) {
 
                                 case 1 :
-                                    add_client(client);//Add new client
-                                    add_client_json(client, json_clients);
-                                    client = new_client();
-                                    break;
+                                    add_client(client);///Add new client to the structure
+                                    add_client_json(client, json_clients);///Add the new client to the JSON structure
+                                    write_file(json_object, json_clients);
+                                    goto back;
 
                                 case 2 :
                                     break;
@@ -222,8 +222,6 @@ int main(int argc, char *argv[]) {
 
         continue;
     }
-
-    //write_file(json_object, json_clients);
 
     return 0;
 }

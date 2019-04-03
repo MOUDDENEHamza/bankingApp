@@ -3,6 +3,7 @@
 #include <string.h>
 #include "json.h"
 #include "struct.h"
+#include "security.h"
 
 #define BUFFER 4096
 
@@ -31,7 +32,7 @@ void add_client_json(Client client, Json_object json_clients) {
     Json_object json_account_list = json_object_new_array();
     Json_object json_account = json_object_new_object();
     json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
-    json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
+    json_object_object_add(json_client, "PASSWD", json_object_new_string(encrypt_passwd(get_passwd(client))));
     json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
     json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
     json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
