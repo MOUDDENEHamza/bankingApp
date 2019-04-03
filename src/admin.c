@@ -40,21 +40,6 @@ Account choosen_account(Client client, int choice_type) {
     }
 }
 
-/*get the last added account of the client in list list of account*/
-Account get_lastAccount(Client client) {
-    Account a = get_account(client);
-    while (get_nextAccount(a) != NULL) {
-        a = get_nextAccount(a);
-    }
-    return a;
-}
-
-/*set the next account of the last account as a real account*/
-void set_nextOfLastAccout(Client client, Account account) {
-    Account last = get_lastAccount(client);
-    set_nextAccount(last, account);
-}
-
 /*get the number of acount that have the client*/
 int nb_accounts(Client client) {
     Account a = get_account(client);

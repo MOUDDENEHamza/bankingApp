@@ -24,7 +24,7 @@ void write_file(Json_object json_object, Json_object json_clients) {
 }
 
 Json_object client_To_objectClient(Client client){
-        size_t n_account;
+    size_t n_account;
     Account a = get_account(client);
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();
@@ -140,8 +140,6 @@ void import_Client_idx_from_Json(char* ID, int* idx){
 
 
 void import_Client_from_Json(int *idx, Client client_imported){
-    printf("ok");
-
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER);
     struct json_object *parsed_json;
@@ -163,7 +161,6 @@ void import_Client_from_Json(int *idx, Client client_imported){
     size_t n_clients;
     size_t i,j;
     size_t n_accounts;
-    printf("ok");
 
     fp = fopen("data/account_list.json", "r");
     fread(buffer, BUFFER, 1, fp);
@@ -183,7 +180,9 @@ void import_Client_from_Json(int *idx, Client client_imported){
     json_object_object_get_ex(client, "ACCOUNT LIST", &account_list_json);
     n_accounts = json_object_array_length(account_list_json);
     Account account_temp=new_account();
-    for(j=0; j<n_accounts; j++){
+    int j1;
+    for(j=0; j<=n_accounts-1; j++){
+        j1=(int)j;
         account = json_object_array_get_idx(account_list_json,j);
         json_object_object_get_ex(account, "TYPE" , &type_json);
         set_type(account_temp,(char*)json_object_get_string(type_json));
@@ -192,11 +191,8 @@ void import_Client_from_Json(int *idx, Client client_imported){
         json_object_object_get_ex(account, "BALANCE" , &balance_json);
         *bal=(float)json_object_get_double(balance_json);
         set_balance(account_temp,bal);
-        set_nextOfLastAccout(client_imported,account_temp);
-        account_temp=new_account();
+        set_ith_account(client_imported,account_temp,&j1);
     }
-    printf("ok");
-
     set_id(client_imported,(char*)json_object_get_string(id_json));
     set_passwd(client_imported,(char*)json_object_get_string(pwd_json));
     Perso_info p=new_perso_info();
@@ -209,6 +205,4 @@ void import_Client_from_Json(int *idx, Client client_imported){
     set_phone(c,(char*)json_object_get_string(phon_json));
     set_coordinates(p,c);
     set_perso_info(client_imported,p);
-    printf("ok\n");
-    printf("password = %s\n",get_passwd(client_imported));
 }

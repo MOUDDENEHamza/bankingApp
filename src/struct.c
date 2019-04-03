@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "struct.h"
+#include "admin.h"
 
 /*-----------------------------------Structure--------------------------------*/
 
@@ -261,6 +262,10 @@ Account new_account(void) {
     return a;
 }
 
+int account_is_empty(Account a){
+    return a==new_account();
+}
+
 /*---------------Getters--------------*/
 
 /*
@@ -321,6 +326,22 @@ void set_nextAccount(Account a, Account next) {
     a->nextAccount = next;
 }
 
+/*set the next account of the last account as a real account*/
+void set_nextOfLastAccout_Account(Account myaccount, Account account) {
+    Account a= myaccount;
+    if(!account_is_empty(a)){
+        while (a->nextAccount != NULL) {
+            a = a->nextAccount;
+        }
+        a->nextAccount=account;
+    }
+    else
+    {
+        a=account;
+    }
+    
+}
+
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------Structure--------------------------------*/
@@ -379,6 +400,19 @@ Account get_account(Client client) {
     return client->account;
 }
 
+/*get the last added account of the client in list list of account*/
+Account get_lastAccount(Client client) {
+    Account a=client->account;
+    if(!account_is_empty(a)){
+        while (a->nextAccount != NULL) {
+            a= a->nextAccount;
+        }
+    }
+    return a;
+}
+
+
+
 /*---------------Setters--------------*/
 
 /*
@@ -407,6 +441,34 @@ void set_perso_info(Client client, Perso_info p) {
  */
 void set_account(Client client, Account a) {
     client->account = a;
+}
+
+/*set the next account of the last account as a real account*/
+void set_nextOfLastAccout(Client client, Account account) {
+    Account a = client->account;
+    if(!account_is_empty(a)){
+        while (a->nextAccount != NULL) {
+            a = a->nextAccount;
+        }
+        a->nextAccount=account;
+    }
+    else{
+        a=account;
+    }
+}
+
+void set_ith_account(Client client,Account account, int* i){
+    Account a = client->account;
+    if(*i==0){
+        client->account=account;
+    }
+    else
+    {
+        for(int j=0; j<*i-1 ; j++){
+            a=a->nextAccount;
+        }
+        a=account;
+    }
 }
 
 /*----------------------------------------------------------------------------*/

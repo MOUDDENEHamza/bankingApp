@@ -175,6 +175,8 @@ typedef struct account *Account;
  */
 Account new_account(void);
 
+int account_is_empty(Account a);
+
 /*---------------Getters--------------*/
 
 /*
@@ -217,6 +219,8 @@ void set_balance(Account a, float *balance);
 /*set the next account of the same client  */
 void set_nextAccount(Account a, Account next);
 
+void set_nextOfLastAccout_Account(Account myaccount, Account account);
+
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------Structure--------------------------------*/
@@ -255,6 +259,9 @@ Perso_info get_perso_info(Client client);
  */
 Account get_account(Client client);
 
+/*get the last added account of the client in list list of account*/
+Account get_lastAccount(Client client) ;
+
 /*---------------Setters--------------*/
 
 /*
@@ -276,6 +283,12 @@ void set_perso_info(Client client, Perso_info p);
  * Get the account list of account owner into the structure
  */
 void set_account(Client client, Account a);
+
+
+/*set the next account of the last account as a real account*/
+void set_nextOfLastAccout(Client client, Account account);
+
+void set_ith_account(Client client,Account account, int* i);
 
 /*----------------------------------------------------------------------------*/
 

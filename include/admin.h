@@ -10,12 +10,6 @@ char* concatenate(char* str1,char* str2);
 /*return the account to edit */
 Account choosen_account(Client client, int choice_type);
 
-/*get the last added account of the client in list list of account*/
-Account get_lastAccount(Client client);
-
-/*set the next account of the last account as a real account*/
-void set_nextOfLastAccout(Client client, Account account);
-
 /*get the number of accounts that have the client*/
 int nb_accounts(Client client);
 
