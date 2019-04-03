@@ -45,8 +45,8 @@ void add_client(Client client);
 /*
  *Edit the personal information of the client
  */
-void edit_perso_info_client(void);
+Client edit_perso_info_client(void);
 
-void edit_perso_info_client(void);
+Client edit_client_coordonates(void);
 
 #endif

@@ -183,7 +183,7 @@ void add_client(Client client) {
 /*
  *Edit the personal information of the client
  */
-void edit_perso_info_client(void) {
+Client edit_perso_info_client(void) {
     char *id=malloc(sizeof(char*));
     printf("\nEnter the client ID");
     scanf("%s",id);
@@ -192,11 +192,12 @@ void edit_perso_info_client(void) {
     printf("\nChange the coordinates : loading...\n");
     free(get_perso_info(client));
     printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
+    return client;
 }
 
-void edit_client_coordonates(void){
+Client edit_client_coordonates(void){
     int choice;
-    char *id=malloc(sizeof(char*));
+    char *id=malloc(64*sizeof(char));
     printf("\nEnter the client ID");
     scanf("%s",id);
     int idx=import_Client_idx_from_Json(id);
@@ -215,8 +216,9 @@ void edit_client_coordonates(void){
             printf("retry again\n");
             goto back;
     }
+    return client;
 }
-
+/*
 void admin_management_feature(Client client,Json_object json_clients){
     int choice;
     scanf("%d",choice);
@@ -234,3 +236,4 @@ void admin_management_feature(Client client,Json_object json_clients){
             break;
     }
 }
+*/

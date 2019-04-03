@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) {
     int sub_index = get_sub_index(s);
     char id[SIZE], passwd[SIZE];
 
+    int idx;
+
     /*Start program*/
     init_bar(); //Display the init bar.
     back:
@@ -129,7 +131,9 @@ int main(int argc, char *argv[]) {
                                     client = new_client();
                                     break;
                                 case 2 :
-
+                                    //client = edit_client_coordonates();
+                                    idx=import_Client_idx_from_Json("3CAFC048.csv");
+                                    printf("\n imported val\n %d",idx);
                                     break;
                                 case 3 :
                                     break;

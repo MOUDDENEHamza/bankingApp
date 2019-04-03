@@ -88,9 +88,9 @@ Json_object parse_json(void) {
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER);
     char str_id[64], str_passwd[64], str_last_name[64], str_first_name[64], str_birthday[64], str_mail[64], str_phone[64];
-    struct json_object *parsed_json=malloc(sizeof(struct json_object *));
-    struct json_object *clients=malloc(sizeof(struct json_object *));
-    struct json_object *client=malloc(sizeof(struct json_object *));
+    struct json_object *parsed_json;
+    struct json_object *clients;
+    struct json_object *client;
     struct json_object *id, *passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone;
     size_t n_clients;
     size_t i;
@@ -116,29 +116,33 @@ Json_object parse_json(void) {
 int import_Client_idx_from_Json(char* ID){
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER);
-    struct json_object *parsed_json=malloc(sizeof(struct json_object *));
-    struct json_object *clients=malloc(sizeof(struct json_object *));
-    struct json_object *client=malloc(sizeof(struct json_object *));
-    struct json_object *id_json=malloc(sizeof(struct json_object *));
-    struct json_object *account_list=malloc(sizeof(struct json_object *));
+    Json_object parsed_json =json_object_new_object();
+    Json_object clients=json_object_new_object();
+    Json_object client =json_object_new_object();
+    Json_object id_json =json_object_new_object();
+    Json_object account_list =json_object_new_object();
 
     size_t n_clients;
-    size_t i;
+    size_t i=0;
     fp = fopen("data/account_list.json", "r");
-    fread(buffer, 1024, 1, fp);
+    fread(buffer, BUFFER, 1, fp);
     fclose(fp);
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
     int idx=0;
     const char* IDS=ID;
-    for(i=0; i < n_clients; i++){
+    int mybool=1;
+    int cmpt=0;
+    int n=(int)n_clients;
+    while(cmpt < n && mybool==1){
         client = json_object_array_get_idx(clients, i);
         json_object_object_get_ex(client, "ID", &id_json);
         const char* id=json_object_get_string(id_json);
         int j=0;
         if(strlen(id)!=strlen(ID)){
-            return -1;
+            idx++;
+            mybool=1;
         }
         else
         {
@@ -146,16 +150,17 @@ int import_Client_idx_from_Json(char* ID){
                 j++;
             }
             if(j==strlen(id)){
-                break;
+                mybool=0;
             }
             else
             {
                 idx++;
+                mybool=1;
             }
             return idx;
         }
-        
-        
+        i++;
+        cmpt++;
     }
 }
 
@@ -163,28 +168,28 @@ int import_Client_idx_from_Json(char* ID){
 
 Client import_Client_from_Json(int idx){
     FILE *fp;
-    char buffer[1024];
-    struct json_object *parsed_json=malloc(sizeof(struct json_object *));
-    struct json_object *clients=malloc(sizeof(struct json_object *));
-    struct json_object *client=malloc(sizeof(struct json_object *));
-    struct json_object *id_json=malloc(sizeof(struct json_object *));
-    struct json_object *pwd_json=malloc(sizeof(struct json_object *));
-    struct json_object *lname_json=malloc(sizeof(struct json_object *));
-    struct json_object *fname_json=malloc(sizeof(struct json_object *));
-    struct json_object *bday_json=malloc(sizeof(struct json_object *));
-    struct json_object *email_json=malloc(sizeof(struct json_object *));
-    struct json_object *phon_json=malloc(sizeof(struct json_object *));
-    struct json_object *account_list_json=malloc(sizeof(struct json_object *));
-    struct json_object *type_json=malloc(sizeof(struct json_object *));
-    struct json_object *entitled_json=malloc(sizeof(struct json_object *));
-    struct json_object *balance_json=malloc(sizeof(struct json_object *));
+    char *buffer = (char *) malloc(BUFFER);
+    struct json_object *parsed_json=json_object_new_object();
+    struct json_object *clients=json_object_new_object();
+    struct json_object *client=json_object_new_object();
+    struct json_object *id_json=json_object_new_object();
+    struct json_object *pwd_json=json_object_new_object();
+    struct json_object *lname_json=json_object_new_object();
+    struct json_object *fname_json=json_object_new_object();
+    struct json_object *bday_json=json_object_new_object();
+    struct json_object *email_json=json_object_new_object();
+    struct json_object *phon_json=json_object_new_object();
+    struct json_object *account_list_json=json_object_new_object();
+    struct json_object *type_json=json_object_new_object();
+    struct json_object *entitled_json=json_object_new_object();
+    struct json_object *balance_json=json_object_new_object();
 
     
     Client client_imported = new_client();
     size_t n_clients;
     size_t i=idx;
     fp = fopen("data/account_list.json", "r");
-    fread(buffer, 1024, 1, fp);
+    fread(buffer, BUFFER, 1, fp);
     fclose(fp);
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
