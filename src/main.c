@@ -179,6 +179,8 @@ int main(int argc, char *argv[]) {
 
                         case 3 :
                             display_admin_administration();///Display submenu of administration
+                            change_administrator_passwd();///Allow to administrator to change his password
+                            index = 4;///Sign out the session
                             break;
 
                         case 4 :///If the user want to sign out the submenu

@@ -142,5 +142,39 @@ void change_client_passwd(Client client, Json_object json_clients) {
  * Change the administrator password
  */
 void change_administrator_passwd(void) {
+    FILE *fp;
+    char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
+    struct json_object *parsed_json;
 
+    printf("\nChange password : Loading...\n");
+    write(STDOUT_FILENO, "\nEnter your new password : ", 27);
+    hide_passwd(new_passwd1);
+    write(STDOUT_FILENO, "\nConfirm your new password : ", 29);
+    hide_passwd(new_passwd2);
+
+    if (strcmp(new_passwd1, new_passwd2) == 0) {
+
+        fp = fopen("data/admin.json", "r");
+        fread(buffer, BUFFER, 1, fp);
+        fclose(fp);
+
+        parsed_json = json_tokener_parse(buffer);
+        json_object_object_foreach(parsed_json, key, val)
+        {
+
+            if (strcmp(key, "PASSWD") == 0) {
+
+                json_object_object_add(parsed_json, key, json_object_new_string(new_passwd1));
+
+                fp = fopen("data/admin.json", "w");
+                fwrite(json_object_get_string(parsed_json), strlen(json_object_get_string(parsed_json)), 1, fp);
+                fclose(fp);
+
+                printf("\nChanging password done with success\n");
+                printf("\nSign out\n");
+
+                return;
+            }
+        }
+    }
 }
