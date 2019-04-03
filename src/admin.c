@@ -184,11 +184,14 @@ void add_client(Client client) {
  *Edit the personal information of the client
  */
 Client edit_perso_info_client(void) {
-    char *id=malloc(sizeof(char*));
+    char *id=malloc(SIZE);
     printf("\nEnter the client ID");
     scanf("%s",id);
-    int idx=import_Client_idx_from_Json(id);
-    Client client=import_Client_from_Json(idx);
+    int *idx=malloc(sizeof(int));
+    scanf("%d",idx);
+    import_Client_idx_from_Json(id,idx);
+    Client client=new_client();
+    import_Client_from_Json(idx,client);
     printf("\nChange the coordinates : loading...\n");
     free(get_perso_info(client));
     printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
@@ -197,11 +200,13 @@ Client edit_perso_info_client(void) {
 
 Client edit_client_coordonates(void){
     int choice;
-    char *id=malloc(64*sizeof(char));
+    char *id=malloc(sizeof(char*));
     printf("\nEnter the client ID");
     scanf("%s",id);
-    int idx=import_Client_idx_from_Json(id);
-    Client client=import_Client_from_Json(idx);
+    int *idx=malloc(sizeof(int));
+    import_Client_idx_from_Json(id,idx);
+    Client client=new_client();
+    import_Client_from_Json(idx,client);
     back:
     display_choose_coordonatesToEdit();
     scanf("%d",choice);

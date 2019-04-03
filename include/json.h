@@ -23,8 +23,10 @@ void modify_client(Client client, Json_object json_clients);
  */
 Json_object parse_json(void);
 
-int import_Client_idx_from_Json(char* ID);
+void import_Client_idx_from_Json(char* ID, int* idx);
 
-Client import_Client_from_Json(int idx);
+void get_idFromJson(int idx);
+
+void import_Client_from_Json(int *idx,Client client_imported);
 
 #endif
