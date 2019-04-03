@@ -4,6 +4,8 @@
 #include "json.h"
 #include "struct.h"
 
+#define BUFFER 4096
+
 /*
  * Update json file
  */
@@ -25,6 +27,7 @@ void write_file(Json_object json_object, Json_object json_clients) {
  */
 void add_client_json(Client client, Json_object json_clients) {
     size_t n_account;
+    Account a = get_account(client);
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();
     Json_object json_account = json_object_new_object();
@@ -35,38 +38,71 @@ void add_client_json(Client client, Json_object json_clients) {
     json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
     json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
     json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
-    json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
-    json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(get_account(client))));
-    json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(get_account(client))));
-    json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(get_account(client))));
-    json_object_array_add(json_account_list, json_account);
+    while (a != NULL) {
+        json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
+        json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
+        json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
+        json_object_array_add(json_account_list, json_account);
+        a = get_nextAccount(a);
+        json_account = json_object_new_object();
+    }
     json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
     //printf("%s\n", json_object_to_json_string(json_client));
     json_object_array_add(json_clients, json_client);
     //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
+void modify_client(Client client, Json_object json_clients){
+    size_t n_account;
+    Account a = get_account(client);
+    Json_object json_client = json_object_new_object();
+    Json_object json_account_list = json_object_new_array();
+    Json_object json_account = json_object_new_object();
+    int idx = import_Client_idx_from_Json(get_id(client));
+    json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
+    json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
+    json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
+    json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
+    json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
+    json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
+    json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
+    while (a != NULL) {
+        json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
+        json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
+        json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
+        json_object_array_add(json_account_list, json_account);
+        a = get_nextAccount(a);
+        json_account = json_object_new_object();
+    }
+    json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
+    //printf("%s\n", json_object_to_json_string(json_client));
+    json_object_array_put_idx(json_clients, idx, json_client);
+    //printf("%s\n", json_object_to_json_string(json_clients));
+}
+
+
 /*
  * Parse the json file containing the client data
  */
 Json_object parse_json(void) {
     FILE *fp;
-    //Client new_node = client();
-    char buffer[1024];
+    char *buffer = (char *) malloc(BUFFER);
     char str_id[64], str_passwd[64], str_last_name[64], str_first_name[64], str_birthday[64], str_mail[64], str_phone[64];
-    struct json_object *parsed_json;
-    struct json_object *clients;
-    struct json_object *client;
+    struct json_object *parsed_json=malloc(sizeof(struct json_object *));
+    struct json_object *clients=malloc(sizeof(struct json_object *));
+    struct json_object *client=malloc(sizeof(struct json_object *));
     struct json_object *id, *passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone;
     size_t n_clients;
     size_t i;
+
     fp = fopen("data/account_list.json", "r");
-    fread(buffer, 1024, 1, fp);
+    fread(buffer, BUFFER, 1, fp);
     fclose(fp);
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
     //printf("Found %lu clients\n", n_clients);
+
     for (i = 0; i < n_clients; i++) {
         client = json_object_array_get_idx(clients, i);
         //printf("%s\n", json_object_get_string(client));
@@ -79,12 +115,12 @@ Json_object parse_json(void) {
 
 int import_Client_idx_from_Json(char* ID){
     FILE *fp;
-    char buffer[1024];
-    struct json_object *parsed_json;
-    struct json_object *clients;
-    struct json_object *client;
-    struct json_object *id_json;
-    struct json_object *account_list;
+    char *buffer = (char *) malloc(BUFFER);
+    struct json_object *parsed_json=malloc(sizeof(struct json_object *));
+    struct json_object *clients=malloc(sizeof(struct json_object *));
+    struct json_object *client=malloc(sizeof(struct json_object *));
+    struct json_object *id_json=malloc(sizeof(struct json_object *));
+    struct json_object *account_list=malloc(sizeof(struct json_object *));
 
     size_t n_clients;
     size_t i;
@@ -123,23 +159,25 @@ int import_Client_idx_from_Json(char* ID){
     }
 }
 
+
+
 Client import_Client_from_Json(int idx){
     FILE *fp;
     char buffer[1024];
-    struct json_object *parsed_json;
-    struct json_object *clients;
-    struct json_object *client;
-    struct json_object *id_json;
-    struct json_object *pwd_json;
-    struct json_object *lname_json;
-    struct json_object *fname_json;
-    struct json_object *bday_json;
-    struct json_object *email_json;
-    struct json_object *phon_json;
-    struct json_object *account_list_json;
-    struct json_object *type_json;
-    struct json_object *entitled_json;
-    struct json_object *balance_json;
+    struct json_object *parsed_json=malloc(sizeof(struct json_object *));
+    struct json_object *clients=malloc(sizeof(struct json_object *));
+    struct json_object *client=malloc(sizeof(struct json_object *));
+    struct json_object *id_json=malloc(sizeof(struct json_object *));
+    struct json_object *pwd_json=malloc(sizeof(struct json_object *));
+    struct json_object *lname_json=malloc(sizeof(struct json_object *));
+    struct json_object *fname_json=malloc(sizeof(struct json_object *));
+    struct json_object *bday_json=malloc(sizeof(struct json_object *));
+    struct json_object *email_json=malloc(sizeof(struct json_object *));
+    struct json_object *phon_json=malloc(sizeof(struct json_object *));
+    struct json_object *account_list_json=malloc(sizeof(struct json_object *));
+    struct json_object *type_json=malloc(sizeof(struct json_object *));
+    struct json_object *entitled_json=malloc(sizeof(struct json_object *));
+    struct json_object *balance_json=malloc(sizeof(struct json_object *));
 
     
     Client client_imported = new_client();
@@ -172,9 +210,9 @@ Client import_Client_from_Json(int idx){
     char* phon=(char*)json_object_get_string(phon_json);
     char* type=(char*)json_object_get_string(type_json);
     char* entitled=(char*)json_object_get_string(entitled_json);
-    char* balance_char=(char*)json_object_get_string(balance_json);
-    float* balance;
-    *balance=(float)atof(json_object_get_string(balance_json));
+    float balance_c=(float)json_object_get_double(balance_json);
+    float* balance=malloc(sizeof(float));
+    *balance=balance_c;
 
     set_id(client_imported,id);
     set_passwd(client_imported,pwd);

@@ -91,6 +91,8 @@ void display_choose_type();
  */
 void display_choose_edit();
 
+void display_choose_coordonatesToEdit(void);
+
 /*
  * Display all accounts of the client
  */

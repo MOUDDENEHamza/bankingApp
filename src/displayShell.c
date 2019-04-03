@@ -125,20 +125,27 @@ void end_bar(void) {
 }
 
 /*display a list of accounts */
-void display_choose_type() {
-    printf("1: courant");
-    printf("2: epargne");
-    printf("3: compte a terme");
-    printf("4: titre");
-    printf("5: individuel");
-    printf("6: joint");
+void display_choose_type(){
+    printf("\n\t\t1: CURRENT\n");
+    printf("\t\t2: SAVINGS\n");    
+    printf("\t\t3: TERM\n");
+    printf("\t\t4: TITLE\n");
+    printf("\t\t5: INDIVIDUAL\n");
+    printf("\t\t6: JOINT\n");
 }
+
 
 /*ask to edit the information of account to edit*/
 void display_choose_edit() {
     printf("choose what you want to edit");
-    printf("1 : balance");
-    printf("2 : entitled");
+    printf("1 : BALANCE");
+    printf("2 : ENTITLED");
+}
+
+void display_choose_coordonatesToEdit(void){
+    printf("\t\nchoose what you want to edit\n");
+    printf("\t1 : EMAIL\n");
+    printf("\t2 : PHONE\n");
 }
 
 
@@ -152,3 +159,4 @@ void display_typeAccounts(Client client) {
         i++;
     }
 }
+

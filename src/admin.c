@@ -5,6 +5,9 @@
 #include "struct.h"
 #include "displayShell.h"
 #include "input.h"
+#include "json.h"
+
+#define SIZE 64
 
 enum boolean {
     true, false
@@ -164,16 +167,70 @@ void delete_account(Client client) {
  *Add client
  */
 void add_client(Client client) {
+    FILE *fp;
+    char *str = (char *) malloc(SIZE);
     input_perso_info(client);
     create_account(client);
+    strcpy(str, "data/");
+    strcat(get_id(client), ".csv");
+    strcat(str, get_id(client));
+    fp = fopen(str, "w");
+    fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE");
+    fclose(fp);
     printf("\nClient has been added. Come back to the administrator menu.\n");
 }
 
 /*
  *Edit the personal information of the client
  */
-void edit_perso_info_client(Client client) {
+void edit_perso_info_client(void) {
+    char *id=malloc(sizeof(char*));
+    printf("\nEnter the client ID");
+    scanf("%s",id);
+    int idx=import_Client_idx_from_Json(id);
+    Client client=import_Client_from_Json(idx);
     printf("\nChange the coordinates : loading...\n");
     free(get_perso_info(client));
     printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
+}
+
+void edit_client_coordonates(void){
+    int choice;
+    char *id=malloc(sizeof(char*));
+    printf("\nEnter the client ID");
+    scanf("%s",id);
+    int idx=import_Client_idx_from_Json(id);
+    Client client=import_Client_from_Json(idx);
+    back:
+    display_choose_coordonatesToEdit();
+    scanf("%d",choice);
+    switch (choice)
+    {
+        case 1 :
+            input_mail(client);break;
+        case 2 :
+            input_phone(client);break;
+        default:
+            printf("unexistant choice !\n");
+            printf("retry again\n");
+            goto back;
+    }
+}
+
+void admin_management_feature(Client client,Json_object json_clients){
+    int choice;
+    scanf("%d",choice);
+    switch (choice)
+    {
+        case 1 :
+            add_client(client);//Add new client
+            add_client_json(client, json_clients);
+            client = new_client();
+            break;
+        case 2 :
+
+    
+        default:
+            break;
+    }
 }

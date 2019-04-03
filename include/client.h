@@ -28,4 +28,9 @@ void transfer_money(Client client, Json_object json_clients);
  */
 void pay_by_card(Client client, Json_object json_clients);
 
+/**
+ * Make a deposit
+ */
+void make_deposit(Client client, Json_object json_clients);
+
 #endif

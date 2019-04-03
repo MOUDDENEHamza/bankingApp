@@ -165,8 +165,7 @@ void input_birthday(Client client) {
  * input all personnal information
  */
 Client input_perso_info(Client client) {
-    int by_default = 1;
-    float init_balance = 0;
+
     generate_unique_id(client);
     create_passwd(client);
     input_last_name(client);
@@ -174,11 +173,6 @@ Client input_perso_info(Client client) {
     input_birthday(client);
     input_mail(client);
     input_phone(client);
-    printf("\nAutomatic creation of a current account\n");
-    input_type(client, &by_default);
-    printf("\nYour balance is initialized to 0\n");
-    set_balance(get_account(client), &init_balance);
-    input_entitled(client,get_account(client));
     return client;
 }
 
@@ -230,9 +224,12 @@ void input_type(Client client, int *choice) {
 /*input the entitled of the account*/
 void input_entitled(Client client, Account a) {
     char *entitled = malloc(sizeof(char*));
-    entitled=concatenate(get_last_name(get_perso_info(client)),get_first_name(get_perso_info(client)));
+    char* ent1=concatenate("Mr ",get_first_name(get_perso_info(client)));
+    char* ent2=concatenate(ent1," ");
+    entitled=concatenate(ent2,get_last_name(get_perso_info(client)));
     set_entitled(a, entitled);
 }
+
 
 /*input all account information*/
 void input_create_account(Client client) {
