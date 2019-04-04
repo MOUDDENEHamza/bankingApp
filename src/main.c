@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <json-c/json.h>
 #include "struct.h"
@@ -11,7 +12,7 @@
 
 #define SIZE 64
 
-/*Main function*/
+/**Main function**/
 int main(int argc, char *argv[]) {
     /**Initialize variables**/
     Symbol s = new_symbol();
@@ -106,21 +107,21 @@ int main(int argc, char *argv[]) {
 
                                 case 2 :
                                     create_account(client, json_clients); ///Create an account
+                                    printf("\n1\n");
                                     write_file(json_object, json_clients);///Update the JSON file
+                                    printf("\n2\n");
                                     json_clients = parse_json();///Parse the json file containing the client data
-
-
+                                    printf("\n3\n");
                                     break;
 
                                 case 3 :
-                                    /*delete_account(client, json_clients); ///Delete an account
+                                    json_clients = delete_account(client, json_clients); ///Delete an account
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
-                                    */break;
+                                    break;
 
                                 default :///Display an error message if the user input an incorrect flag
-                                    display_error_flag(s, &sub_index);
-                                    choose_feature(s, &sub_index);///Choose the feature you want to run
+                                    display_error_flag(s, &sub_index);///Display the error message
                                     break;
                             }
 

@@ -12,11 +12,14 @@
  */
 void write_file(Json_object json_object, Json_object json_clients) {
     FILE *fp;
+    json_object = json_object_new_object();
     //printf("%s\n", json_object_get_string(json_clients));
     if (json_clients == NULL) {
         return;
     }
+    //printf("\n1.11111\n");
     json_object_object_add(json_object, "CLIENTS", json_clients);
+    //printf("\n1.111112222222222\n");
     fp = fopen("data/account_list.json", "w");
     //printf("%s\n", json_object_get_string(json_object));
     fwrite(json_object_get_string(json_object), strlen(json_object_get_string(json_object)), 1, fp);

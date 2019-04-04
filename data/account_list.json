@@ -12,17 +12,7 @@
         {
           "TYPE": "CURRENT",
           "ENTITLED": "MOUDDENE",
-          "BALANCE": 70
-        },
-        {
-          "TYPE": "SAVINGS",
-          "ENTITLED": "MOUDDENE",
-          "BALANCE": 0
-        },
-        {
-          "TYPE": "JOINT",
-          "ENTITLED": "MOUDDENE",
-          "BALANCE": 0
+          "BALANCE": 90
         }
       ]
     },
