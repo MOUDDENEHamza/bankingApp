@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     int sub_index = get_sub_index(s);
     char id[SIZE], passwd[SIZE];
 
-    int idx[1]={0};
+    int *idx=malloc(sizeof(int));
 
     /*Start program*/
     init_bar(); //Display the init bar.

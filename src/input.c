@@ -219,6 +219,7 @@ void input_type(Account a, int *choice,int *i) {
     }
 }
 
+
 /*input the entitled of the account*/
 void input_entitled(Client client, Account a) {
     char *entitled = malloc(sizeof(char*));
@@ -232,7 +233,8 @@ void input_entitled(Client client, Account a) {
 /*input all account information*/
 void input_create_account(Client client) {
     int choice_type;
-    int n[1]={0};
+    int *n=malloc(sizeof(int));
+    *n=0;
     scanf("%d",&choice_type);
     input_type(get_account(client), &choice_type,n);
     input_entitled(client,get_account(client));

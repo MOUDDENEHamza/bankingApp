@@ -302,7 +302,6 @@ Account get_lastAccount(Account a) {
         a=new_account();
         return a;
     }
-
     else{
         if(a->nextAccount==NULL){
             return a;
@@ -374,11 +373,9 @@ void set_nextOfLastAccout_Account(Account myaccount, Account account) {
 void set_ith_account_Account(Account myaccount,Account account, int* i){
     if(*i==0){
         myaccount=account;
-        myaccount->nextAccount=new_account();
     }
     if(*i==1){
         myaccount->nextAccount=account;
-        myaccount->nextAccount->nextAccount=new_account();
     }
     else
     {
