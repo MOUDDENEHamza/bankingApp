@@ -493,11 +493,9 @@ void set_ith_account0(Client client,Account account, int* i){
     Account a = client->account;
     if(*i==0){
         client->account=account;
-        client->account->nextAccount=new_account();
     }
     if(*i==1){
         client->account->nextAccount=account;
-        client->account->nextAccount->nextAccount=new_account();
     }
     else
     {
@@ -505,7 +503,6 @@ void set_ith_account0(Client client,Account account, int* i){
             a=a->nextAccount;
         }
         a=account;
-        a->nextAccount=new_account();
     }
 }
 

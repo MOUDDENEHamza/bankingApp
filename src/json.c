@@ -61,7 +61,7 @@ void add_client_json(Client client, Json_object json_clients) {
 void modify_client(Client client, Json_object json_clients){
     int *idx=malloc(sizeof(int));
     import_Client_idx_from_Json(get_id(client),idx);
-    json_object_array_put_idx(json_clients, idx[0], client_To_objectClient(client));
+    json_object_array_put_idx(json_clients, *idx, client_To_objectClient(client));
     //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
