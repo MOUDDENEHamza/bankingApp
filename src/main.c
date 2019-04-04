@@ -152,20 +152,41 @@ int main(int argc, char *argv[]) {
                 }
 
                 if (!connect_admin(passwd)) {
-                    display_administrator(&exit); //Display the administrator menu
-                    choose_feature(s, &index); //Choose the feature you want to run
+                    display_administrator(&exit);///Display the administrator menu
+                    choose_feature(s, &index);///Choose the feature you want to run
 
                     switch (index) {
 
                         case 1 :
                             display_admin_account_management();
+
+                        restart_admin_account_management:
+                            switch (sub_index) {
+
+                                case 1 :
+                                    //create_account();
+
+                                case 2 :
+                                    //delete_account();
+                                    break;
+
+                                case 3 :
+                                    //display_account_list_by_type()
+                                    break;
+
+                                default ://Display an error message if the user input an incorrect flag
+                                    display_error_flag(s, &sub_index);
+                                    choose_feature(s, &sub_index);///Choose the feature you want to run
+                                    goto restart_admin_account_management;
+                            }
+
                             break;
 
                         case 2 :
                             display_admin_client_management();
-                            choose_feature(s, &sub_index); //Choose the feature you want to run
+                            choose_feature(s, &sub_index);///Choose the feature you want to run
 
-                            restart:
+                            restart_admin_client_management:
                             switch (sub_index) {
 
                                 case 1 :
@@ -173,15 +194,17 @@ int main(int argc, char *argv[]) {
                                     add_client_json(client, json_clients);///Add the new client to the JSON structure
 
                                 case 2 :
+                                    //edit_client();
                                     break;
 
                                 case 3 :
+                                    //display_entitled_account();
                                     break;
 
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &flag);
                                     choose_feature(s, &flag);///Choose the feature you want to run
-                                    goto restart;
+                                    goto restart_admin_client_management;
                             }
                             break;
 
