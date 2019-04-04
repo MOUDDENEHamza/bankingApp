@@ -241,17 +241,16 @@ void input_create_account(Client client) {
 }
 
 /*input a new account*/
-void input_add_account(Client client) {
-    int n =nb_accounts(client);
+void input_add_account(Client client,int *nb_accounts) {
     int choice;;
-    Account a=get_ith_account(client,&n);
+    Account a=get_ith_account(client,nb_accounts);
     a=new_account();
     scanf("%d",&choice);
-    input_type(a,&choice,&n);
+    input_type(a,&choice,nb_accounts);
     printf("ok");
     input_entitled(client,a);
     printf("ok");
     input_new_balance(a);
     printf("ok");
-    set_ith_account(client,a,&n);
+    set_ith_account0(client,a,nb_accounts);
 }

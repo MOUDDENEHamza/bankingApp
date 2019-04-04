@@ -71,14 +71,15 @@ Client create_new_account(void) {
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
+    int *nb_accounts=malloc(sizeof(int));
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
-    import_Client_from_Json(idx,client);
-    printf("nb_account = %d ",nb_accounts(client));
+    import_Client_from_Json(idx,client,nb_accounts);
+    printf("nb_account = %d ",*nb_accounts);
     printf("\n\nchoose the type of account you want to create\n");
     printf("you have just to enter the number referenced! \n");
     display_choose_type();
-    input_add_account(client);
+    input_add_account(client,nb_accounts);
     printf("ok\n");
     return client;
 }
@@ -94,11 +95,11 @@ void create_account(Client client) {
 }
 
 /* add another account type for the client*/
-void add_account(Client client) {
+/*void add_account(Client client) {
     printf("choose the type of account you want to add\n");
     display_choose_type();
-    input_add_account(client);
-}
+    input_add_account(client,);
+}*/
 
 /*
  *Edit account to the client
@@ -191,27 +192,30 @@ Client edit_perso_info_client(void) {
     printf("\nEnter the client ID");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
+    int *nb_accounts=malloc(sizeof(int));
     //scanf("%d",idx);
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
-    import_Client_from_Json(idx,client);
+    import_Client_from_Json(idx,client,nb_accounts);
     printf("\nChange the coordinates : loading...\n");
     free(get_perso_info(client));
     printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
     return client;
 }
 
+
 Client edit_client_coordonates(void){
     char *id=malloc(sizeof(char*));
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
+    int *nb_accounts=malloc(sizeof(int));
         printf("ok");
 
     import_Client_idx_from_Json(id,idx);
     printf("ok");
     Client client=new_client();
-    import_Client_from_Json(idx,client);
+    import_Client_from_Json(idx,client,nb_accounts);
     back:
     display_choose_coordonatesToEdit();
     int choice;

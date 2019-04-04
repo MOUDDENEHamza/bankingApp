@@ -8,8 +8,6 @@
  */
 void write_file(Json_object json_object, Json_object json_client);
 
-Json_object client_To_objectClient(Client client);
-
 /*
  * Add data client to json file
  */
@@ -27,6 +25,6 @@ void import_Client_idx_from_Json(char* ID, int* idx);
 
 void get_idFromJson(int idx);
 
-void import_Client_from_Json(int *idx,Client client_imported);
+void import_Client_from_Json(int *idx,Client client_imported, int* nbAcc);
 
 #endif
