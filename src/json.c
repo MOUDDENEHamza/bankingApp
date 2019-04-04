@@ -57,6 +57,7 @@ void modify_client(Client client, Json_object json_clients,int *nb_acc){
     import_Client_idx_from_Json(get_id(client),idx);
     printf("\n idx = %d",*idx);
     size_t n_account;
+    printf("nb final account = %d",nb_acc[0]);
     Account a = get_account(client);
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();

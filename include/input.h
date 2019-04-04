@@ -79,7 +79,7 @@ void input_entitled(Client client,Account a);
 void input_create_account(Client client);
 
 /*input a new account*/
-void input_add_account(Client client, int* nb_accounts);
+Client input_add_account(Client client, int* nb_accounts);
 
 
 #endif

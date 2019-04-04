@@ -242,11 +242,14 @@ void input_create_account(Client client) {
 }
 
 /*input a new account*/
-void input_add_account(Client client,int *nb_accounts) {
+Client input_add_account(Client client,int *nb_accounts) {
     int choice;;
     int n[1]={0};
+    Client temp=new_client();
+    set_id(temp,get_id(client));
+    set_passwd(temp,get_passwd(client));
+    set_perso_info(temp,get_perso_info(client));
     Account a=new_account();
-    //Account new=new_account();
     scanf("%d",&choice);
     input_type(a,&choice);
     printf("ok balance = %s\n",get_type(a));
@@ -254,7 +257,10 @@ void input_add_account(Client client,int *nb_accounts) {
     printf("ok balance = %s\n",get_entitled(a));
     input_new_balance(a);
     printf("ok balance = %f\n",get_balance(a));
-    set_nextAccount(get_ith_account_Account(get_account(client),nb_accounts),a);
+    set_account(temp,a);
+    set_nextAccount(get_account(temp),get_account(client));
+    printf("---->ok balance acc = %f\n",get_balance(get_account(temp)));
+    printf("----->ok balance nex acc = %f\n",get_balance(get_nextAccount(get_account(temp))));
     //set_ith_account0(client,a,nb_accounts);
-
+    return temp;
 }
