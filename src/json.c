@@ -52,7 +52,7 @@ void add_client_json(Client client, Json_object json_clients) {
     //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
-void modify_client(Client client, Json_object json_clients){
+void modify_client(Client client, Json_object json_clients,int *nb_acc){
     int *idx=malloc(sizeof(int));
     import_Client_idx_from_Json(get_id(client),idx);
     printf("\n idx = %d",*idx);
@@ -68,7 +68,7 @@ void modify_client(Client client, Json_object json_clients){
     json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
     json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
     json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
-    while (a != NULL) {
+    for (int cmpt=0; cmpt<nb_acc[0]; cmpt++) {
         json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
         json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
         json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
@@ -185,7 +185,7 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
-    i=*idx;
+    i=(const int)idx[0];
     printf("ok \n");
     client = json_object_array_get_idx(clients, i);
     json_object_object_get_ex(client, "ID", &id_json);
@@ -197,7 +197,7 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     json_object_object_get_ex(client, "PHONE", &phon_json);
     json_object_object_get_ex(client, "ACCOUNT LIST", &account_list_json);
     n_accounts = json_object_array_length(account_list_json);
-    *nbAcc=(int)n_accounts;
+    nbAcc[0]=(int)n_accounts;
     Account account_temp=new_account();
     int j1;
     printf("ok \n");
@@ -214,6 +214,7 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
         printf("\n on commmence -----\n");
         set_ith_account0(client_imported,account_temp,&j1);
     }
+
     set_id(client_imported,(char*)json_object_get_string(id_json));
     set_passwd(client_imported,(char*)json_object_get_string(pwd_json));
     Perso_info p=new_perso_info();

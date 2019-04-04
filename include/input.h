@@ -70,7 +70,7 @@ void input_new_balance(Account a);
 
 
 /* input the account type chosen*/
-void input_type(Account a, int *choice,int *i);
+void input_type(Account a, int *choice);
 
 /*input the entitled of the account*/
 void input_entitled(Client client,Account a);

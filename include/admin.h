@@ -17,7 +17,7 @@ int nb_accounts(Client client);
 bool in_1__nb_accounts(int choice, int nb);
 
 
-Client create_new_account(void);
+Client create_new_account(int *nb_accounts);
 
 /*
  *Create account to the client
@@ -44,6 +44,6 @@ void add_client(Client client);
  */
 Client edit_perso_info_client(void);
 
-Client edit_client_coordonates(void);
+Client edit_client_coordonates(int *nb_accounts);
 
 #endif

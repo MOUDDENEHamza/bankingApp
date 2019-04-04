@@ -314,18 +314,18 @@ Account get_lastAccount(Account a) {
 }
 
 Account get_ith_account_Account(Account a, int *i){
-    if(*i==0){
+    int *i1=malloc(sizeof(int));
+    i1[0]=i[0]-1;
+    if(i[0]==0){
         return a;
     }
-    if(*i==1){
+    if(i[0]==1){
         a->nextAccount=new_account();
         return a->nextAccount;
     }
     else
     {
-        *i--;
-        Account b = a->nextAccount;
-        return get_ith_account_Account(a->nextAccount,i);
+        return get_ith_account_Account(a->nextAccount,i1);
     }
 }
 
@@ -371,15 +371,15 @@ void set_nextOfLastAccout_Account(Account myaccount, Account account) {
 }
 
 void set_ith_account_Account(Account myaccount,Account account, int* i){
-    if(*i==0){
+    if(i[0]==0){
         myaccount=account;
     }
-    if(*i==1){
+    if(i[0]==1){
         myaccount->nextAccount=account;
     }
     else
     {
-        *i--;
+        i[0]--;
         set_ith_account_Account(myaccount->nextAccount,account,i);
     }
 }
@@ -488,18 +488,18 @@ void set_ith_account(Client client,Account account, int* i){
 
 void set_ith_account0(Client client,Account account, int* i){
     Account a = client->account;
-    if(*i==0){
+    if(i[0]==0){
         client->account=account;
     }
-    if(*i==1){
+    if(i[0]==1){
         client->account->nextAccount=account;
     }
     else
     {
-        for(int j=0; j<= *i-1; j++){
+        for(int j=0; j<= i[0]-2; j++){
             a=a->nextAccount;
         }
-        a=account;
+        a->nextAccount=account;
     }
 }
 

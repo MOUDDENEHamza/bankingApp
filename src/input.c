@@ -187,7 +187,7 @@ void input_new_balance(Account a) {
 }
 
 /* input the account type choosen*/
-void input_type(Account a, int *choice,int *i) {
+void input_type(Account a, int *choice) {
     char *type =malloc(sizeof(char*));
     switch (*choice) {
         case 1 :
@@ -219,7 +219,6 @@ void input_type(Account a, int *choice,int *i) {
     }
 }
 
-
 /*input the entitled of the account*/
 void input_entitled(Client client, Account a) {
     char *entitled = malloc(sizeof(char*));
@@ -234,9 +233,9 @@ void input_entitled(Client client, Account a) {
 void input_create_account(Client client) {
     int choice_type;
     int *n=malloc(sizeof(int));
-    *n=0;
+    n[0]=0;
     scanf("%d",&choice_type);
-    input_type(get_account(client), &choice_type,n);
+    input_type(get_account(client), &choice_type);
     input_entitled(client,get_account(client));
     input_new_balance(get_account(client));
     set_account(client, get_account(client));
@@ -245,14 +244,17 @@ void input_create_account(Client client) {
 /*input a new account*/
 void input_add_account(Client client,int *nb_accounts) {
     int choice;;
-    Account a=get_ith_account(client,nb_accounts);
-    a=new_account();
+    int n[1]={0};
+    Account a=new_account();
+    //Account new=new_account();
     scanf("%d",&choice);
-    input_type(a,&choice,nb_accounts);
-    printf("ok");
+    input_type(a,&choice);
+    printf("ok balance = %s\n",get_type(a));
     input_entitled(client,a);
-    printf("ok");
+    printf("ok balance = %s\n",get_entitled(a));
     input_new_balance(a);
-    printf("ok");
-    set_ith_account0(client,a,nb_accounts);
+    printf("ok balance = %f\n",get_balance(a));
+    set_nextAccount(get_ith_account_Account(get_account(client),nb_accounts),a);
+    //set_ith_account0(client,a,nb_accounts);
+
 }

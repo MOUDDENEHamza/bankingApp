@@ -26,6 +26,8 @@ int main(int argc, char *argv[]) {
     char id[SIZE], passwd[SIZE];
 
     int *idx=malloc(sizeof(int));
+    int *nb_acc1=malloc(sizeof(int));
+    int *nb_acc2=malloc(sizeof(int));
 
     /*Start program*/
     init_bar(); //Display the init bar.
@@ -122,8 +124,8 @@ int main(int argc, char *argv[]) {
                             restart0:
                             switch (sub_index) {
                                 case 1 :
-                                    client=create_new_account();
-                                    modify_client(client,json_clients);
+                                    client=create_new_account(nb_acc1);
+                                    modify_client(client,json_clients,nb_acc1);
                                     write_file(json_object, json_clients);
                                     break;
                                 case 2 :
@@ -149,8 +151,8 @@ int main(int argc, char *argv[]) {
                                     client = new_client();
                                     break;
                                 case 2 :
-                                    client = edit_client_coordonates();
-                                    modify_client(client,json_clients);
+                                    client = edit_client_coordonates(nb_acc1);
+                                    modify_client(client,json_clients,nb_acc1);
                                     write_file(json_object, json_clients);
                                     break;
                                 case 3 :

@@ -66,21 +66,21 @@ bool in_1__nb_accounts(int choice, int nb) {
 }
 
 
-Client create_new_account(void) {
+Client create_new_account(int *nb_accounts) {
     char *id=malloc(sizeof(char*));
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
-    int *nb_accounts=malloc(sizeof(int));
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
-    printf("nb_account = %d ",*nb_accounts);
+    printf("nb_account = %d ",nb_accounts[0]);
     printf("\n\nchoose the type of account you want to create\n");
     printf("you have just to enter the number referenced! \n");
     display_choose_type();
     input_add_account(client,nb_accounts);
-    printf("ok\n");
+    nb_accounts[0]++;
+    printf("ok\n  nb_accounts = %d",nb_accounts[0]);
     return client;
 }
 
@@ -204,12 +204,11 @@ Client edit_perso_info_client(void) {
 }
 
 
-Client edit_client_coordonates(void){
+Client edit_client_coordonates(int *nb_accounts){
     char *id=malloc(sizeof(char*));
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
-    int *nb_accounts=malloc(sizeof(int));
         printf("ok");
 
     import_Client_idx_from_Json(id,idx);
