@@ -75,6 +75,7 @@ Client create_new_account(int *nb_accounts) {
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
     printf("type cleint importes = %s\n",get_type(get_account(client)));
+    printf("type cleint importes = %s\n",get_type(get_nextAccount(get_account(client))));
     printf("entitled cleint importes = %s\n",get_entitled(get_account(client)));
     printf("nb_account = %d ",nb_accounts[0]);
     printf("\n\nchoose the type of account you want to create\n");

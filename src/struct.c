@@ -262,6 +262,14 @@ Account new_account(void) {
     return a;
 }
 
+Account mallocA(int n){
+    Account a = malloc(sizeof(Account));
+    a->type = malloc(sizeof(char *));
+    a->entitled = malloc(sizeof(char *));
+    a->balance = 0;
+    a->nextAccount = NULL;
+}
+
 int account_is_empty(Account a){
     return a==new_account();
 }
@@ -313,19 +321,20 @@ Account get_lastAccount(Account a) {
     }
 }
 
-Account get_ith_account_Account(Account a, int *i){
-    int *i1=malloc(sizeof(int));
-    i1[0]=i[0]-1;
+Account get_ith_account_Account(Account myaccount, int *i){
     if(i[0]==0){
-        return a;
-    }
-    if(i[0]==1){
-        a->nextAccount=new_account();
-        return a->nextAccount;
+        return NULL;
     }
     else
     {
-        return get_ith_account_Account(a->nextAccount,i1);
+        Account *tabAccount=malloc(i[0]*sizeof(Account));
+        tabAccount[0]=new_account();
+        tabAccount[0]=myaccount;
+        for(int cmpt=1; cmpt<i[0]; cmpt++){
+            tabAccount[cmpt]=new_account();
+            set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
+        }
+        return tabAccount[i[0]-1];
     }
 }
 
@@ -374,13 +383,16 @@ void set_ith_account_Account(Account myaccount,Account account, int* i){
     if(i[0]==0){
         myaccount=account;
     }
-    if(i[0]==1){
-        myaccount->nextAccount=account;
-    }
     else
     {
-        i[0]--;
-        set_ith_account_Account(myaccount->nextAccount,account,i);
+        Account *tabAccount=malloc(i[0]*sizeof(Account));
+        tabAccount[0]=new_account();
+        tabAccount[0]=myaccount;
+        for(int cmpt=1; cmpt<i[0]; cmpt++){
+            tabAccount[cmpt]=new_account();
+            set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
+        }
+        tabAccount[i[0]-1]->nextAccount=account;
     }
 }
 
@@ -483,7 +495,20 @@ void set_nextOfLastAccout(Client client, Account account) {
 }
 
 void set_ith_account(Client client,Account account, int* i){
-    set_ith_account_Account(client->account,account,i);
+    if(i[0]==0){
+        client->account=account;
+    }
+    else
+    {
+        Account *tabAccount=malloc(i[0]*sizeof(Account));
+        tabAccount[0]=new_account();
+        tabAccount[0]=client->account;
+        for(int cmpt=1; cmpt<i[0]; cmpt++){
+            tabAccount[cmpt]=new_account();
+            set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
+        }
+        tabAccount[i[0]-1]->nextAccount=account;
+    }
 }
 
 void set_ith_account0(Client client,Account account, int* i){
