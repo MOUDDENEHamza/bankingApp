@@ -118,11 +118,29 @@ int main(int argc, char *argv[]) {
                     switch (index) {
                         case 1 :
                             display_admin_account_management();
+                            choose_feature(s, &sub_index);
+                            restart0:
+                            switch (sub_index) {
+                                case 1 :
+                                    client=create_new_account();
+                                    modify_client(client,json_clients);
+                                    write_file(json_object, json_clients);
+                                    break;
+                                case 2 :
+                                    break;
+                                case 3 :
+
+                                    break;
+                                default ://Display an error message if the user input an incorrect flag
+                                    display_error_flag(s, &flag);
+                                    choose_feature(s, &flag); //Choose the feature you want to run
+                                    goto restart0;
+                            }
                             break;
                         case 2 :
                             display_admin_client_management();
                             choose_feature(s, &sub_index); //Choose the feature you want to run
-                        restart:
+                            restart:
                             switch (sub_index) {
                                 case 1 :
                                     add_client(client);//Add new client
@@ -131,16 +149,20 @@ int main(int argc, char *argv[]) {
                                     client = new_client();
                                     break;
                                 case 2 :
-                                    //client = edit_client_coordonates();
-                                    import_Client_idx_from_Json("3CAFC048.csv",idx);
-                                    printf("\n idx = %d\n",*idx);
-                                    import_Client_from_Json(idx,client);
-                                    printf("\n%s  \n",get_type(get_account(client)));
-                                    //printf("\n ID = %s\n",get_id(client));
-                                    //modify_client(client,json_clients);
-                                    //write_file(json_object, json_clients);
+                                    client = edit_client_coordonates();
+                                    modify_client(client,json_clients);
+                                    write_file(json_object, json_clients);
                                     break;
                                 case 3 :
+
+                                    break;
+                                
+                                case 4 :
+                                    break;
+
+                                case 5 :
+                                    end_bar(); //Display the end bar.
+                                    exit = 0;
                                     break;
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &flag);

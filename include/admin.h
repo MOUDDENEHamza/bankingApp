@@ -16,6 +16,9 @@ int nb_accounts(Client client);
 /*return true if the input of admin or user is in list of choice*/
 bool in_1__nb_accounts(int choice, int nb);
 
+
+Client create_new_account(void);
+
 /*
  *Create account to the client
  */

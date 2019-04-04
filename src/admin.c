@@ -65,6 +65,24 @@ bool in_1__nb_accounts(int choice, int nb) {
 
 }
 
+
+Client create_new_account(void) {
+    char *id=malloc(sizeof(char*));
+    printf("\nEnter the client ID\n");
+    scanf("%s",id);
+    int *idx=malloc(sizeof(int));
+    import_Client_idx_from_Json(id,idx);
+    Client client=new_client();
+    import_Client_from_Json(idx,client);
+    printf("nb_account = %d ",nb_accounts(client));
+    printf("\n\nchoose the type of account you want to create\n");
+    printf("you have just to enter the number referenced! \n");
+    display_choose_type();
+    input_add_account(client);
+    printf("ok\n");
+    return client;
+}
+
 /*
  *Create account to the client
  */
@@ -137,8 +155,8 @@ void delete_account(Client client) {
         set_account(client, get_nextAccount(temp));
         free(temp);
     } else {
-        if (choosen_account(client, choice_type) == get_lastAccount(client)) {
-            free(get_lastAccount(client));
+        if (choosen_account(client, choice_type) == get_lastAccount(get_account(client))) {
+            free(get_lastAccount(get_account(client)));
         } else {
             Account a = choosen_account(client, choice_type - 1);
             temp = get_nextAccount(a);
@@ -173,7 +191,7 @@ Client edit_perso_info_client(void) {
     printf("\nEnter the client ID");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
-    scanf("%d",idx);
+    //scanf("%d",idx);
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
     import_Client_from_Json(idx,client);
@@ -184,23 +202,30 @@ Client edit_perso_info_client(void) {
 }
 
 Client edit_client_coordonates(void){
-    int choice;
     char *id=malloc(sizeof(char*));
-    printf("\nEnter the client ID");
+    printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
+        printf("ok");
+
     import_Client_idx_from_Json(id,idx);
+    printf("ok");
     Client client=new_client();
     import_Client_from_Json(idx,client);
     back:
     display_choose_coordonatesToEdit();
-    scanf("%d",choice);
+    int choice;
+    while(scanf("%d",&choice)==0){
+        printf("\nwrong choice, try again please!  \n");
+        
+    }
     switch (choice)
     {
         case 1 :
             input_mail(client);break;
         case 2 :
-            input_phone(client);break;
+            input_phone(client);
+            break;
         default:
             printf("unexistant choice !\n");
             printf("retry again\n");

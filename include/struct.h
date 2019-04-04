@@ -199,6 +199,11 @@ float get_balance(Account a);
  */
 Account get_nextAccount(Account a);
 
+/*get the last added account of the client in list list of account*/
+Account get_lastAccount(Account a) ;
+
+Account get_ith_account_Account(Account a, int *i);
+
 /*---------------Setters--------------*/
 
 /*
@@ -220,6 +225,8 @@ void set_balance(Account a, float *balance);
 void set_nextAccount(Account a, Account next);
 
 void set_nextOfLastAccout_Account(Account myaccount, Account account);
+
+void set_ith_account_Account(Account myaccount,Account account, int* i);
 
 /*----------------------------------------------------------------------------*/
 
@@ -259,8 +266,8 @@ Perso_info get_perso_info(Client client);
  */
 Account get_account(Client client);
 
-/*get the last added account of the client in list list of account*/
-Account get_lastAccount(Client client) ;
+Account get_ith_account(Client client, int *i);
+
 
 /*---------------Setters--------------*/
 
@@ -289,6 +296,8 @@ void set_account(Client client, Account a);
 void set_nextOfLastAccout(Client client, Account account);
 
 void set_ith_account(Client client,Account account, int* i);
+
+void set_ith_account0(Client client,Account account, int* i);
 
 /*----------------------------------------------------------------------------*/
 

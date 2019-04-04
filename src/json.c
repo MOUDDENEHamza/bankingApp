@@ -119,22 +119,23 @@ void import_Client_idx_from_Json(char* ID, int* idx){
     int cmpt=0;
     int mybool=1;
     i=0;
-    idx[0]=0;
+    *idx=0;
     while(cmpt < n_clients && mybool==1){
         client = json_object_array_get_idx(clients, i);
         json_object_object_get_ex(client, "ID", &id_json);
         printf("%s\n", json_object_get_string(id_json));
-        if(strcmp(json_object_get_string(id_json),ID)==0){
+        if(strcmp((char*)json_object_get_string(id_json),ID)==0){
             mybool=0;
         }
         else
         {
-            idx[0]++;
+            *idx++;
             mybool=1;
         }
         cmpt++;
         i++;
     }
+    printf("ouaiiiiiiiiiis ! \n");
 }
 
 
@@ -191,7 +192,10 @@ void import_Client_from_Json(int *idx, Client client_imported){
         json_object_object_get_ex(account, "BALANCE" , &balance_json);
         *bal=(float)json_object_get_double(balance_json);
         set_balance(account_temp,bal);
-        set_ith_account(client_imported,account_temp,&j1);
+                      printf("\n on commmence -----\n");
+        set_ith_account0(client_imported,account_temp,&j1);
+  
+
     }
     set_id(client_imported,(char*)json_object_get_string(id_json));
     set_passwd(client_imported,(char*)json_object_get_string(pwd_json));

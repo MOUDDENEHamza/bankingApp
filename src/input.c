@@ -187,37 +187,35 @@ void input_new_balance(Account a) {
 }
 
 /* input the account type choosen*/
-void input_type(Client client, int *choice) {
-    char *type = (char *) malloc(SIZE);
-    back:
+void input_type(Account a, int *choice,int *i) {
+    char *type =malloc(sizeof(char*));
     switch (*choice) {
         case 1 :
             strcpy(type, "CURRENT");
-            set_type(get_account(client), type);
+            set_type(a, type);
             break;
         case 2 :
             strcpy(type, "SAVINGS");
-            set_type(get_account(client), type);
+            set_type(a, type);
             break;
         case 3 :
             strcpy(type, "TERM");
-            set_type(get_account(client), type);
+            set_type(a, type);
             break;
         case 4 :
             strcpy(type, "TITLE");
-            set_type(get_account(client), type);
+            set_type(a, type);
             break;
         case 5 :
             strcpy(type, "INDIVIDUAL");
-            set_type(get_account(client), type);
+            set_type(a, type);
             break;
         case 6 :
             strcpy(type, "JOINT");
-            set_type(get_account(client), type);
+            set_type(a, type);
             break;
         default :
             printf("\nWrong choice. Please try again\n");
-            goto back;
     }
 }
 
@@ -234,8 +232,9 @@ void input_entitled(Client client, Account a) {
 /*input all account information*/
 void input_create_account(Client client) {
     int choice_type;
+    int n[1]={0};
     scanf("%d",&choice_type);
-    input_type(client, &choice_type);
+    input_type(get_account(client), &choice_type,n);
     input_entitled(client,get_account(client));
     input_new_balance(get_account(client));
     set_account(client, get_account(client));
@@ -243,11 +242,16 @@ void input_create_account(Client client) {
 
 /*input a new account*/
 void input_add_account(Client client) {
-    Account a=new_account();
-    int choice;
-    scanf("%d",choice);
-    input_type(client, &choice);
+    int n =nb_accounts(client);
+    int choice;;
+    Account a=get_ith_account(client,&n);
+    a=new_account();
+    scanf("%d",&choice);
+    input_type(a,&choice,&n);
+    printf("ok");
     input_entitled(client,a);
+    printf("ok");
     input_new_balance(a);
-    set_nextOfLastAccout(client,a);
+    printf("ok");
+    set_ith_account(client,a,&n);
 }

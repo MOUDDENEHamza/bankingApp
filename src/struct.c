@@ -296,6 +296,40 @@ Account get_nextAccount(Account a) {
     return a->nextAccount;
 }
 
+/*get the last added account of the client in list list of account*/
+Account get_lastAccount(Account a) {
+    if(a==NULL){
+        a=new_account();
+        return a;
+    }
+
+    else{
+        if(a->nextAccount==NULL){
+            return a;
+        }
+        else
+        {
+            return get_lastAccount(a->nextAccount);   
+        }
+    }
+}
+
+Account get_ith_account_Account(Account a, int *i){
+    if(*i==0){
+        return a;
+    }
+    if(*i==1){
+        a->nextAccount=new_account();
+        return a->nextAccount;
+    }
+    else
+    {
+        *i--;
+        Account b = a->nextAccount;
+        return get_ith_account_Account(a->nextAccount,i);
+    }
+}
+
 /*---------------Setters--------------*/
 
 /*
@@ -328,18 +362,29 @@ void set_nextAccount(Account a, Account next) {
 
 /*set the next account of the last account as a real account*/
 void set_nextOfLastAccout_Account(Account myaccount, Account account) {
-    Account a= myaccount;
-    if(!account_is_empty(a)){
-        while (a->nextAccount != NULL) {
-            a = a->nextAccount;
-        }
-        a->nextAccount=account;
+    if(myaccount->nextAccount==NULL){
+        myaccount->nextAccount=account;
     }
     else
     {
-        a=account;
+        set_nextOfLastAccout_Account(myaccount->nextAccount, account);
     }
-    
+}
+
+void set_ith_account_Account(Account myaccount,Account account, int* i){
+    if(*i==0){
+        myaccount=account;
+        myaccount->nextAccount=new_account();
+    }
+    if(*i==1){
+        myaccount->nextAccount=account;
+        myaccount->nextAccount->nextAccount=new_account();
+    }
+    else
+    {
+        *i--;
+        set_ith_account_Account(myaccount->nextAccount,account,i);
+    }
 }
 
 /*----------------------------------------------------------------------------*/
@@ -400,18 +445,9 @@ Account get_account(Client client) {
     return client->account;
 }
 
-/*get the last added account of the client in list list of account*/
-Account get_lastAccount(Client client) {
-    Account a=client->account;
-    if(!account_is_empty(a)){
-        while (a->nextAccount != NULL) {
-            a= a->nextAccount;
-        }
-    }
-    return a;
+Account get_ith_account(Client client, int *i){
+    return get_ith_account_Account(client->account, i);
 }
-
-
 
 /*---------------Setters--------------*/
 
@@ -441,34 +477,37 @@ void set_perso_info(Client client, Perso_info p) {
  */
 void set_account(Client client, Account a) {
     client->account = a;
+    client->account->nextAccount=new_account();
 }
 
 /*set the next account of the last account as a real account*/
 void set_nextOfLastAccout(Client client, Account account) {
-    Account a = client->account;
-    if(!account_is_empty(a)){
-        while (a->nextAccount != NULL) {
-            a = a->nextAccount;
-        }
-        a->nextAccount=account;
-    }
-    else{
-        a=account;
-    }
+    set_nextOfLastAccout_Account(client->account,account);
 }
 
 void set_ith_account(Client client,Account account, int* i){
+    set_ith_account_Account(client->account,account,i);
+}
+
+void set_ith_account0(Client client,Account account, int* i){
     Account a = client->account;
     if(*i==0){
         client->account=account;
+        client->account->nextAccount=new_account();
+    }
+    if(*i==1){
+        client->account->nextAccount=account;
+        client->account->nextAccount->nextAccount=new_account();
     }
     else
     {
-        for(int j=0; j<*i-1 ; j++){
+        for(int j=0; j<= *i-1; j++){
             a=a->nextAccount;
         }
         a=account;
+        a->nextAccount=new_account();
     }
 }
+
 
 /*----------------------------------------------------------------------------*/
