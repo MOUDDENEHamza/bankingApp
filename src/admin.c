@@ -251,3 +251,41 @@ void add_client(Client client) {
         }
     }
  }
+
+ /**
+  * Display the list of entitled of a given account
+  */
+  void display_entitled_list_account(Json_object json_clients) {
+     int i, j;
+     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled;
+     size_t n_clients, n_accounts;
+     char  *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE);
+
+     printf("\nDisplay the entitled list of an account\n");
+     printf("\nEnter the ID of the client : ");
+     scanf("%s", id);
+     printf("\nEnter the type : ");
+     scanf("%s", type);
+     printf("\nID,\t\tTYPE,\t\tENTITLED\n");
+
+     n_clients = json_object_array_length(json_clients);
+
+     for (i = 0; i < n_clients; i++) {
+         json_client = json_object_array_get_idx(json_clients, i);
+         json_object_object_get_ex(json_client, "ID", &json_id);
+         json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+         n_accounts = json_object_array_length(json_account_list);
+
+         for (j = 0; j < n_accounts; j++) {
+             json_account = json_object_array_get_idx(json_account_list, j);
+             json_object_object_get_ex(json_account, "TYPE", &json_type);
+             json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+
+             if (strcmp(id, json_object_get_string(json_id)) == 0 &&
+                 strcmp(type, json_object_get_string(json_type)) == 0) {
+
+                 printf("\n%s,\t%s,\t%s\n", id, type, json_object_get_string(json_entitled));
+             }
+         }
+     }
+  }

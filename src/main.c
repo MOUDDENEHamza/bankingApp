@@ -204,11 +204,11 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 3 :
-                                    //display_entitled_account();
+                                    display_entitled_list_account(json_clients);///Display the list of entitled of a given account
                                     break;
 
-                                default ://Display an error message if the user input an incorrect flag
-                                    display_error_flag(s, &flag);
+                                default :
+                                    display_error_flag(s, &flag);///Display an error message if the user input an incorrect flag
                                     choose_feature(s, &flag);///Choose the feature you want to run
                                     goto restart_admin_client_management;
                             }
@@ -231,30 +231,30 @@ int main(int argc, char *argv[]) {
                             exit = 0;
                             break;
 
-                        default :///Display an error message if the user input an incorrect flag
-                            display_error_flag(s, &flag);
+                        default :
+                            display_error_flag(s, &flag);///Display an error message if the user input an incorrect flag
                             break;
                     }
                     log_in = 1;
                     break;
                 } else {
-                    display_error_connexion_admin(); //Display an error message if the administrator input an incorrect password
+                    display_error_connexion_admin();///Display an error message if the administrator input an incorrect password
                     break;
                 }
 
-            case 3 : //Check if the user want to quit the program
+            case 3 :///Check if the user want to quit the program
                 end_bar();
                 exit = 0;
                 break;
-            default ://Display an error message if the user input an incorrect flag
-                display_error_flag(s, &flag);
-                choose_feature(s, &flag);//Choose the feature you want to run
+            default :
+                display_error_flag(s, &flag);///Display an error message if the user input an incorrect flag
+                choose_feature(s, &flag);///Choose the feature you want to run
                 break;
         }
 
 
         if ((flag == 1 && index == 3) || (flag == 2 && index == 4)) {
-            goto back;//If the user want to sign out the submenu
+            goto back;///If the user want to sign out the submenu
         }
 
         continue;

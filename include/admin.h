@@ -28,4 +28,9 @@ void add_client(Client client);
  */
 void edit_coordinates(Json_object json_clients);
 
+/**
+ * Display the list of entitled of a given account
+ */
+void display_entitled_list_account(Json_object json_clients);
+
 #endif
