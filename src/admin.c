@@ -105,19 +105,39 @@ Client edit_account(void) {
     back2:
     display_choose_edit();
     scanf("%d", choice);
+    Account updated =new_account();
     Account *tabAccount=malloc(choice_type[0]*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client);
     for(int cmpt=1; cmpt<choice_type[0]; cmpt++){
         tabAccount[cmpt]=new_account();
-        set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
+        tabAccount[cmpt]=get_nextAccount(tabAccount[cmpt-1]);
     }
+    if(nb_accounts[0]>=2){
+        if(choice_type[0]==nb_accounts[0]){
+            set_nextAccount(tabAccount[choice_type[0]-2],updated);
+        }
+        if(choice_type[0]==1){
+            set_nextAccount(updated,tabAccount[1]);
+        }
+        else
+        {
+            set_nextAccount(updated,tabAccount[choice_type[0]]);
+            set_nextAccount(tabAccount[choice_type[0]-2],updated);
+        }
+    }    
+    float old_balance = get_balance(tabAccount[choice_type[0]-1]);
+    char * old_entitled = get_entitled(tabAccount[choice_type[0]-1]);
     switch (*choice) {
         case 1:
-            input_new_balance(tabAccount[choice_type[0]-1]);
+            set_entitled(updated,old_entitled);
+            printf("old balance = %f",old_balance);
+            input_new_balance(updated);
             break;
         case 2:
-            input_entitled(client,tabAccount[choice_type[0]-1]);
+            set_balance(updated,&old_balance);
+            printf("old inttiled = %s",old_entitled);
+            input_entitled(client,updated);
             break;
 
         default:
@@ -126,6 +146,18 @@ Client edit_account(void) {
             goto back2;
     }
     return client;
+}
+
+void display_accounts_list(void){
+    char *id=malloc(sizeof(char*));
+    int *idx=malloc(sizeof(int));
+    int *nb_accounts=malloc(sizeof(int));
+    printf("\nEnter the client ID  :");
+    scanf("%s",id);
+    Client client=new_client();
+    import_Client_idx_from_Json(id,idx);
+    import_Client_from_Json(idx,client,nb_accounts);
+    display_typeAccounts(client,nb_accounts);
 }
 
 /*

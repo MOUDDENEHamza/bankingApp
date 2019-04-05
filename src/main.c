@@ -137,6 +137,15 @@ int main(int argc, char *argv[]) {
                                 case 3 :
 
                                     break;
+                                case 4 :
+                                    display_accounts_list();
+                                    break;
+
+                                case 5 :
+                                    end_bar(); //Display the end bar.
+                                    exit = 0;
+                                    break;
+
                                 default ://Display an error message if the user input an incorrect flag
                                     display_error_flag(s, &flag);
                                     choose_feature(s, &flag); //Choose the feature you want to run
@@ -162,11 +171,8 @@ int main(int argc, char *argv[]) {
                                 case 3 :
 
                                     break;
-                                
-                                case 4 :
-                                    break;
 
-                                case 5 :
+                                case 4 :
                                     end_bar(); //Display the end bar.
                                     exit = 0;
                                     break;

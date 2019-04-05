@@ -75,7 +75,7 @@ void display_admin_account_management(void) {
  * Display the admin account management submenu
  */
 void display_admin_client_management(void) {
-    printf("\n\t\t\t\tAdministration\n\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RESET);
+    printf("\n\t\t\t\tAdministration\n\n"BLUE"1)-Add a client\n2)-Modify clients coordinates\n3)-Display the list of holders of the account\n"RED"4)-Exit\n"RESET);
 }
 
 /*
@@ -154,11 +154,11 @@ void display_typeAccounts(Client client,int *nbacc) {
     Account *tabAccount=malloc(nbacc[0]*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client);
-    printf("\n\t1 : ACCOUNT : %s  %s  solde : %f\n",get_entitled(tabAccount[0]),get_type(tabAccount[0]),get_balance(tabAccount[0]));
+    printf("\n\t1 : %s  %s ACCOUNT solde : %f\n",get_entitled(tabAccount[0]),get_type(tabAccount[0]),get_balance(tabAccount[0]));
     for(int cmpt=1; cmpt<nbacc[0]; cmpt++){
         tabAccount[cmpt]=new_account();
         tabAccount[cmpt]=get_nextAccount(tabAccount[cmpt-1]);
-        printf("\n\t%d : ACCOUNT : %s  %s  solde : %f\n",cmpt+1,get_entitled(tabAccount[cmpt]),get_type(tabAccount[cmpt]),get_balance(tabAccount[cmpt]));
+        printf("\n\t%d : %s  %s ACCOUNT solde : %f\n",cmpt+1,get_entitled(tabAccount[cmpt]),get_type(tabAccount[cmpt]),get_balance(tabAccount[cmpt]));
     }
 }
 

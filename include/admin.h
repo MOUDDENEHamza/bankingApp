@@ -29,6 +29,8 @@ void create_account(Client client);
  */
 Client edit_account(void);
 
+void display_accounts_list();
+
 /*
  *delete account
  */
