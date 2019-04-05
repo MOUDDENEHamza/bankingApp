@@ -207,7 +207,6 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     n_accounts = json_object_array_length(account_list_json);
     nbAcc[0]=(int)n_accounts;
     printf("nbAcc = %d \n",nbAcc[0]);
-    Account account_temp=new_account();
     Account *tabAccount=malloc(nbAcc[0]*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client_imported);
@@ -220,8 +219,8 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
         j1=(int)j;
         account = json_object_array_get_idx(account_list_json,j);
         json_object_object_get_ex(account, "TYPE" , &type_json);
-        set_type(tabAccount[j],(char*)json_object_get_string(type_json));
-        printf("ok type = %s \n",tabAccount[j1]);
+        set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
+        printf("ok type = %s \n",get_type(tabAccount[j1]));
         json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
         set_entitled(tabAccount[j1],(char*)json_object_get_string(entitled_json));
         json_object_object_get_ex(account, "BALANCE" , &balance_json);

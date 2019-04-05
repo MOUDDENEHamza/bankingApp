@@ -11,6 +11,7 @@
 
 #define SIZE 255
 
+
 /*Main function*/
 int main(int argc, char *argv[]) {
     /*Initialize variables*/
@@ -129,6 +130,9 @@ int main(int argc, char *argv[]) {
                                     write_file(json_object, json_clients);
                                     break;
                                 case 2 :
+                                    client=edit_account();
+                                    modify_client(client,json_clients,nb_acc1);
+                                    write_file(json_object, json_clients);
                                     break;
                                 case 3 :
 

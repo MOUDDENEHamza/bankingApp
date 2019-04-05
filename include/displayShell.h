@@ -1,6 +1,7 @@
 #ifndef _DISPLAYSHELL_H_
 #define _DISPLAYSHELL_H_
 
+#include <stdlib.h>
 #include "struct.h"
 
 /*
@@ -96,6 +97,6 @@ void display_choose_coordonatesToEdit(void);
 /*
  * Display all accounts of the client
  */
-void display_typeAccounts(Client client);
+void display_typeAccounts(Client client,int *nbacc);
 
 #endif

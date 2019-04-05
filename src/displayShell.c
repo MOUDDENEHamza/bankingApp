@@ -137,9 +137,9 @@ void display_choose_type(){
 
 /*ask to edit the information of account to edit*/
 void display_choose_edit() {
-    printf("choose what you want to edit");
-    printf("1 : BALANCE");
-    printf("2 : ENTITLED");
+    printf("\n\tchoose what you want to edit\n");
+    printf("\n\t1 : BALANCE");
+    printf("\t2 : ENTITLED");
 }
 
 void display_choose_coordonatesToEdit(void){
@@ -150,13 +150,15 @@ void display_choose_coordonatesToEdit(void){
 
 
 /*display all accounts of the client*/
-void display_typeAccounts(Client client) {
-    Account a = get_account(client);
-    int i = 1;
-    while (a != NULL) {
-        printf("%d : %s\n", i, get_type(a));
-        a = get_nextAccount(a);
-        i++;
+void display_typeAccounts(Client client,int *nbacc) {
+    Account *tabAccount=malloc(nbacc[0]*sizeof(Account));
+    tabAccount[0]=new_account();
+    tabAccount[0]=get_account(client);
+    printf("\n\t1 : ACCOUNT : %s  %s  solde : %f\n",get_entitled(tabAccount[0]),get_type(tabAccount[0]),get_balance(tabAccount[0]));
+    for(int cmpt=1; cmpt<nbacc[0]; cmpt++){
+        tabAccount[cmpt]=new_account();
+        tabAccount[cmpt]=get_nextAccount(tabAccount[cmpt-1]);
+        printf("\n\t%d : ACCOUNT : %s  %s  solde : %f\n",cmpt+1,get_entitled(tabAccount[cmpt]),get_type(tabAccount[cmpt]),get_balance(tabAccount[cmpt]));
     }
 }
 

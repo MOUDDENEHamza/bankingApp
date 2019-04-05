@@ -29,40 +29,13 @@ char* concatenate(char* str1,char* str2){
 
 /*return the account to edit */
 Account choosen_account(Client client, int choice_type) {
-    Account a = get_account(client);
-    if (choice_type == 1) {
-        return a;
-    } else {
-        for (int i = 1; i < choice_type; i++) {
-            a = get_nextAccount(a);
-        }
-        return a;
+    Account *tabAccount=malloc(choice_type*sizeof(Account));
+    tabAccount[0]=new_account();
+    tabAccount[0]=get_account(client);
+    for(int cmpt=1; cmpt<choice_type; cmpt++){
+        tabAccount[cmpt]=new_account();
+        set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
     }
-}
-
-/*get the number of acount that have the client*/
-int nb_accounts(Client client) {
-    Account a = get_account(client);
-    int nb = 0;
-    while (a != NULL) {
-        a = get_nextAccount(a);
-        nb++;
-    }
-    return nb;
-}
-
-/*return true if the input of admin or user is in list of choice*/
-bool in_1__nb_accounts(int choice, int nb) {
-    int i = 1;
-    while (i <= nb && i != choice) {
-        i++;
-    }
-    if (i <= nb) {
-        return true;
-    } else {
-        return false;
-    }
-
 }
 
 
@@ -107,46 +80,63 @@ void create_account(Client client) {
 /*
  *Edit account to the client
  */
-void edit_account(Client client) {
-    int choice, choice_type;
-    printf("choose the type of account you want to edit\n");
+Client edit_account(void) {
+    char *id=malloc(sizeof(char*));
+    int *choice=malloc(sizeof(int));
+    int *choice_type=malloc(sizeof(int));
+    int *idx=malloc(sizeof(int));
+    int *nb_accounts=malloc(sizeof(int));
+    printf("\nEnter the client ID  :");
+    scanf("%s",id);
+    Client client=new_client();
+    import_Client_idx_from_Json(id,idx);
+    import_Client_from_Json(idx,client,nb_accounts);
+    printf("type nex = %s\n",get_type(get_nextAccount(get_account(client))));
+    printf("type nex = %f\n",get_balance(get_nextAccount(get_account(client))));
+    printf("\n\tchoose the type of account you want to edit\n");
     back1:
-    display_typeAccounts(client);
-    scanf("%d", &choice_type);
-    while (!in_1__nb_accounts(choice_type, nb_accounts(client))) {
+    display_typeAccounts(client,nb_accounts);
+    if (scanf("%d",choice_type)==0) {
         printf("unexistant choice !\n");
-        printf("retry again");
+        printf("retry again\n");
+        choice_type=choice_type+1;
         goto back1;
     }
     back2:
     display_choose_edit();
-    scanf("%d", &choice);
-    while (1) {
-        switch (choice) {
-            case 1:
-                input_new_balance(choosen_account(client, choice_type));
-                break;
-            case 2:
-                input_entitled(client,choosen_account(client, choice_type));
-                break;
-
-            default:
-                printf("unexistant choice !\n");
-                printf("retry again\n");
-                goto back2;
-        }
-        continue;
+    scanf("%d", choice);
+    Account *tabAccount=malloc(choice_type[0]*sizeof(Account));
+    tabAccount[0]=new_account();
+    tabAccount[0]=get_account(client);
+    for(int cmpt=1; cmpt<choice_type[0]; cmpt++){
+        tabAccount[cmpt]=new_account();
+        set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
     }
+    switch (*choice) {
+        case 1:
+            input_new_balance(tabAccount[choice_type[0]-1]);
+            break;
+        case 2:
+            input_entitled(client,tabAccount[choice_type[0]-1]);
+            break;
+
+        default:
+            printf("unexistant choice !\n");
+            printf("retry again\n");
+            goto back2;
+    }
+    return client;
 }
 
 /*
  *delete account
  */
-void delete_account(Client client) {
+/*
+C delete_account(char *id) {
     printf("choose the acount type you want to delete\n");
     int choice_type;
     back:
-    display_typeAccounts(client);
+    display_typeAccounts(client,nb_accounts);
     scanf("%d", &choice_type);
     while (!in_1__nb_accounts(choice_type, nb_accounts(client))) {
         printf("unexistant choice !\n");
@@ -206,26 +196,27 @@ Client edit_perso_info_client(void) {
     return client;
 }
 
-
 Client edit_client_coordonates(int *nb_accounts){
     char *id=malloc(sizeof(char*));
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
-        printf("ok");
-
+    printf("ok");
     import_Client_idx_from_Json(id,idx);
     printf("ok");
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
     back:
     display_choose_coordonatesToEdit();
-    int choice;
-    while(scanf("%d",&choice)==0){
+    int *choice=malloc(sizeof(int));
+    int valid = scanf("%d",choice);
+    int *t;
+    while(valid =0){
         printf("\nwrong choice, try again please!  \n");
-        
+        choice=choice+1;
+        valid=scanf("%d",choice);
     }
-    switch (choice)
+    switch (*choice)
     {
         case 1 :
             input_mail(client);break;
@@ -239,22 +230,3 @@ Client edit_client_coordonates(int *nb_accounts){
     }
     return client;
 }
-/*
-void admin_management_feature(Client client,Json_object json_clients){
-    int choice;
-    scanf("%d",choice);
-    switch (choice)
-    {
-        case 1 :
-            add_client(client);//Add new client
-            add_client_json(client, json_clients);
-            client = new_client();
-            break;
-        case 2 :
-
-    
-        default:
-            break;
-    }
-}
-*/
