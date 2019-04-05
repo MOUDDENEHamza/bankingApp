@@ -16,7 +16,6 @@
     FILE *fp;
     char *path = (char *) malloc(SIZE), *cmd = (char *) malloc(SIZE);
 
-
     strcpy(cmd, "echo -n \"");
     strcat(cmd, passwd);
     strcat(cmd, "\" | md5sum | cut -d \"-\" -f1 -");
@@ -27,7 +26,6 @@
         return path;
 
     pclose(fp);
-
 }
 
 /**
@@ -90,7 +88,7 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
     return 1;
 }
 
-/*
+/**
  * Allow to administrator to connect to the application
  */
 int connect_admin(char *passwd) {

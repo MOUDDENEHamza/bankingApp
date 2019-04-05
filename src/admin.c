@@ -77,6 +77,8 @@ void admin_create_account(Client client, Json_object json_clients) {
             json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(new_node)));
             json_object_array_add(json_account_list, json_account);
             printf("\nThe account has been created with success\n");
+            printf("\nCome back the administrator menu\n");
+            return;
         }
     }
 
@@ -153,6 +155,7 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
     }
 
     printf("\nThe account has been deleted with success\n");
+    printf("\nCome back the administrator menu\n");
     return json_temp_clients;
 }
 
@@ -185,6 +188,7 @@ void display_account_list_by_type(Json_object json_clients) {
             if (strcmp(type, json_object_get_string(json_type)) == 0) {
                 printf("\n%s,\t%s,\t%s,\t\t%f\n", json_object_get_string(json_id), json_object_get_string(json_type),
                        json_object_get_string(json_entitled), json_object_get_double(json_balance));
+                printf("\nCome back the administrator menu\n");
             }
         }
     }
@@ -206,7 +210,8 @@ void add_client(Client client) {
     fprintf(fp, "\nDATE,\t\tOPERATION,\t\tACCOUNT,\t\tAMOUNT,\t\tBALANCE\n");
     fclose(fp);
 
-    printf("\nClient has been added. Restart the APP.\n");
+    printf("\nClient has been added\n");
+    printf("\nCome back the administrator menu\n");
 }
 
 /**
@@ -248,6 +253,7 @@ void add_client(Client client) {
                 }
             }
             printf("\nThe account has been edited with success\n");
+            printf("\nCome back the administrator menu\n");
         }
     }
  }
@@ -285,6 +291,7 @@ void add_client(Client client) {
                  strcmp(type, json_object_get_string(json_type)) == 0) {
 
                  printf("\n%s,\t%s,\t%s\n", id, type, json_object_get_string(json_entitled));
+                 printf("\nCome back the administrator menu\n");
              }
          }
      }
