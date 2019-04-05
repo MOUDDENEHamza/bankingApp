@@ -133,6 +133,7 @@ int main(int argc, char *argv[]) {
                                     client=edit_account();
                                     modify_client(client,json_clients,nb_acc1);
                                     write_file(json_object, json_clients);
+                                    client=new_client();
                                     break;
                                 case 3 :
                                     client= delete_account();
@@ -172,6 +173,7 @@ int main(int argc, char *argv[]) {
                                     client = edit_client_coordonates(nb_acc1);
                                     modify_client(client,json_clients,nb_acc1);
                                     write_file(json_object, json_clients);
+                                    client=new_client();
                                     break;
                                 case 3 :
                                     break;

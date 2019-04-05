@@ -47,16 +47,16 @@ Client create_new_account(int *nb_accounts) {
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
-    printf("type cleint importes = %s\n",get_type(get_account(client)));
-    printf("type cleint importes = %s\n",get_type(get_nextAccount(get_account(client))));
-    printf("entitled cleint importes = %s\n",get_entitled(get_account(client)));
-    printf("nb_account = %d ",nb_accounts[0]);
+    //printf("type cleint importes = %s\n",get_type(get_account(client)));
+    //printf("type cleint importes = %s\n",get_type(get_nextAccount(get_account(client))));
+    //printf("entitled cleint importes = %s\n",get_entitled(get_account(client)));
+    //printf("nb_account = %d ",nb_accounts[0]);
     printf("\n\nchoose the type of account you want to create\n");
     printf("you have just to enter the number referenced! \n");
     display_choose_type();
     Client updated=input_add_account(client,nb_accounts);
     nb_accounts[0]++;
-    printf("ok\n  nb_accounts = %d",nb_accounts[0]);
+    //printf("ok\n  nb_accounts = %d",nb_accounts[0]);
     return updated;
 }
 
@@ -91,8 +91,8 @@ Client edit_account(void) {
     Client client=new_client();
     import_Client_idx_from_Json(id,idx);
     import_Client_from_Json(idx,client,nb_accounts);
-    printf("type nex = %s\n",get_type(get_nextAccount(get_account(client))));
-    printf("type nex = %f\n",get_balance(get_nextAccount(get_account(client))));
+    //printf("type nex = %s\n",get_type(get_nextAccount(get_account(client))));
+    //printf("type nex = %f\n",get_balance(get_nextAccount(get_account(client))));
     printf("\n\tchoose the type of account you want to edit\n");
     back1:
     display_typeAccounts(client,nb_accounts);
@@ -131,13 +131,13 @@ Client edit_account(void) {
     switch (*choice) {
         case 1:
             set_entitled(updated,old_entitled);
-            printf("old balance = %f",old_balance);
+            //printf("old balance = %f",old_balance);
             input_new_balance(updated);
-            printf("mew balance = %f",get_balance(updated));
+            //printf("mew balance = %f",get_balance(updated));
             break;
         case 2:
             set_balance(updated,&old_balance);
-            printf("old inttiled = %s",old_entitled);
+            //printf("old inttiled = %s",old_entitled);
             input_entitled(client,updated);
             break;
 
@@ -186,8 +186,8 @@ Client delete_account(void) {
         }
         
         import_Account_from_Json(idx,tabAccount);
-        printf("on est entré !!!%s\n",get_type(tabAccount[0]));
-        printf("on est entré !!!%s\n",get_type(tabAccount[1]));
+        //printf("on est entré !!!%s\n",get_type(tabAccount[0]));
+        //printf("on est entré !!!%s\n",get_type(tabAccount[1]));
         printf("choose the acount you want to delete\n");
         int choice_type;
         back:
@@ -197,12 +197,12 @@ Client delete_account(void) {
             printf("retry again\n");
             goto back;
         }
-        printf("on est entré !!!\n");
+        //printf("on est entré !!!\n");
         int indextab=choice_type-1;
         copy(tabAccount,&indextab,nb_accounts,myaccount);
         set_account(client,myaccount[0]);
-        printf("on est entré !!!\n");
-        printf("on est entré !!!%s\n",get_type(get_account(client)));
+        //printf("on est entré !!!\n");
+        //printf("on est entré !!!%s\n",get_type(get_account(client)));
         //printf("on est entré !!!%s\n",get_type(myaccount[1]));
         for(int j=0; j<=nb_accounts[0]-1; j++){
             if(nb_accounts[0]>1){
@@ -210,11 +210,11 @@ Client delete_account(void) {
             }
             set_nextAccount(myaccount[nb_accounts[0]-1],NULL);
         }
-        printf("on est entré !!!\n");
+        //printf("on est entré !!!\n");
     }
     else
     {
-        printf("on est entré !!!\n");
+        //printf("on est entré !!!\n");
         int choice_type;
         back1:
         display_typeAccounts(client,nb_accounts);
@@ -224,9 +224,9 @@ Client delete_account(void) {
             goto back1;
         }
         free(get_account(client));
-        printf("on est entré !!!\n");
+        //printf("on est entré !!!\n");
         //set_account(client,NULL);
-        printf("on est entré !!!\n");
+        //printf("on est entré !!!\n");
     }
     return client;
 }
@@ -272,9 +272,9 @@ Client edit_client_coordonates(int *nb_accounts){
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
-    printf("ok");
+    //printf("ok");
     import_Client_idx_from_Json(id,idx);
-    printf("ok");
+    //printf("ok");
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
     back:
