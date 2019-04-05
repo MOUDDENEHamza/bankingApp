@@ -34,7 +34,7 @@ void display_accounts_list();
 /*
  *delete account
  */
-void delete_account(Client client);
+Client delete_account(void);
 
 /*
  *Add client

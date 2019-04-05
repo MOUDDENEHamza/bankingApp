@@ -338,6 +338,18 @@ Account get_ith_account_Account(Account myaccount, int *i){
     }
 }
 
+void copy(Account* account,int *i,int *nb_accounts, Account* myaccount){
+    for(int j=0; j<nb_accounts[0]; j++){
+        if(j<i[0]){
+            myaccount[j]=account[j];
+        }
+        if(j>i[0]){
+            myaccount[j-1]=account[j];
+        }
+    }
+    nb_accounts[0]--;
+}
+
 /*---------------Setters--------------*/
 
 /*

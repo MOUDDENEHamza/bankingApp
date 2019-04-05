@@ -106,7 +106,7 @@ Client edit_account(void) {
     display_choose_edit();
     scanf("%d", choice);
     Account updated =new_account();
-    Account *tabAccount=malloc(choice_type[0]*sizeof(Account));
+    Account *tabAccount=malloc(nb_accounts[0]*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client);
     for(int cmpt=1; cmpt<choice_type[0]; cmpt++){
@@ -133,6 +133,7 @@ Client edit_account(void) {
             set_entitled(updated,old_entitled);
             printf("old balance = %f",old_balance);
             input_new_balance(updated);
+            printf("mew balance = %f",get_balance(updated));
             break;
         case 2:
             set_balance(updated,&old_balance);
@@ -163,33 +164,71 @@ void display_accounts_list(void){
 /*
  *delete account
  */
-/*
-C delete_account(char *id) {
-    printf("choose the acount type you want to delete\n");
-    int choice_type;
-    back:
-    display_typeAccounts(client,nb_accounts);
-    scanf("%d", &choice_type);
-    while (!in_1__nb_accounts(choice_type, nb_accounts(client))) {
-        printf("unexistant choice !\n");
-        printf("retry again\n");
-        goto back;
-    }
-    Account temp;
-    if (choice_type == 1) {
-        temp = get_account(client);
-        set_account(client, get_nextAccount(temp));
-        free(temp);
-    } else {
-        if (choosen_account(client, choice_type) == get_lastAccount(get_account(client))) {
-            free(get_lastAccount(get_account(client)));
-        } else {
-            Account a = choosen_account(client, choice_type - 1);
-            temp = get_nextAccount(a);
-            set_nextAccount(a, get_nextAccount(temp));
-            free(temp);
+
+Client delete_account(void) {
+    char *id=malloc(sizeof(char*));
+    int *idx=malloc(sizeof(int));
+    int *nb_accounts=malloc(sizeof(int));
+    printf("\nEnter the client ID  :");
+    scanf("%s",id);
+    Client client = new_client();
+
+    import_Client_idx_from_Json(id,idx);
+    import_Client_from_Json(idx,client,nb_accounts);
+    Account *tabAccount=malloc(nb_accounts[0]*sizeof(Account));
+    if(nb_accounts[0]>1){
+        Account* myaccount=malloc((nb_accounts[0]-1)*sizeof(Account));
+        for(int j=0; j<nb_accounts[0]; j++){
+            tabAccount[j]=new_account();
+            if(j<nb_accounts[0]-1){
+                myaccount[j]=new_account();
+            }
         }
+        
+        import_Account_from_Json(idx,tabAccount);
+        printf("on est entré !!!%s\n",get_type(tabAccount[0]));
+        printf("on est entré !!!%s\n",get_type(tabAccount[1]));
+        printf("choose the acount you want to delete\n");
+        int choice_type;
+        back:
+        display_typeAccounts(client,nb_accounts);
+        if (scanf("%d", &choice_type)==0) {
+            printf("unexistant choice !\n");
+            printf("retry again\n");
+            goto back;
+        }
+        printf("on est entré !!!\n");
+        int indextab=choice_type-1;
+        copy(tabAccount,&indextab,nb_accounts,myaccount);
+        set_account(client,myaccount[0]);
+        printf("on est entré !!!\n");
+        printf("on est entré !!!%s\n",get_type(get_account(client)));
+        //printf("on est entré !!!%s\n",get_type(myaccount[1]));
+        for(int j=0; j<=nb_accounts[0]-1; j++){
+            if(nb_accounts[0]>1){
+                set_nextAccount(myaccount[j],myaccount[j+1]);
+            }
+            set_nextAccount(myaccount[nb_accounts[0]-1],NULL);
+        }
+        printf("on est entré !!!\n");
     }
+    else
+    {
+        printf("on est entré !!!\n");
+        int choice_type;
+        back1:
+        display_typeAccounts(client,nb_accounts);
+        if (scanf("%d", &choice_type)==0) {
+            printf("unexistant choice !\n");
+            printf("retry again\n");
+            goto back1;
+        }
+        free(get_account(client));
+        printf("on est entré !!!\n");
+        //set_account(client,NULL);
+        printf("on est entré !!!\n");
+    }
+    return client;
 }
 
 /*

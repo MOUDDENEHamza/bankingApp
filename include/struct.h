@@ -166,6 +166,7 @@ void set_coordinates(Perso_info p, Coordinates c);
 /*
  * Introduce a simple structure handling account client
  */
+
 typedef struct account *Account;
 
 /*--------------Constructor---------------*/
@@ -203,6 +204,8 @@ Account get_nextAccount(Account a);
 Account get_lastAccount(Account a) ;
 
 Account get_ith_account_Account(Account a, int *i);
+
+void copy(Account* account,int *i,int *nb_accounts, Account* myaccount);
 
 /*---------------Setters--------------*/
 

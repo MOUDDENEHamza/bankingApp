@@ -135,7 +135,12 @@ int main(int argc, char *argv[]) {
                                     write_file(json_object, json_clients);
                                     break;
                                 case 3 :
-
+                                    client= delete_account();
+                                    modify_client(client,json_clients,nb_acc1);
+                                    //delete_client(client,json_clients,nb_acc1);
+                                    //add_client_json(client, json_clients);
+                                    write_file(json_object, json_clients);
+                                    client = new_client();
                                     break;
                                 case 4 :
                                     display_accounts_list();
@@ -169,9 +174,7 @@ int main(int argc, char *argv[]) {
                                     write_file(json_object, json_clients);
                                     break;
                                 case 3 :
-
                                     break;
-
                                 case 4 :
                                     end_bar(); //Display the end bar.
                                     exit = 0;
