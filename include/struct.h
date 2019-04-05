@@ -288,4 +288,14 @@ typedef struct json_object *Json_object;
 
 /*----------------------------------------------------------------------------*/
 
+/**
+ * Add a new account to the account client structure
+ */
+ Account add_node(Account head, Account new_node);
+
+ /**
+  * Traverse the linked list of account
+  */
+ void traverse(Account head);
+
 #endif

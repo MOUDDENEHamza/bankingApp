@@ -410,3 +410,35 @@ void set_account(Client client, Account a) {
 }
 
 /*----------------------------------------------------------------------------*/
+
+/**
+ * Add a new account to the account client structure
+ */
+Account add_node(Account head, Account new_node) {
+    Account temp;
+
+    if (head == NULL){
+        head = new_node;
+    }
+
+    else{
+        temp  = head;
+        while(get_next_account(temp) != NULL){
+            temp = get_next_account(temp);
+        }
+        set_next_account(temp, new_node);
+    }
+    return head;
+}
+
+/**
+ * Traverse the linked list of account
+ */
+void traverse(Account head) {
+    Account temp = head;
+
+    while (temp != NULL) {
+        printf("\nTEST : %s && %s && %f\n", get_type(temp), get_entitled(temp), get_balance(temp));
+        temp = get_next_account(temp);
+    }
+}

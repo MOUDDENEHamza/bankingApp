@@ -40,17 +40,18 @@ void consult_balance(Client client, Json_object json_clients) {
                 json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
                 json_object_object_get_ex(json_account, "BALANCE", &json_balance);
 
-                if (strcmp(type, json_object_get_string(json_type)) == 0 && strcmp(entitled, json_object_get_string(json_entitled)) == 0) {
-                    printf("\nThe balance of your %s is : %f\n", json_object_get_string(json_type), json_object_get_double(json_balance));
+                if (strcmp(type, json_object_get_string(json_type)) == 0 &&
+                    strcmp(entitled, json_object_get_string(json_entitled)) == 0) {
+                    printf("\nThe balance of your %s is : %f\n", json_object_get_string(json_type),
+                           json_object_get_double(json_balance));
                     return;
                 }
             }
         }
     }
 
-    printf("\nWrong input, please try again\n");
+    printf("\nWrong input, please try later\n");
     printf("\n\nCome back the client menu\n");
-    return;
 }
 
 /**
@@ -68,7 +69,7 @@ void transaction_list(Client client) {
     fp = fopen(str, "r");
     printf("\nDownload transaction file : Loading...\n");
 
-    printf("\nDATE,\t\tOPERATION,\t\tAMOUNT,\t\tACCOUNT,\t\tBALANCE\n");
+    printf("\nDATE,\t\tOPERATION,\t\tACCOUNT,\t\tAMOUNT,\t\tBALANCE\n");
     fread(buffer, 1, BUFFER, fp);
     while (buffer) {
         char *nextLine = strchr(buffer, '\n');
@@ -80,7 +81,7 @@ void transaction_list(Client client) {
         buffer = nextLine ? (nextLine + 1) : NULL;
     }
 
-    printf("\n\nCome back the client menu\n");
+    printf("\nCome back the client menu\n");
 }
 
 /**
@@ -172,7 +173,7 @@ void transfer_money(Client client, Json_object json_clients) {
                     strcat(str1, get_id(client));
                     strcat(str1, ".csv");
                     fp = fopen(str1, "a+");
-                    fprintf(fp, "%d/%d/%d, TRANSFER, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
+                    fprintf(fp, "%d/%d/%d,\t\tTRANSFER,\t\t-%f, %f\n", tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900,
                             amount_transfer, get_balance(get_account(client)));
                     fclose(fp);
 
@@ -193,60 +194,90 @@ void pay_by_card(Client client, Json_object json_clients) {
     FILE *fp;
     int i, j;
     float product_price, new_balance;
-    struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_balance;
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE), *str = (char *) malloc(SIZE);
+    Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
     size_t n_clients, n_accounts;
-    char *str = (char *) malloc(SIZE);
+    Account temp = get_account(client);
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
     printf("\nSecure payment\n");
+    printf("\nPlease, enter the type of the account with what you want to pay : ");
+    scanf("%s", type);
+
+    if (strcmp(type, "SAVINGS") == 0) {
+        printf("\nSorry, you can not pay with your savings account\n");
+        printf("\nCome back the client menu\n");
+        return;
+    }
+
+    printf("\nPlease, enter the entitled of the account with what you want to pay : ");
+    scanf("%s", entitled);
     printf("\nEnter the price of the product : ");
     scanf("%f", &product_price);
 
-    if (product_price <= get_balance(get_account(client))) {
-        n_clients = json_object_array_length(json_clients);
 
-        for (i = 0; i < n_clients; i++) {
-            json_client = json_object_array_get_idx(json_clients, i);
-            json_object_object_get_ex(json_client, "ID", &json_id);
+    n_clients = json_object_array_length(json_clients);
 
-            if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
-                json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
-                n_accounts = json_object_array_length(json_account_list);
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
 
-                for (j = 0; j < n_accounts; j++) {
-                    json_account = json_object_array_get_idx(json_account_list, j);
-                    json_object_object_get_ex(json_account, "TYPE", &json_type);
+        if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
 
-                    if (strcmp(json_object_get_string(json_type), "CURRENT") == 0) {
-                        json_object_object_get_ex(json_account, "BALANCE", &json_balance);
-                        json_object_object_foreach(json_account, key, val)
-                        {
+            for (j = 0; j < n_accounts; j++) {
+                json_account = json_object_array_get_idx(json_account_list, j);
+                json_object_object_get_ex(json_account, "TYPE", &json_type);
+                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
 
-                            if (strcmp(key, "BALANCE") == 0) {
-                                new_balance = json_object_get_double(json_balance) - product_price;
-                                json_object_object_add(json_account, key, json_object_new_double(new_balance));
-                                set_balance(get_account(client), &new_balance);
+                if (strcmp(type, json_object_get_string(json_type)) == 0 &&
+                    strcmp(entitled, json_object_get_string(json_entitled)) == 0) {
 
-                                strcpy(str, "data/");
-                                strcat(str, get_id(client));
-                                strcat(str, ".csv");
-                                fp = fopen(str, "a+");
-                                fprintf(fp, "%d/%d/%d, PAYMENT, -%f, %f\n", tm.tm_mday, tm.tm_mon + 1,
-                                        tm.tm_year + 1900, product_price, get_balance(get_account(client)));
-                                printf("\nPayment done\n");
-                                fclose(fp);
+                    while (temp != NULL) {
 
+                        if (strcmp(get_type(temp), type) == 0 && strcmp(get_entitled(temp), entitled) == 0) {
+
+                            if (product_price > json_object_get_double(json_balance)) {
+                                printf("\nyour balance is insufficient to perform this operation\n");
+                                printf("\nCome back the client menu\n");
                                 return;
                             }
+
+                            json_object_object_foreach(json_account, key, val)
+                            {
+
+                                if (strcmp(key, "BALANCE") == 0) {
+                                    new_balance = json_object_get_double(json_balance) - product_price;
+                                    json_object_object_add(json_account, key, json_object_new_double(new_balance));
+                                    set_balance(temp, &new_balance);
+
+                                    strcpy(str, "data/");
+                                    strcat(str, get_id(client));
+                                    strcat(str, ".csv");
+                                    fp = fopen(str, "a+");
+                                    fprintf(fp, "%d/%d/%d,\t\tPAYMENT,\t\t%s,\t\t-%f,\t\t%f\n", tm.tm_mday,
+                                            tm.tm_mon + 1, tm.tm_year + 1900, type, product_price, get_balance(temp));
+                                    fclose(fp);
+
+                                    printf("\nPayment done\n");
+                                    printf("\nCome back the client menu\n");
+                                    return;
+                                }
+                            }
                         }
+
+                        temp = get_next_account(temp);
                     }
                 }
             }
         }
-
     }
-    printf("\nyour balance is insufficient to perform this operation\n");
+
+    printf("\nWrong input, please try later\n");
+    printf("\nCome back the client menu\n");
 }
 
 /**
@@ -421,11 +452,16 @@ Json_object client_delete_account(Client client, Json_object json_clients) {
 
             json_object_object_add(json_temp_client, "ID", json_object_new_string(get_id(client)));
             json_object_object_add(json_temp_client, "PASSWD", json_object_new_string(get_passwd(client)));
-            json_object_object_add(json_temp_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
-            json_object_object_add(json_temp_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
-            json_object_object_add(json_temp_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
-            json_object_object_add(json_temp_client, "EMAIL", json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
-            json_object_object_add(json_temp_client, "PHONE", json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
+            json_object_object_add(json_temp_client, "LAST NAME",
+                                   json_object_new_string(get_last_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "FIRST NAME",
+                                   json_object_new_string(get_first_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "BIRTHDAY",
+                                   json_object_new_string(get_birthday(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "EMAIL",
+                                   json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
+            json_object_object_add(json_temp_client, "PHONE",
+                                   json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
             for (j = 0; j < n_accounts; j++) {
@@ -436,9 +472,12 @@ Json_object client_delete_account(Client client, Json_object json_clients) {
                 if (strcmp(json_object_get_string(json_type), type) != 0 ||
                     strcmp(json_object_get_string(json_entitled), entitled) != 0) {
 
-                    json_object_object_add(json_temp_account, "TYPE", json_object_new_string(json_object_get_string(json_type)));
-                    json_object_object_add(json_temp_account, "ENTITLED", json_object_new_string(json_object_get_string(json_entitled)));
-                    json_object_object_add(json_temp_account, "BALANCE", json_object_new_double(json_object_get_double(json_balance)));
+                    json_object_object_add(json_temp_account, "TYPE",
+                                           json_object_new_string(json_object_get_string(json_type)));
+                    json_object_object_add(json_temp_account, "ENTITLED",
+                                           json_object_new_string(json_object_get_string(json_entitled)));
+                    json_object_object_add(json_temp_account, "BALANCE",
+                                           json_object_new_double(json_object_get_double(json_balance)));
                     json_object_array_add(json_temp_account_list, json_temp_account);
                     Json_object json_temp_account = json_object_new_object();
                 }

@@ -68,8 +68,7 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 3 :
-                                    transfer_money(client,
-                                                   json_clients);///Get the transfers list associated to the client
+                                    transfer_money(client, json_clients);///Get the transfers list associated to the client
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;
