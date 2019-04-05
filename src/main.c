@@ -198,7 +198,9 @@ int main(int argc, char *argv[]) {
                                     add_client_json(client, json_clients);///Add the new client to the JSON structure
 
                                 case 2 :
-                                    //edit_client();
+                                    edit_coordinates(json_clients);///Edit the coordinates of a given clients
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
 
                                 case 3 :

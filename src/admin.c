@@ -10,25 +10,6 @@
 #define SIZE 64
 
 /**
- * Add new client to the bank
- */
-void add_client(Client client) {
-    FILE *fp;
-    char *str = (char *) malloc(SIZE);
-
-    input_perso_info(client);
-
-    strcpy(str, "data/");
-    strcat(str, get_id(client));
-    strcat(str, ".csv");
-    fp = fopen(str, "a+");
-    fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE\n");
-    fclose(fp);
-
-    printf("\nClient has been added. Restart the APP.\n");
-}
-
-/**
  * Create a new account to a given client
  */
 void admin_create_account(Client client, Json_object json_clients) {
@@ -208,3 +189,65 @@ void display_account_list_by_type(Json_object json_clients) {
         }
     }
 }
+
+/**
+ * Add new client to the bank
+ */
+void add_client(Client client) {
+    FILE *fp;
+    char *str = (char *) malloc(SIZE);
+
+    input_perso_info(client);
+
+    strcpy(str, "data/");
+    strcat(str, get_id(client));
+    strcat(str, ".csv");
+    fp = fopen(str, "a+");
+    fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE\n");
+    fclose(fp);
+
+    printf("\nClient has been added. Restart the APP.\n");
+}
+
+/**
+ * Edit the coordinates of the client
+ */
+ void edit_coordinates(Json_object json_clients) {
+    int i;
+    Json_object json_client, json_id, json_last_name, json_first_name, json_birthday, json_mail, json_phone;
+    size_t n_clients;
+    char  *id = (char *) malloc(SIZE), *mail = (char *) malloc(SIZE), *phone = (char *) malloc(SIZE);
+
+    printf("\nEdit account\n");
+    printf("\nEnter the ID of the client : ");
+    scanf("%s", id);
+    printf("\nEnter your new mail : ");
+    scanf("%s", mail);
+    printf("\nEnter your new phone : ");
+    scanf("%s", phone);
+
+    n_clients = json_object_array_length(json_clients);
+
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+        json_object_object_get_ex(json_client, "EMAIL", &json_mail);
+        json_object_object_get_ex(json_client, "PHONE", &json_phone);
+
+        if (strcmp(id, json_object_get_string(json_id)) == 0) {
+
+            json_object_object_foreach(json_client, key, val)
+            {
+
+                if (strcmp(key, "EMAIL") == 0) {
+                    json_object_object_add(json_client, key, json_object_new_string(mail));
+                }
+
+                if (strcmp(key, "PHONE") == 0) {
+                    json_object_object_add(json_client, key, json_object_new_string(phone));
+                }
+            }
+            printf("\nThe account has been edited with success\n");
+        }
+    }
+ }
