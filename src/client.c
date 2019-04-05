@@ -4,6 +4,7 @@
 #include <json-c/json.h>
 #include <time.h>
 #include "struct.h"
+#include "displayShell.h"
 
 #define BUFFER 4096
 #define SIZE 64
@@ -316,4 +317,138 @@ void make_deposit(Client client, Json_object json_clients) {
         }
     }
     printf("\nMake a deposit failed, please try again\n");
+}
+
+/**
+ * Create a new account to a given client
+ */
+void client_create_account(Client client, Json_object json_clients) {
+    int i;
+    Account temp = get_account(client);
+    Account new_node = new_account();
+    struct json_object *json_client, *json_id, *json_account_list, *json_type, *json_entitled, *json_balance;
+    Json_object json_account = json_object_new_object();
+    size_t n_clients, n_accounts;
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
+    int choice;
+    float init_balance = 0;
+
+    printf("\nCreate a new account\n");
+
+    display_account_type();
+    printf("\nEnter your choice : ");
+    scanf("%d", &choice);
+
+    back:
+    switch (choice) {
+        case 1 :
+            strcpy(type, "CURRENT");
+            set_type(new_node, type);
+            break;
+        case 2 :
+            strcpy(type, "SAVINGS");
+            set_type(new_node, type);
+            break;
+        case 3 :
+            strcpy(type, "JOINT");
+            set_type(new_node, type);
+            break;
+        default :
+            printf("\nWrong choice. Please try again\n");
+            goto back;
+    }
+
+    printf("\nEnter the entitled : ");
+    scanf("%s", entitled);
+    set_entitled(new_node, entitled);
+
+    set_balance(new_node, &init_balance);
+
+    while (get_next_account(temp) != NULL) {
+        temp = get_next_account(temp);
+    }
+
+    set_next_account(temp, new_node);
+
+    n_clients = json_object_array_length(json_clients);
+
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+
+        if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
+
+            json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(new_node)));
+            json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(new_node)));
+            json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(new_node)));
+            json_object_array_add(json_account_list, json_account);
+        }
+    }
+
+    printf("\nThe account has been created with success\n");
+}
+
+/**
+ * delete a new account to a given client
+ */
+Json_object client_delete_account(Client client, Json_object json_clients) {
+    int i, j;
+    Account temp = get_account(client);
+    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
+    Json_object json_temp_clients = json_object_new_array();
+    Json_object json_temp_client = json_object_new_object();
+    Json_object json_temp_account_list = json_object_new_array();
+    Json_object json_temp_account = json_object_new_object();
+    size_t n_clients, n_accounts;
+    char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
+    int choice;
+    float init_balance = 0;
+
+    printf("\nDelete an account\n");
+    printf("\nEnter the type : ");
+    scanf("%s", type);
+    printf("\nEnter the entitled : ");
+    scanf("%s", entitled);
+
+    n_clients = json_object_array_length(json_clients);
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+        if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+
+            json_object_object_add(json_temp_client, "ID", json_object_new_string(get_id(client)));
+            json_object_object_add(json_temp_client, "PASSWD", json_object_new_string(get_passwd(client)));
+            json_object_object_add(json_temp_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "EMAIL", json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
+            json_object_object_add(json_temp_client, "PHONE", json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
+            for (j = 0; j < n_accounts; j++) {
+                json_account = json_object_array_get_idx(json_account_list, j);
+                json_object_object_get_ex(json_account, "TYPE", &json_type);
+                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+                if (strcmp(json_object_get_string(json_type), type) != 0 ||
+                    strcmp(json_object_get_string(json_entitled), entitled) != 0) {
+
+                    json_object_object_add(json_temp_account, "TYPE", json_object_new_string(json_object_get_string(json_type)));
+                    json_object_object_add(json_temp_account, "ENTITLED", json_object_new_string(json_object_get_string(json_entitled)));
+                    json_object_object_add(json_temp_account, "BALANCE", json_object_new_double(json_object_get_double(json_balance)));
+                    json_object_array_add(json_temp_account_list, json_temp_account);
+                    Json_object json_temp_account = json_object_new_object();
+                }
+            }
+            json_object_object_add(json_temp_client, "ACCOUNT LIST", json_temp_account_list);
+            json_object_array_add(json_temp_clients, json_temp_client);
+        } else {
+            json_object_array_add(json_temp_clients, json_client);
+        }
+    }
+
+    printf("\nThe account has been deleted with success\n");
+    return json_temp_clients;
 }

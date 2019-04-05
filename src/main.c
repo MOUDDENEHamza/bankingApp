@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 3 :
-                                    transfer_money(client, json_clients);///Get the transfers list associated to the client
+                                    transfer_money(client,
+                                                   json_clients);///Get the transfers list associated to the client
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;
@@ -106,16 +107,13 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 2 :
-                                    create_account(client, json_clients); ///Create an account
-                                    printf("\n1\n");
+                                    client_create_account(client, json_clients); ///Create an account
                                     write_file(json_object, json_clients);///Update the JSON file
-                                    printf("\n2\n");
                                     json_clients = parse_json();///Parse the json file containing the client data
-                                    printf("\n3\n");
                                     break;
 
                                 case 3 :
-                                    json_clients = delete_account(client, json_clients); ///Delete an account
+                                    json_clients = client_delete_account(client, json_clients); ///Delete an account
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;
@@ -158,16 +156,21 @@ int main(int argc, char *argv[]) {
                     switch (index) {
 
                         case 1 :
-                            display_admin_account_management();
-
-                        restart_admin_account_management:
+                            display_admin_account_management();///Display the admin account management menu
+                            choose_feature(s, &sub_index);///Choose the feature you want to run
+                            restart_admin_account_management:
                             switch (sub_index) {
 
                                 case 1 :
-                                    //create_account();
+                                    admin_create_account(client, json_clients); ///Create an account
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
+                                    break;
 
                                 case 2 :
-                                    //delete_account();
+                                    json_clients = admin_delete_account(client, json_clients); ///Delete an account
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
 
                                 case 3 :
@@ -186,7 +189,7 @@ int main(int argc, char *argv[]) {
                             display_admin_client_management();
                             choose_feature(s, &sub_index);///Choose the feature you want to run
 
-                            restart_admin_client_management:
+                        restart_admin_client_management:
                             switch (sub_index) {
 
                                 case 1 :

@@ -11,11 +11,11 @@ void add_client(Client client);
 /**
  * Create a new account to a given client
  */
-void create_account(Client client, Json_object json_clients);
+void admin_create_account(Client client, Json_object json_clients);
 
 /**
  * Create a new account to a given client
  */
-Json_object delete_account(Client client, Json_object json_clients);
+Json_object admin_delete_account(Client client, Json_object json_clients);
 
 #endif
