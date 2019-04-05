@@ -158,6 +158,7 @@ int main(int argc, char *argv[]) {
                         case 1 :
                             display_admin_account_management();///Display the admin account management menu
                             choose_feature(s, &sub_index);///Choose the feature you want to run
+
                             restart_admin_account_management:
                             switch (sub_index) {
 
@@ -174,11 +175,11 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 3 :
-                                    //display_account_list_by_type()
+                                    display_account_list_by_type(json_clients);///Display the account list by type of whole client in the bank
                                     break;
 
-                                default ://Display an error message if the user input an incorrect flag
-                                    display_error_flag(s, &sub_index);
+                                default :
+                                    display_error_flag(s, &sub_index);///Display an error message if the user input an incorrect flag
                                     choose_feature(s, &sub_index);///Choose the feature you want to run
                                     goto restart_admin_account_management;
                             }

@@ -134,11 +134,16 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
 
             json_object_object_add(json_temp_client, "ID", json_object_new_string(get_id(client)));
             json_object_object_add(json_temp_client, "PASSWD", json_object_new_string(get_passwd(client)));
-            json_object_object_add(json_temp_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
-            json_object_object_add(json_temp_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
-            json_object_object_add(json_temp_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
-            json_object_object_add(json_temp_client, "EMAIL", json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
-            json_object_object_add(json_temp_client, "PHONE", json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
+            json_object_object_add(json_temp_client, "LAST NAME",
+                                   json_object_new_string(get_last_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "FIRST NAME",
+                                   json_object_new_string(get_first_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "BIRTHDAY",
+                                   json_object_new_string(get_birthday(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "EMAIL",
+                                   json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
+            json_object_object_add(json_temp_client, "PHONE",
+                                   json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
             for (j = 0; j < n_accounts; j++) {
@@ -149,9 +154,12 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
                 if (strcmp(json_object_get_string(json_type), type) != 0 ||
                     strcmp(json_object_get_string(json_entitled), entitled) != 0) {
 
-                    json_object_object_add(json_temp_account, "TYPE", json_object_new_string(json_object_get_string(json_type)));
-                    json_object_object_add(json_temp_account, "ENTITLED", json_object_new_string(json_object_get_string(json_entitled)));
-                    json_object_object_add(json_temp_account, "BALANCE", json_object_new_double(json_object_get_double(json_balance)));
+                    json_object_object_add(json_temp_account, "TYPE",
+                                           json_object_new_string(json_object_get_string(json_type)));
+                    json_object_object_add(json_temp_account, "ENTITLED",
+                                           json_object_new_string(json_object_get_string(json_entitled)));
+                    json_object_object_add(json_temp_account, "BALANCE",
+                                           json_object_new_double(json_object_get_double(json_balance)));
                     json_object_array_add(json_temp_account_list, json_temp_account);
                     Json_object json_temp_account = json_object_new_object();
                 }
@@ -165,4 +173,38 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
 
     printf("\nThe account has been deleted with success\n");
     return json_temp_clients;
+}
+
+/**
+ * Display the account list by type of whole client in the bank
+ */
+void display_account_list_by_type(Json_object json_clients) {
+    int i, j;
+    Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
+    size_t n_clients, n_accounts;
+    char *type = (char *) malloc(SIZE);
+
+    printf("\nEnter the type : ");
+    scanf("%s", type);
+    printf("\nID,\t\tTYPE,\t\tENTITLED,\t\tBALANCE\n");
+
+    n_clients = json_object_array_length(json_clients);
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+        json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+        n_accounts = json_object_array_length(json_account_list);
+
+        for (j = 0; j < n_accounts; j++) {
+            json_account = json_object_array_get_idx(json_account_list, j);
+            json_object_object_get_ex(json_account, "TYPE", &json_type);
+            json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+            json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+
+            if (strcmp(type, json_object_get_string(json_type)) == 0) {
+                printf("\n%s,\t%s,\t%s,\t\t%f\n", json_object_get_string(json_id), json_object_get_string(json_type),
+                       json_object_get_string(json_entitled), json_object_get_double(json_balance));
+            }
+        }
+    }
 }
