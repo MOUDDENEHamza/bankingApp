@@ -15,7 +15,7 @@
 void consult_balance(Client client, Json_object json_clients) {
     int i, j;
     char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
-    struct json_object *json_client, *json_id, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
+    Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
     size_t n_clients, n_accounts;
 
     printf("\nLoading...\n");
@@ -34,7 +34,7 @@ void consult_balance(Client client, Json_object json_clients) {
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
 
-            for (j = 0; i < n_accounts; j++) {
+            for (j = 0; j < n_accounts; j++) {
                 json_account = json_object_array_get_idx(json_account_list, j);
                 json_object_object_get_ex(json_account, "TYPE", &json_type);
                 json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
@@ -49,6 +49,7 @@ void consult_balance(Client client, Json_object json_clients) {
     }
 
     printf("\nWrong input, please try again\n");
+    printf("\n\nCome back the client menu\n");
     return;
 }
 
@@ -67,7 +68,7 @@ void transaction_list(Client client) {
     fp = fopen(str, "r");
     printf("\nDownload transaction file : Loading...\n");
 
-    printf("\nDATE    ,OPERATION,AMOUNT    ,BALANCE\n");
+    printf("\nDATE,\t\tOPERATION,\t\tAMOUNT,\t\tACCOUNT,\t\tBALANCE\n");
     fread(buffer, 1, BUFFER, fp);
     while (buffer) {
         char *nextLine = strchr(buffer, '\n');

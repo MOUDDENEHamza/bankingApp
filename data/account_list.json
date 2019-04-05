@@ -13,6 +13,11 @@
           "TYPE": "CURRENT",
           "ENTITLED": "MOUDDENE",
           "BALANCE": 90
+        },
+        {
+          "TYPE": "SAVINGS",
+          "ENTITLED": "MOUDDENE",
+          "BALANCE": 0
         }
       ]
     },

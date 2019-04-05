@@ -203,7 +203,7 @@ void add_client(Client client) {
     strcat(str, get_id(client));
     strcat(str, ".csv");
     fp = fopen(str, "a+");
-    fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE\n");
+    fprintf(fp, "\nDATE,\t\tOPERATION,\t\tAMOUNT,\t\tACCOUNT,\t\tBALANCE\n");
     fclose(fp);
 
     printf("\nClient has been added. Restart the APP.\n");
