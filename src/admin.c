@@ -28,16 +28,6 @@ char* concatenate(char* str1,char* str2){
     return str;
 }
 
-/*return the account to edit */
-Account choosen_account(Client client, int choice_type) {
-    Account *tabAccount=malloc(choice_type*sizeof(Account));
-    tabAccount[0]=new_account();
-    tabAccount[0]=get_account(client);
-    for(int cmpt=1; cmpt<choice_type; cmpt++){
-        tabAccount[cmpt]=new_account();
-        set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
-    }
-}
 
 
 Client create_new_account(int *nb_accounts) {
@@ -64,20 +54,6 @@ Client create_new_account(int *nb_accounts) {
 /*
  *Create account to the client
  */
-void create_account(Client client) {
-    printf("\n\nchoose the type of account you want to create\n");
-    printf("you have just to enter the number referenced! \n");
-    display_choose_type();
-    input_create_account(client);
-}
-
-/* add another account type for the client*/
-/*void add_account(Client client) {
-    printf("choose the type of account you want to add\n");
-    display_choose_type();
-    input_add_account(client,);
-}*/
-
 
 
 void display_accounts_list(void){

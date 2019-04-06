@@ -7,22 +7,8 @@ typedef enum boolean bool;
 
 char* concatenate(char* str1,char* str2);
 
-/*return the account to edit */
-Account choosen_account(Client client, int choice_type);
-
-/*get the number of accounts that have the client*/
-int nb_accounts(Client client);
-
-/*return true if the input of admin or user is in list of choice*/
-bool in_1__nb_accounts(int choice, int nb);
-
 
 Client create_new_account(int *nb_accounts);
-
-/*
- *Create account to the client
- */
-void create_account(Client client);
 
 /*
  *Edit account to the client
