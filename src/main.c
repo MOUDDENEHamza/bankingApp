@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 case 2 :
-                                    json_clients = admin_delete_account(client, json_clients); ///Delete an account
+                                    json_clients = admin_delete_account(json_clients); ///Delete an account
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;

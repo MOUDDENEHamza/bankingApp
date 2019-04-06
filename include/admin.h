@@ -11,7 +11,7 @@ void admin_create_account(Client client, Json_object json_clients);
 /**
  * Create a new account to a given client
  */
-Json_object admin_delete_account(Client client, Json_object json_clients);
+Json_object admin_delete_account(Json_object json_clients);
 
 /**
  * Display the account list by type of whole client in the bank
