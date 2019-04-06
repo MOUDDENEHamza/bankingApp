@@ -5,10 +5,9 @@
 
 typedef enum boolean bool;
 
-char* concatenate(char* str1,char* str2);
+int absolut_value(int *i);
 
-/*return the account to edit */
-Account choosen_account(Client client, int choice_type);
+char* concatenate(char* str1,char* str2);
 
 /*get the number of accounts that have the client*/
 int nb_accounts(Client client);

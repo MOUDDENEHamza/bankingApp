@@ -167,12 +167,12 @@ void input_birthday(Client client) {
 Client input_perso_info(Client client) {
 
     generate_unique_id(client);
-    create_passwd(client);
     input_last_name(client);
     input_first_name(client);
     input_birthday(client);
     input_mail(client);
     input_phone(client);
+    create_passwd(client);
     return client;
 }
 
@@ -285,15 +285,9 @@ Client input_add_account(Client client,int *nb_accounts) {
     Account a=new_account();
     scanf("%d",&choice);
     input_type(a,&choice);
-    printf("ok balance = %s\n",get_type(a));
     input_entitled(client,a);
-    printf("ok balance = %s\n",get_entitled(a));
     input_new_balance(a);
-    printf("ok balance = %f\n",get_balance(a));
     set_account(temp,a);
     set_nextAccount(get_account(temp),get_account(client));
-    printf("---->ok balance acc = %f\n",get_balance(get_account(temp)));
-    printf("----->ok balance nex acc = %f\n",get_balance(get_nextAccount(get_account(temp))));
-    //set_ith_account0(client,a,nb_accounts);
     return temp;
 }

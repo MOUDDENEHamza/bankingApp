@@ -14,6 +14,17 @@ enum boolean {
     true, false
 };
 
+int absolut_value(int *i){
+    if(i[0]>0){
+        return i[0];
+    }
+    else
+    {
+        return -i[0];
+    }
+    
+}
+
 char* concatenate(char* str1,char* str2){
     char* str=malloc((strlen(str1)+strlen(str2))*sizeof(char));
     for(int i=0; i<strlen(str1)+strlen(str2); i++){
@@ -28,17 +39,6 @@ char* concatenate(char* str1,char* str2){
     return str;
 }
 
-/*return the account to edit */
-Account choosen_account(Client client, int choice_type) {
-    Account *tabAccount=malloc(choice_type*sizeof(Account));
-    tabAccount[0]=new_account();
-    tabAccount[0]=get_account(client);
-    for(int cmpt=1; cmpt<choice_type; cmpt++){
-        tabAccount[cmpt]=new_account();
-        set_nextAccount(tabAccount[cmpt],tabAccount[cmpt-1]);
-    }
-}
-
 
 Client create_new_account(int *nb_accounts) {
     char *id=malloc(sizeof(char*));
@@ -48,16 +48,11 @@ Client create_new_account(int *nb_accounts) {
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
-    //printf("type cleint importes = %s\n",get_type(get_account(client)));
-    //printf("type cleint importes = %s\n",get_type(get_nextAccount(get_account(client))));
-    //printf("entitled cleint importes = %s\n",get_entitled(get_account(client)));
-    //printf("nb_account = %d ",nb_accounts[0]);
     printf("\n\nchoose the type of account you want to create\n");
     printf("you have just to enter the number referenced! \n");
     display_choose_type();
     Client updated=input_add_account(client,nb_accounts);
     nb_accounts[0]++;
-    //printf("ok\n  nb_accounts = %d",nb_accounts[0]);
     return updated;
 }
 
@@ -70,15 +65,6 @@ void create_account(Client client) {
     display_choose_type();
     input_create_account(client);
 }
-
-/* add another account type for the client*/
-/*void add_account(Client client) {
-    printf("choose the type of account you want to add\n");
-    display_choose_type();
-    input_add_account(client,);
-}*/
-
-
 
 void display_accounts_list(void){
     char *id=malloc(sizeof(char*));
@@ -130,7 +116,6 @@ Client edit_perso_info_client(void) {
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
     int *nb_accounts=malloc(sizeof(int));
-    //scanf("%d",idx);
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
@@ -145,9 +130,7 @@ Client edit_client_coordonates(int *nb_accounts){
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
-    //printf("ok");
     import_Client_idx_from_Json(id,idx);
-    //printf("ok");
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
     back:
@@ -179,7 +162,6 @@ Client edit_client_coordonates(int *nb_accounts){
 Json_object admin_delete_account(Client client, Json_object json_clients) {
     int *idx=malloc(sizeof(int));
     int *nb_accounts=malloc(sizeof(int));
-
     int i, j;
     Account temp = get_account(client);
     struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
@@ -197,7 +179,7 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
     scanf("%s",id);
     import_Client_idx_from_Json(id,idx);
     import_Client_from_Json(idx,client,nb_accounts);
-    Account *tabAccount=malloc(nb_accounts[0]*sizeof(Account));
+    Account *tabAccount=malloc(absolut_value(nb_accounts)*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client);
     printf("balance 1 = %f\n",get_balance(tabAccount[0]));
@@ -206,16 +188,23 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
         tabAccount[j]=get_nextAccount(tabAccount[j-1]);
         printf("balance %d = %f\n",j+1,get_balance(tabAccount[j]));
     }
-    printf("choose the acount you want to delete\n");
     int choice_type;
-    back:
-    display_typeAccounts(client,nb_accounts);
-    if (scanf("%d", &choice_type)==0) {
-        printf("unexistant choice !\n");
-        printf("retry again\n");
-        goto back;
+    int indextab;
+    if(nb_accounts[0]>0){
+        printf("choose the acount you want to delete\n");
+        back:
+        display_typeAccounts(client,nb_accounts);
+        if (scanf("%d", &choice_type)==0) {
+            printf("unexistant choice !\n");
+            printf("retry again\n");
+            goto back;
+        }
+        indextab=choice_type-1;
     }
-    int indextab=choice_type-1;
+    else
+    {
+        indextab=0;
+    }
 
     n_clients = json_object_array_length(json_clients);
     for (i = 0; i < n_clients; i++) {
@@ -231,17 +220,19 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
             json_object_object_add(json_temp_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
-            for (j = 0; j < n_accounts; j++) {
-                json_account = json_object_array_get_idx(json_account_list, j);
-                json_object_object_get_ex(json_account, "TYPE", &json_type);
-                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
-                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
-                if (indextab!=(int)j) {
-                    json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[j])));
-                    json_object_object_add(json_temp_account, "ENTITLED",json_object_new_string(get_entitled(tabAccount[j])));
-                    json_object_object_add(json_temp_account, "BALANCE",json_object_new_double(get_balance(tabAccount[j])));
-                    json_object_array_add(json_temp_account_list, json_temp_account);
-                    Json_object json_temp_account = json_object_new_object();
+            if(n_accounts>0){
+                for (j = 0; j < n_accounts; j++) {
+                    json_account = json_object_array_get_idx(json_account_list, j);
+                    json_object_object_get_ex(json_account, "TYPE", &json_type);
+                    json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                    json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+                    if (indextab!=(int)j) {
+                        json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[j])));
+                        json_object_object_add(json_temp_account, "ENTITLED",json_object_new_string(get_entitled(tabAccount[j])));
+                        json_object_object_add(json_temp_account, "BALANCE",json_object_new_double(get_balance(tabAccount[j])));
+                        json_object_array_add(json_temp_account_list, json_temp_account);
+                        Json_object json_temp_account = json_object_new_object();
+                    }
                 }
             }
             json_object_object_add(json_temp_client, "ACCOUNT LIST", json_temp_account_list);
@@ -250,8 +241,13 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
             json_object_array_add(json_temp_clients, json_client);
         }
     }
-
-    display_delet_successfoul();
+    if(nb_accounts[0]>0){
+        display_delet_successfoul();
+    }
+    else
+    {
+        display_no_account();
+    }
     printf("\nCome back the administrator menu\n");
     return json_temp_clients;
 }
@@ -275,50 +271,53 @@ Json_object edit_account(Client client, Json_object json_clients) {
     Json_object json_temp_account = json_object_new_object();
     size_t n_clients, n_accounts;
     char  *type = malloc(sizeof(char*)) , *entitled = malloc(sizeof(char*));
-    Account *tabAccount=malloc(nb_accounts[0]*sizeof(Account));
+    Account *tabAccount=malloc(absolut_value(nb_accounts)*sizeof(Account));
 
     printf("\nEnter the client ID  :");
     scanf("%s",id);
     import_Client_idx_from_Json(id,idx);
     import_Client_from_Json(idx,client,nb_accounts);
-    printf("\n\tchoose the type of account you want to edit\n");
-
-    back1:
-    display_typeAccounts(client,nb_accounts);
-    if (scanf("%d",&choice_type)==0) {
-        printf("unexistant choice !\n");
-        printf("retry again\n");
-        choice_type=choice_type+1;
-        goto back1;
-    }
-
-    back2:
-    display_choose_edit();
-    scanf("%d", &choice);
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client);
-    printf("balance 1 = %f\n",get_balance(tabAccount[0]));
     for(int j=1; j<nb_accounts[0]; j++){
         tabAccount[j]=new_account();
         tabAccount[j]=get_nextAccount(tabAccount[j-1]);
-        printf("balance %d = %f\n",j+1,get_balance(tabAccount[j]));
     }
-        
-    switch (choice) 
-    {
-        case 1:
-            input_new_balance(tabAccount[choice_type-1]);
-            printf("new balance = %f",get_balance(tabAccount[choice_type-1]));
-            break;
-        case 2:
-            input_entitled(client,tabAccount[choice_type-1]);
-            break;
 
-        default:
+    if(nb_accounts[0]>0){
+        printf("\n\tchoose the type of account you want to edit\n");
+        back1:
+        display_typeAccounts(client,nb_accounts);
+        if (scanf("%d",&choice_type)==0) {
             printf("unexistant choice !\n");
             printf("retry again\n");
-            goto back2;
+            choice_type=choice_type+1;
+            goto back1;
+        }
+
+        back2:
+        display_choose_edit();
+        scanf("%d", &choice);        
+        switch (choice) 
+        {
+            case 1:
+                input_new_balance(tabAccount[choice_type-1]);
+                printf("new balance = %f",get_balance(tabAccount[choice_type-1]));
+                break;
+            case 2:
+                input_entitled(client,tabAccount[choice_type-1]);
+                break;
+
+            default:
+                printf("unexistant choice !\n");
+                printf("retry again\n");
+                goto back2;
+        }
     }
+    else{
+        display_no_account();
+    }
+    
     
     n_clients = json_object_array_length(json_clients);
     for (i = 0; i < n_clients; i++) {
@@ -353,6 +352,8 @@ Json_object edit_account(Client client, Json_object json_clients) {
             json_object_array_add(json_temp_clients, json_client);
         }
     }
-    display_edit_succesfoul();
+    if (n_accounts>0) {
+        display_edit_succesfoul();
+    }
     return  json_temp_clients;
 }

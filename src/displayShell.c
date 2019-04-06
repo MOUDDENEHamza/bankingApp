@@ -5,6 +5,7 @@
 #define GREEN "\x1B[32m"
 #define BLUE "\x1B[34m"
 #define RESET "\x1B[0m"
+#define MAGENTA "\x1B[35m"
 
 /*
  * Display the init bar
@@ -182,4 +183,8 @@ void display_edit_succesfoul(void){
 
 void display_delet_successfoul(void){
     printf(GREEN"\nok\naccount deleted successfoully !"RESET);
+}
+
+void display_no_account(void){
+    printf(MAGENTA"\nOoup's !!!\nTHAT CLIENT HAS NOT AN ACCOUNT !"RESET);
 }

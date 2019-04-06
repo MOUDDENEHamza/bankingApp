@@ -12,13 +12,11 @@
  */
 void write_file(Json_object json_object, Json_object json_clients) {
     FILE *fp;
-    //printf("%s\n", json_object_get_string(json_clients));
     if (json_clients == NULL) {
         return;
     }
     json_object_object_add(json_object, "CLIENTS", json_clients);
     fp = fopen("data/account_list.json", "w");
-    //printf("%s\n", json_object_get_string(json_object));
     fwrite(json_object_get_string(json_object), strlen(json_object_get_string(json_object)), 1, fp);
     fclose(fp);
 }
@@ -47,19 +45,15 @@ void add_client_json(Client client, Json_object json_clients) {
     json_account = json_object_new_object();
 
     json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
-    //printf("%s\n", json_object_to_json_string(json_client));
     json_object_array_add(json_clients, json_client);
-    //printf("%s\n", json_object_to_json_string(json_clients));
 }
+
+
 
 void modify_client(Client client, Json_object json_clients,int *nb_acc){
     int *idx=malloc(sizeof(int));
     import_Client_idx_from_Json(get_id(client),idx);
-    printf("\n idx = %d",*idx);
     size_t n_account;
-    printf("nb final account = %d",nb_acc[0]);
-
-    
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();
     Json_object json_account = json_object_new_object();
@@ -71,7 +65,7 @@ void modify_client(Client client, Json_object json_clients,int *nb_acc){
     json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
     json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
     if(get_account(client)!=NULL){
-        Account *tabAccount=malloc(nb_acc[0]*sizeof(Account));
+        Account *tabAccount=malloc(absolut_value(nb_acc)*sizeof(Account));
         tabAccount[0]=new_account();
         tabAccount[0]= get_account(client);
         for(int cmpt=1; cmpt<nb_acc[0]; cmpt++){
@@ -89,20 +83,15 @@ void modify_client(Client client, Json_object json_clients,int *nb_acc){
     }
         json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
     }
-
-    //printf("%s\n", json_object_to_json_string(json_client));
     json_object_array_put_idx(json_clients, *idx, json_client);
-    //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
 void delete_client(Client client, Json_object json_clients,int *nb_acc){
     int *idx=malloc(sizeof(int));
     import_Client_idx_from_Json(get_id(client),idx);
-    printf("\n idx = %d",*idx);
     size_t n_account;
-    printf("nb final account = %d",nb_acc[0]);
     Account a = get_account(client);
-    Account *tabAccount=malloc(nb_acc[0]*sizeof(Account));
+    Account *tabAccount=malloc(absolut_value(nb_acc)*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=a;
     for(int cmpt=1; cmpt<nb_acc[0]; cmpt++){
@@ -120,17 +109,17 @@ void delete_client(Client client, Json_object json_clients,int *nb_acc){
     json_object_object_add(json_client, "BIRTHDAY", json_object_new_string(get_birthday(get_perso_info(client))));
     json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
     json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
-    for (int cmpt=0; cmpt < nb_acc[0]; cmpt++) {
-        json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(tabAccount[cmpt])));
-        json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(tabAccount[cmpt])));
-        json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(tabAccount[cmpt])));
-        json_object_array_add(json_account_list, json_account);
-        json_account = json_object_new_object();
+    if(nb_acc[0]>0){
+        for (int cmpt=0; cmpt < nb_acc[0]; cmpt++) {
+            json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(tabAccount[cmpt])));
+            json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(tabAccount[cmpt])));
+            json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(tabAccount[cmpt])));
+            json_object_array_add(json_account_list, json_account);
+            json_account = json_object_new_object();
+        }
     }
     json_object_object_add(json_client, "ACCOUNT LIST", json_account_list);
-    //printf("%s\n", json_object_to_json_string(json_client));
     json_object_object_del(json_clients, "ACCOUNT LIST");
-    //printf("%s\n", json_object_to_json_string(json_clients));
 }
 
 /*
@@ -153,14 +142,10 @@ Json_object parse_json(void) {
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
-    //printf("Found %lu clients\n", n_clients);
 
     for (i = 0; i < n_clients; i++) {
         client = json_object_array_get_idx(clients, i);
-        //printf("%s\n", json_object_get_string(client));
     }
-    //printf("%s\n", json_object_get_string(clients));
-    //printf("%s\n", json_object_get_string(parsed_json));
     return clients;
 }
 
@@ -181,7 +166,6 @@ void import_Client_idx_from_Json(char* id, int* idx){
     parsed_json = json_tokener_parse(buffer);
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
-    printf("Found %lu clients\n", n_clients);
 
     int cmpt=0;
     int mybool=1;
@@ -190,7 +174,6 @@ void import_Client_idx_from_Json(char* id, int* idx){
     while(cmpt < n_clients && mybool==1){
         client = json_object_array_get_idx(clients, i);
         json_object_object_get_ex(client, "ID", &id_json);
-        printf("%s\n", json_object_get_string(id_json));
         if(strcmp(json_object_get_string(id_json),id)==0){
             mybool=0;
         }
@@ -201,7 +184,6 @@ void import_Client_idx_from_Json(char* id, int* idx){
         cmpt++;
         i++;
     }
-    printf("ouaiiiiiiiiiis ! idx = %d \n",*idx);
 }
 
 
@@ -236,7 +218,6 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
     i=(const int)idx[0];
-    printf("ok \n");
     client = json_object_array_get_idx(clients, i);
     json_object_object_get_ex(client, "ID", &id_json);
     json_object_object_get_ex(client, "PASSWD", &pwd_json);
@@ -248,7 +229,6 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     json_object_object_get_ex(client, "ACCOUNT LIST", &account_list_json);
     n_accounts = json_object_array_length(account_list_json);
     nbAcc[0]=(int)n_accounts;
-    printf("nbAcc = %d \n",nbAcc[0]);
     if(nbAcc[0]>0){
         Account *tabAccount=malloc(nbAcc[0]*sizeof(Account));
         tabAccount[0]=new_account();
@@ -263,19 +243,16 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
             account = json_object_array_get_idx(account_list_json,j);
             json_object_object_get_ex(account, "TYPE" , &type_json);
             set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
-            printf("ok type = %s \n",get_type(tabAccount[j1]));
             json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
             set_entitled(tabAccount[j1],(char*)json_object_get_string(entitled_json));
             json_object_object_get_ex(account, "BALANCE" , &balance_json);
             *bal=(float)json_object_get_double(balance_json);
             set_balance(tabAccount[j1],bal);
-            printf("\n on commmence -----\n");
-            //set_ith_account0(client_imported,account_temp,&j1);
         }
     }
     else
     {
-        nbAcc[0]=1;
+        nbAcc[0]=-1;
         char * voidchar = "@@@@@@@@@@ void @@@@@@@@@@";
         set_type(get_account(client_imported),voidchar);
         set_entitled(get_account(client_imported),voidchar);
@@ -318,7 +295,6 @@ void import_Account_from_Json(int *idx, Account* tabAccount){
     json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
     n_clients = json_object_array_length(clients);
     i=(const int)idx[0];
-    printf("ok \n");
     client = json_object_array_get_idx(clients, i);
     json_object_object_get_ex(client, "ACCOUNT LIST", &account_list_json);
     n_accounts = json_object_array_length(account_list_json);
@@ -328,12 +304,10 @@ void import_Account_from_Json(int *idx, Account* tabAccount){
         account = json_object_array_get_idx(account_list_json,j);
         json_object_object_get_ex(account, "TYPE" , &type_json);
         set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
-        printf("ok type = %s \n",get_type(tabAccount[j1]));
         json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
         set_entitled(tabAccount[j1],(char*)json_object_get_string(entitled_json));
         json_object_object_get_ex(account, "BALANCE" , &balance_json);
         *bal=(float)json_object_get_double(balance_json);
         set_balance(tabAccount[j1],bal);
-        printf("\n on commmence -----\n");
     }
 }
