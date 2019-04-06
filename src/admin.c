@@ -260,7 +260,7 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
 /*
  *Edit account to the client
  */
-Client edit_account(Client client) {
+Json_object edit_account(Client client, Json_object json_clients) {
     char *id=malloc(sizeof(char*));
     int choice;
     int choice_type;
@@ -268,8 +268,7 @@ Client edit_account(Client client) {
     int *nb_accounts=malloc(sizeof(int));
     float new_balance;
     char * new_entitled=malloc(sizeof(char*));
-
-
+    char * voidchar = "@@@@@@@@@@ void @@@@@@@@@@";
     int i, j;
     Account temp = get_account(client);
     struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
@@ -336,5 +335,39 @@ Client edit_account(Client client) {
     printf("on est entré !!!\n");
     printf("on est entré !!!%s\n",get_type(get_account(client)));
     printf("on est entré !!!%s\n",get_type(tabAccount[choice_type-1]));
-    return client;
+    
+    n_clients = json_object_array_length(json_clients);
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+        if (strcmp(id, json_object_get_string(json_id)) == 0) {
+            json_object_object_add(json_temp_client, "ID", json_object_new_string(get_id(client)));
+            json_object_object_add(json_temp_client, "PASSWD", json_object_new_string(get_passwd(client)));
+            json_object_object_add(json_temp_client, "LAST NAME",json_object_new_string(get_last_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "FIRST NAME",json_object_new_string(get_first_name(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "BIRTHDAY",json_object_new_string(get_birthday(get_perso_info(client))));
+            json_object_object_add(json_temp_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
+            json_object_object_add(json_temp_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
+            for (j = 0; j < nb_accounts[0]; j++) {
+                json_account = json_object_array_get_idx(json_account_list, j);
+                json_object_object_get_ex(json_account, "TYPE", &json_type);
+                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+                if (n_accounts>0) {
+                    json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[j])));
+                    json_object_object_add(json_temp_account, "ENTITLED",json_object_new_string(get_entitled(tabAccount[j])));
+                    json_object_object_add(json_temp_account, "BALANCE",json_object_new_double(get_balance(tabAccount[j])));
+                    json_object_array_add(json_temp_account_list, json_temp_account);
+                    Json_object json_temp_account = json_object_new_object();
+                }
+            }
+            json_object_object_add(json_temp_client, "ACCOUNT LIST", json_temp_account_list);
+            json_object_array_add(json_temp_clients, json_temp_client);
+        } else {
+            json_object_array_add(json_temp_clients, json_client);
+        }
+    }
+    return  json_temp_clients;
 }

@@ -130,8 +130,7 @@ int main(int argc, char *argv[]) {
                                     write_file(json_object, json_clients);
                                     break;
                                 case 2 :
-                                    client = edit_account(client);
-                                    modify_client(client,json_clients,nb_acc1);
+                                    json_clients = edit_account(client,json_clients);
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;

@@ -27,7 +27,7 @@ void create_account(Client client);
 /*
  *Edit account to the client
  */
-Client edit_account(Client client);
+Json_object edit_account(Client client, Json_object json_clients);
 
 void display_accounts_list();
 
