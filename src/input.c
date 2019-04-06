@@ -221,8 +221,41 @@ void input_type(Account a, int *choice) {
 
 /*input the entitled of the account*/
 void input_entitled(Client client, Account a) {
+    int choice;
+    char *civility = malloc(sizeof(char*));
+    back:
+    printf("\nPlease specify, e.g.\n\t1 : Dr.\n\t2 : Mr.\n\t3 : Ms.\n\t4 : Mrs.\n\t5 : other\n");
+    scanf("%d", &choice);
+    switch (choice)
+    {
+        case 1 :
+            strcpy(civility , "Dr. ");
+            break;
+        
+        case 2 :
+            strcpy(civility , "Mr. ");
+
+            break;
+
+        case 3 :
+            strcpy(civility , "Ms. ");
+            break;
+
+        case 4 :
+            strcpy(civility , "Mrs. ");
+            break;
+
+        case 5 :
+            strcpy(civility , ". ");
+            break;
+    
+        default:
+            printf("\nWrong choice !\nretry again !\n");
+            goto back;
+            break;
+    }
     char *entitled = malloc(sizeof(char*));
-    char* ent1=concatenate("Mr ",get_first_name(get_perso_info(client)));
+    char* ent1=concatenate(civility,get_first_name(get_perso_info(client)));
     char* ent2=concatenate(ent1," ");
     entitled=concatenate(ent2,get_last_name(get_perso_info(client)));
     set_entitled(a, entitled);

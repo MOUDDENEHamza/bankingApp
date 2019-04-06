@@ -102,4 +102,8 @@ void display_typeAccounts(Client client,int *nbacc);
 
 void display_entitled(Client client, int *nbacc);
 
+
+void display_edit_succesfoul(void);
+
+void display_delet_successfoul(void);
 #endif

@@ -132,6 +132,7 @@ void display_choose_type(){
     printf("\t\t4: TITLE\n");
     printf("\t\t5: INDIVIDUAL\n");
     printf("\t\t6: JOINT\n");
+    printf("Enter your choice : ");
 }
 
 
@@ -139,7 +140,8 @@ void display_choose_type(){
 void display_choose_edit() {
     printf("\n\tchoose what you want to edit\n");
     printf("\n\t1 : BALANCE");
-    printf("\t2 : ENTITLED");
+    printf("\t2 : ENTITLED\n");
+    printf("Enter your choice : \n");
 }
 
 void display_choose_coordonatesToEdit(void){
@@ -174,3 +176,10 @@ void display_entitled(Client client, int *nbacc){
     }
 }
 
+void display_edit_succesfoul(void){
+    printf(GREEN"\nok\ninformations edited successfoully !"RESET);
+}
+
+void display_delet_successfoul(void){
+    printf(GREEN"\nok\naccount deleted successfoully !"RESET);
+}
