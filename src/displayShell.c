@@ -6,6 +6,9 @@
 #define BLUE "\x1B[34m"
 #define RESET "\x1B[0m"
 #define MAGENTA "\x1B[35m"
+#define YELLOW "\x1B[33m"
+#define CAYAN "\x1B[36m"
+
 
 /*
  * Display the init bar
@@ -69,7 +72,7 @@ void display_administrator(int *exit) {
  * Display the client account management submenu
  */
 void display_admin_account_management(void) {
-    printf("\n\t\t\t\tClient management\n\n"BLUE"1)-Create an account\n2)-Modify an accounts\n3)-Delete an account\n4)-Display the account list by type of account\n"RED"5)-Exit\n"RESET);
+    printf("\n\t\t\t\tClient management\n\n"BLUE"1)-Create an account\n2)-Modify an account\n3)-Delete an account\n4)-Display the account list by type of account\n"RED"5)-Exit\n"RESET);
 }
 
 /*
@@ -178,13 +181,17 @@ void display_entitled(Client client, int *nbacc){
 }
 
 void display_edit_succesfoul(void){
-    printf(GREEN"\nok\ninformations edited successfoully !"RESET);
+    printf(GREEN"\nok\ninformations edited successfoully !\n"RESET);
 }
 
 void display_delet_successfoul(void){
-    printf(GREEN"\nok\naccount deleted successfoully !"RESET);
+    printf(GREEN"\nok\naccount deleted successfoully !\n"RESET);
 }
 
 void display_no_account(void){
-    printf(MAGENTA"\nOoup's !!!\nTHAT CLIENT HAS NOT AN ACCOUNT !"RESET);
+    printf(MAGENTA"\nOoup's !!!\nTHAT CLIENT HAS NOT AN ACCOUNT !\n"RESET);
+}
+
+void display_wrong(void){
+    printf(CAYAN"\nWrong choice !\nretry again !\n"RESET);
 }

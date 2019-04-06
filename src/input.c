@@ -7,6 +7,7 @@
 #include "input.h"
 #include "admin.h"
 #include "json.h"
+#include "displayShell.h"
 
 #define SIZE 64
 
@@ -90,7 +91,7 @@ void generate_unique_id(Client client) {
  * Ask to client to input his id
  */
 void input_id(char *id) {
-    printf("\nEnter your id : ");
+    printf("\nEnter the client id : ");
     scanf("%s", id);
 }
 
@@ -115,7 +116,7 @@ void create_passwd(Client client) {
  */
 void input_last_name(Client client) {
     char *last_name = (char *) malloc(SIZE);
-    printf("\nEnter your last name : ");
+    printf("\nEnter the client last name : ");
     scanf("%s", last_name);
     set_last_name(get_perso_info(client), last_name);
 }
@@ -125,7 +126,7 @@ void input_last_name(Client client) {
  */
 void input_first_name(Client client) {
     char *first_name = (char *) malloc(SIZE);
-    printf("\nEnter your first name : ");
+    printf("\nEnter the client first name : ");
     scanf("%s", first_name);
     set_first_name(get_perso_info(client), first_name);
 }
@@ -135,7 +136,7 @@ void input_first_name(Client client) {
  */
 void input_mail(Client client) {
     char *mail = (char *) malloc(SIZE);
-    printf("\nEnter your E-mail : ");
+    printf("\nEnter the client E-mail : ");
     scanf("%s", mail);
     set_mail(get_coordinates(get_perso_info(client)), mail);
 }
@@ -145,7 +146,7 @@ void input_mail(Client client) {
  */
 void input_phone(Client client) {
     char *phone = (char *) malloc(SIZE);
-    printf("\nEnter your phone : ");
+    printf("\nEnter the client phone : ");
     scanf("%s", phone);
     set_phone(get_coordinates(get_perso_info(client)), phone);
 }
@@ -155,7 +156,7 @@ void input_phone(Client client) {
  */
 void input_birthday(Client client) {
     char *birthday = (char *) malloc(SIZE);
-    printf("\nEnter your birthday : ");
+    printf("\nEnter the client birthday : ");
     scanf("%s", birthday);
     set_birthday(get_perso_info(client), birthday);
 
@@ -215,7 +216,8 @@ void input_type(Account a, int *choice) {
             set_type(a, type);
             break;
         default :
-            printf("\nWrong choice. Please try again\n");
+            display_wrong();
+            break;
     }
 }
 
@@ -250,7 +252,7 @@ void input_entitled(Client client, Account a) {
             break;
     
         default:
-            printf("\nWrong choice !\nretry again !\n");
+            display_wrong();
             goto back;
             break;
     }
@@ -283,9 +285,9 @@ Client input_add_account(Client client,int *nb_accounts) {
     set_passwd(temp,get_passwd(client));
     set_perso_info(temp,get_perso_info(client));
     Account a=new_account();
+    input_entitled(client,a);
     scanf("%d",&choice);
     input_type(a,&choice);
-    input_entitled(client,a);
     input_new_balance(a);
     set_account(temp,a);
     set_nextAccount(get_account(temp),get_account(client));

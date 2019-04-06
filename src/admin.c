@@ -33,8 +33,7 @@ char* concatenate(char* str1,char* str2){
         else
         {
             str[i]=str2[i-strlen(str1)];
-        }
-        
+        }  
     }
     return str;
 }
@@ -139,7 +138,7 @@ Client edit_client_coordonates(int *nb_accounts){
     int valid = scanf("%d",choice);
     int *t;
     while(valid =0){
-        printf("\nwrong choice, try again please!  \n");
+        display_wrong();
         choice=choice+1;
         valid=scanf("%d",choice);
     }
@@ -151,8 +150,7 @@ Client edit_client_coordonates(int *nb_accounts){
             input_phone(client);
             break;
         default:
-            printf("unexistant choice !\n");
-            printf("retry again\n");
+            display_wrong();
             goto back;
     }
     return client;
@@ -195,8 +193,7 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
         back:
         display_typeAccounts(client,nb_accounts);
         if (scanf("%d", &choice_type)==0) {
-            printf("unexistant choice !\n");
-            printf("retry again\n");
+            display_wrong();
             goto back;
         }
         indextab=choice_type-1;
@@ -289,8 +286,7 @@ Json_object edit_account(Client client, Json_object json_clients) {
         back1:
         display_typeAccounts(client,nb_accounts);
         if (scanf("%d",&choice_type)==0) {
-            printf("unexistant choice !\n");
-            printf("retry again\n");
+            display_wrong();
             choice_type=choice_type+1;
             goto back1;
         }
@@ -309,8 +305,7 @@ Json_object edit_account(Client client, Json_object json_clients) {
                 break;
 
             default:
-                printf("unexistant choice !\n");
-                printf("retry again\n");
+                display_wrong();
                 goto back2;
         }
     }
