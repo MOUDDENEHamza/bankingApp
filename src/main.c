@@ -130,18 +130,15 @@ int main(int argc, char *argv[]) {
                                     write_file(json_object, json_clients);
                                     break;
                                 case 2 :
-                                    client=edit_account();
+                                    client = edit_account(client);
                                     modify_client(client,json_clients,nb_acc1);
-                                    write_file(json_object, json_clients);
-                                    client=new_client();
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
                                 case 3 :
-                                    client= delete_account();
-                                    modify_client(client,json_clients,nb_acc1);
-                                    //delete_client(client,json_clients,nb_acc1);
-                                    //add_client_json(client, json_clients);
-                                    write_file(json_object, json_clients);
-                                    client = new_client();
+                                    json_clients = admin_delete_account(client, json_clients); ///Delete an account
+                                    write_file(json_object, json_clients);///Update the JSON file
+                                    json_clients = parse_json();///Parse the json file containing the client data
                                     break;
                                 case 4 :
                                     display_accounts_list();
@@ -176,6 +173,7 @@ int main(int argc, char *argv[]) {
                                     client=new_client();
                                     break;
                                 case 3 :
+                                    display_entiled();
                                     break;
                                 case 4 :
                                     end_bar(); //Display the end bar.

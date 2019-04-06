@@ -27,14 +27,10 @@ void create_account(Client client);
 /*
  *Edit account to the client
  */
-Client edit_account(void);
+Client edit_account(Client client);
 
 void display_accounts_list();
 
-/*
- *delete account
- */
-Client delete_account(void);
 
 /*
  *Add client
@@ -47,5 +43,9 @@ void add_client(Client client);
 Client edit_perso_info_client(void);
 
 Client edit_client_coordonates(int *nb_accounts);
+
+Json_object admin_delete_account(Client client, Json_object json_clients);
+
+void display_entiled(void);
 
 #endif

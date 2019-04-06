@@ -249,29 +249,37 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     n_accounts = json_object_array_length(account_list_json);
     nbAcc[0]=(int)n_accounts;
     printf("nbAcc = %d \n",nbAcc[0]);
-    Account *tabAccount=malloc(nbAcc[0]*sizeof(Account));
-    tabAccount[0]=new_account();
-    tabAccount[0]=get_account(client_imported);
-    for(int cmpt=1; cmpt<nbAcc[0]; cmpt++){
-        tabAccount[cmpt]=new_account();
-        set_nextAccount(tabAccount[cmpt-1],tabAccount[cmpt]);
+    if(nbAcc[0]>0){
+        Account *tabAccount=malloc(nbAcc[0]*sizeof(Account));
+        tabAccount[0]=new_account();
+        tabAccount[0]=get_account(client_imported);
+        for(int cmpt=1; cmpt<nbAcc[0]; cmpt++){
+            tabAccount[cmpt]=new_account();
+            set_nextAccount(tabAccount[cmpt-1],tabAccount[cmpt]);
+        }
+        int j1;
+        for(j=0; j<=n_accounts-1; j++){
+            j1=(int)j;
+            account = json_object_array_get_idx(account_list_json,j);
+            json_object_object_get_ex(account, "TYPE" , &type_json);
+            set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
+            printf("ok type = %s \n",get_type(tabAccount[j1]));
+            json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
+            set_entitled(tabAccount[j1],(char*)json_object_get_string(entitled_json));
+            json_object_object_get_ex(account, "BALANCE" , &balance_json);
+            *bal=(float)json_object_get_double(balance_json);
+            set_balance(tabAccount[j1],bal);
+            printf("\n on commmence -----\n");
+            //set_ith_account0(client_imported,account_temp,&j1);
+        }
     }
-    int j1;
-    for(j=0; j<=n_accounts-1; j++){
-        j1=(int)j;
-        account = json_object_array_get_idx(account_list_json,j);
-        json_object_object_get_ex(account, "TYPE" , &type_json);
-        set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
-        printf("ok type = %s \n",get_type(tabAccount[j1]));
-        json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
-        set_entitled(tabAccount[j1],(char*)json_object_get_string(entitled_json));
-        json_object_object_get_ex(account, "BALANCE" , &balance_json);
-        *bal=(float)json_object_get_double(balance_json);
-        set_balance(tabAccount[j1],bal);
-        printf("\n on commmence -----\n");
-        //set_ith_account0(client_imported,account_temp,&j1);
+    else
+    {
+        nbAcc[0]=1;
+        char * voidchar = "@@@@@@@@@@ void @@@@@@@@@@";
+        set_type(get_account(client_imported),voidchar);
+        set_entitled(get_account(client_imported),voidchar);
     }
-
     set_id(client_imported,(char*)json_object_get_string(id_json));
     set_passwd(client_imported,(char*)json_object_get_string(pwd_json));
     Perso_info p=new_perso_info();
