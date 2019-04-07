@@ -8,6 +8,10 @@
 
 #define BUFFER 4096
 #define SIZE 64
+#define RED "\x1B[31m"
+#define GREEN "\x1B[32m"
+#define BLUE "\x1B[34m"
+#define RESET "\x1B[0m"
 
 /**
  * To consult the balance of the client
@@ -50,7 +54,7 @@ void consult_balance(Client client, Json_object json_clients) {
         }
     }
 
-    printf("\nWrong input, please try later\n");
+    printf("\n"RED"ERROR : "RESET"Wrong input, please try later\n");
     printf("\n\nCome back the client menu\n");
 }
 
@@ -117,7 +121,7 @@ void transfer_money(Client client, Json_object json_clients) {
     scanf("%f", &amount_transfer);
 
     if (strcmp(get_id(client), id) == 0) {
-        printf("\nSorry you can't transfer money to yourself");
+        printf("\n"RED"FAILED : "RESET"Sorry you can't transfer money to yourself");
         printf("\nCome back the client menu\n");
         return;
     }
@@ -187,13 +191,13 @@ void transfer_money(Client client, Json_object json_clients) {
             }
 
             if (done == 2) {
-                printf("\nTransfer done with success\n");
+                printf("\n"GREEN"DONE : "RESET"Transfer done with success\n");
                 printf("\nCome back the client menu\n");
                 return;
             }
         }
     }
-    printf("\nThe recipient data you enter is wrong. Please try later\n");
+    printf("\n"RED"ERROR : "RESET"The recipient data you enter is wrong. Please try later\n");
     printf("\nCome back the client menu\n");
 }
 
@@ -216,7 +220,7 @@ void pay_by_card(Client client, Json_object json_clients) {
     scanf("%s", type);
 
     if (strcmp(type, "SAVINGS") == 0) {
-        printf("\nSorry, you can not pay with your savings account\n");
+        printf("\n"RED"FAILED : "RESET"Sorry, you can not pay with your savings account\n");
         printf("\nCome back the client menu\n");
         return;
     }
@@ -251,7 +255,7 @@ void pay_by_card(Client client, Json_object json_clients) {
                         if (strcmp(get_type(temp), type) == 0 && strcmp(get_entitled(temp), entitled) == 0) {
 
                             if (product_price > json_object_get_double(json_balance)) {
-                                printf("\nyour balance is insufficient to perform this operation\n");
+                                printf("\n"RED"FAILED : "RESET"your balance is insufficient to perform this operation\n");
                                 printf("\nCome back the client menu\n");
                                 return;
                             }
@@ -272,7 +276,7 @@ void pay_by_card(Client client, Json_object json_clients) {
                                             tm.tm_mon + 1, tm.tm_year + 1900, type, product_price, get_balance(temp));
                                     fclose(fp);
 
-                                    printf("\nPayment done\n");
+                                    printf("\n"GREEN"DONE : "RESET"Payment done with success\n");
                                     printf("\nCome back the client menu\n");
                                     return;
                                 }
@@ -286,7 +290,7 @@ void pay_by_card(Client client, Json_object json_clients) {
         }
     }
 
-    printf("\nWrong input, please try later\n");
+    printf("\n"RED"ERROR : "RESET"Wrong input, please try later\n");
     printf("\nCome back the client menu\n");
 }
 
@@ -314,7 +318,7 @@ void make_deposit(Client client, Json_object json_clients) {
     scanf("%f", &deposit);
 
     if (deposit <= 0) {
-        printf("\nError while inputting the amount of the deposit\n");
+        printf("\n"RED"ERROR : "RESET"Wrong inputting of the amount of the deposit\n");
         printf("\nCome back the client menu\n");
         return;
     }
@@ -357,7 +361,7 @@ void make_deposit(Client client, Json_object json_clients) {
                                             tm.tm_mon + 1, tm.tm_year + 1900, type, deposit, get_balance(temp));
                                     fclose(fp);
 
-                                    printf("\nMake a deposit done with success\n");
+                                    printf("\n"GREEN"DONE : "RESET"Make a deposit done with success\n");
                                     printf("\nCome back the client menu\n");
                                     return;
                                 }
@@ -370,7 +374,7 @@ void make_deposit(Client client, Json_object json_clients) {
             }
         }
     }
-    printf("\nMake a deposit failed, please try again\n");
+    printf("\n"RED"FAILED : "RESET"Make a deposit failed, please try again\n");
     printf("\nCome back the client menu\n");
 }
 
@@ -378,10 +382,10 @@ void make_deposit(Client client, Json_object json_clients) {
  * Create a new account to a given client
  */
 void client_create_account(Client client, Json_object json_clients) {
-    int i;
+    int i, j;
     Account temp = get_account(client);
     Account new_node = new_account();
-    struct json_object *json_client, *json_id, *json_account_list, *json_type, *json_entitled, *json_balance;
+    Json_object json_client, json_id, json_account_list, json_type, json_entitled, json_balance;
     Json_object json_account = json_object_new_object();
     size_t n_clients, n_accounts;
     char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
@@ -409,7 +413,7 @@ void client_create_account(Client client, Json_object json_clients) {
             set_type(new_node, type);
             break;
         default :
-            printf("\nWrong choice. Please try again\n");
+            printf("\n"RED"ERROR : "RESET"Wrong choice. Please try again\n");
             goto back;
     }
 
@@ -431,9 +435,24 @@ void client_create_account(Client client, Json_object json_clients) {
         json_client = json_object_array_get_idx(json_clients, i);
         json_object_object_get_ex(json_client, "ID", &json_id);
 
+
         if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
+
+            for (j = 0; j < n_accounts; j++) {
+                json_account = json_object_array_get_idx(json_account_list, j);
+                json_object_object_get_ex(json_account, "TYPE", &json_type);
+                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+
+                if (strcmp(json_object_get_string(json_type), type) == 0 &&
+                    strcmp(json_object_get_string(json_entitled), entitled) == 0) {
+                    printf("\n"RED"FAILED : "RESET"You can not create an account with the same entitled of an existent account\n");
+                    printf("\nCome back the administrator menu\n");
+                    return;
+                }
+            }
 
             json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(new_node)));
             json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(new_node)));
@@ -442,7 +461,8 @@ void client_create_account(Client client, Json_object json_clients) {
         }
     }
 
-    printf("\nThe account has been created with success\n");
+    printf("\n"GREEN"DONE : "RESET"The account has been created with success\n");
+    printf("\nCome back the client menu\n");
 }
 
 /**
@@ -512,6 +532,7 @@ Json_object client_delete_account(Client client, Json_object json_clients) {
         }
     }
 
-    printf("\nThe account has been deleted with success\n");
+    printf("\n"GREEN"DONE : "RESET"The account has been deleted with success\n");
+    printf("\nCome back the client menu\n");
     return json_temp_clients;
 }

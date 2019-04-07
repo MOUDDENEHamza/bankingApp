@@ -10,7 +10,7 @@
       "PHONE": "06-41-13-22-30",
       "ACCOUNT LIST": [
         {
-          "TYPE": "SAVINGS",
+          "TYPE": "CURRENT",
           "ENTITLED": "MOUDDENE",
           "BALANCE": 0
         }
@@ -27,11 +27,6 @@
       "ACCOUNT LIST": [
         {
           "TYPE": "CURRENT",
-          "ENTITLED": "KANE",
-          "BALANCE": 0
-        },
-        {
-          "TYPE": "SAVINGS",
           "ENTITLED": "KANE",
           "BALANCE": 0
         }

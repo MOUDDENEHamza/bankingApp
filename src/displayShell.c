@@ -112,7 +112,7 @@ void display_error_connexion_admin(void) {
  * Display a message while deleting account
  */
 void display_account_type(void) {
-    printf("\nBefore creating the new account you should specify what kind of account you want to create\n\n\t1)-CURRENT\n\t2)-SAVING\n\t3)-JOINT\n");
+    printf("\nBefore creating the new account you should specify what kind of account you want to create\n\n\t1)-CURRENT\n\t2)-SAVINGS\n\t3)-JOINT\n");
 }
 
 /*

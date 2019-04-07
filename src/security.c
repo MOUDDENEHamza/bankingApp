@@ -94,7 +94,7 @@ int valid_client(Client client, Json_object json_clients, char *id, char *passwd
 int connect_admin(char *passwd) {
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER);
-    struct json_object *parsed_json, *json_passwd;
+    Json_object parsed_json, json_passwd;
 
     fp = fopen("data/admin.json", "r");
     fread(buffer, BUFFER, 1, fp);
@@ -116,7 +116,7 @@ int connect_admin(char *passwd) {
 void change_client_passwd(Client client, Json_object json_clients) {
     int i;
     char *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
-    struct json_object *json_client, *json_id, *json_passwd;
+    Json_object json_client, json_id, json_passwd;
     size_t n_clients;
 
     printf("\nChange password : Loading...\n");
@@ -160,7 +160,7 @@ void change_client_passwd(Client client, Json_object json_clients) {
 int change_administrator_passwd(void) {
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
-    struct json_object *parsed_json;
+    Json_object parsed_json;
 
     printf("\nChange password : Loading...\n");
     write(STDOUT_FILENO, "\nEnter your new password : ", 27);

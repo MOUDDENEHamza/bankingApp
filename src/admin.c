@@ -8,16 +8,20 @@
 #include "input.h"
 
 #define SIZE 64
+#define RED "\x1B[31m"
+#define GREEN "\x1B[32m"
+#define BLUE "\x1B[34m"
+#define RESET "\x1B[0m"
 
 /**
  * Create a new account to a given client
  */
 void admin_create_account(Client client, Json_object json_clients) {
-    int i;
+    int i, j;
     Account temp = get_account(client);
     Account new_node = new_account();
-    struct json_object *json_client, *json_id, *json_account_list, *json_type, *json_entitled, *json_balance;
-    Json_object json_account = json_object_new_object();
+    Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
+    json_account = json_object_new_object();
     size_t n_clients, n_accounts;
     char *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
     int choice;
@@ -46,7 +50,7 @@ void admin_create_account(Client client, Json_object json_clients) {
             set_type(new_node, type);
             break;
         default :
-            printf("\nWrong choice. Please try again\n");
+            printf("\n"RED"ERROR : "RESET"Wrong choice. Please try again\n");
             goto back;
     }
 
@@ -72,12 +76,28 @@ void admin_create_account(Client client, Json_object json_clients) {
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
 
+            for (j = 0; j <57D247B2 n_accounts; j++) {
+                json_account = json_object_array_get_idx(json_account_list, j);
+                json_object_object_get_ex(json_account, "TYPE", &json_type);
+                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+
+                if (strcmp(json_object_get_string(json_type), type) == 0 &&
+                    strcmp(json_object_get_string(json_entitled), entitled) == 0) {
+                    printf("\n"RED"FAILED : "RESET"You can not create an account with the same entitled of an existent account\n");
+                    printf("\nCome back the administrator menu\n");
+                    return;
+                }
+            }
+
             json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(new_node)));
             json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(new_node)));
             json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(new_node)));
             json_object_array_add(json_account_list, json_account);
-            printf("\nThe account has been created with success\n");
+
+            printf("\n"GREEN"DONE : "RESET"The account has been created with success\n");
             printf("\nCome back the administrator menu\n");
+
             return;
         }
     }
@@ -154,7 +174,7 @@ Json_object admin_delete_account(Json_object json_clients) {
         }
     }
 
-    printf("\nThe account has been deleted with success\n");
+    printf("\n"GREEN"DONE : "RESET"The account has been deleted with success\n");
     printf("\nCome back the administrator menu\n");
 
     return json_temp_clients;
@@ -211,7 +231,7 @@ void add_client(Client client) {
     fprintf(fp, "DATE,\t\tOPERATION,\t\tACCOUNT,\t\tAMOUNT,\t\tBALANCE\n");
     fclose(fp);
 
-    printf("\nClient has been added\n");
+    printf("\n"RED"DONE : "RESET"Client has been added\n");
     printf("\nCome back the administrator menu\n");
 }
 
@@ -253,7 +273,7 @@ void add_client(Client client) {
                     json_object_object_add(json_client, key, json_object_new_string(phone));
                 }
             }
-            printf("\nThe account has been edited with success\n");
+            printf("\n"GREEN"DONE : "RESET"The account has been edited with success\n");
             printf("\nCome back the administrator menu\n");
         }
     }
