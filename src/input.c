@@ -186,6 +186,11 @@ void input_new_balance(Account a) {
     scanf("%f", &balance);
     set_balance(a, &balance);
 }
+/*
+void input_id_account(Account a){
+    long long int t = (long long int)time(NULL)*100+rand()%100;
+    set_id_account(a,t);
+}
 
 /* input the account type choosen*/
 void input_type(Account a, int *choice) {
@@ -273,6 +278,7 @@ void input_create_account(Client client) {
     input_type(get_account(client), &choice_type);
     input_entitled(client,get_account(client));
     input_new_balance(get_account(client));
+    //input_id_account(get_account(client));
     set_account(client, get_account(client));
 }
 
@@ -285,6 +291,8 @@ Client input_add_account(Client client,int *nb_accounts) {
     set_passwd(temp,get_passwd(client));
     set_perso_info(temp,get_perso_info(client));
     Account a=new_account();
+  //  input_id_account(a);
+  //  printf("idAcc = %s\n",get_id_account(a));
     input_entitled(client,a);
     scanf("%d",&choice);
     input_type(a,&choice);
@@ -293,3 +301,5 @@ Client input_add_account(Client client,int *nb_accounts) {
     set_nextAccount(get_account(temp),get_account(client));
     return temp;
 }
+
+//void set_entitled_joint(Client client){}

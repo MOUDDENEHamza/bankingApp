@@ -38,6 +38,7 @@ void add_client_json(Client client, Json_object json_clients) {
     json_object_object_add(json_client, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client)))));
     json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
 
+    //json_object_object_add(json_account, "IDA", json_object_new_int64(get_id_account(a)));
     json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(a)));
     json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(a)));
     json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(a)));
@@ -57,7 +58,7 @@ void modify_client(Client client, Json_object json_clients,int *nb_acc){
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();
     Json_object json_account = json_object_new_object();
-    json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
+    //json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
     json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
     json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
     json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
@@ -74,6 +75,7 @@ void modify_client(Client client, Json_object json_clients,int *nb_acc){
         }
         for (int cmpt=0; cmpt < nb_acc[0]; cmpt++) {
         if(tabAccount[cmpt]!=NULL){
+            //json_object_object_add(json_account, "IDA", json_object_new_int64(get_id_account(tabAccount[cmpt])));
             json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(tabAccount[cmpt])));
             json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(tabAccount[cmpt])));
             json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(tabAccount[cmpt])));
@@ -102,7 +104,7 @@ void delete_client(Client client, Json_object json_clients,int *nb_acc){
     Json_object json_client = json_object_new_object();
     Json_object json_account_list = json_object_new_array();
     Json_object json_account = json_object_new_object();
-    json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
+    //json_object_object_add(json_client, "ID", json_object_new_string(get_id(client)));
     json_object_object_add(json_client, "PASSWD", json_object_new_string(get_passwd(client)));
     json_object_object_add(json_client, "LAST NAME", json_object_new_string(get_last_name(get_perso_info(client))));
     json_object_object_add(json_client, "FIRST NAME", json_object_new_string(get_first_name(get_perso_info(client))));
@@ -111,6 +113,7 @@ void delete_client(Client client, Json_object json_clients,int *nb_acc){
     json_object_object_add(json_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
     if(nb_acc[0]>0){
         for (int cmpt=0; cmpt < nb_acc[0]; cmpt++) {
+            //json_object_object_add(json_account, "IDA", json_object_new_int64(get_id_account(tabAccount[cmpt])));   
             json_object_object_add(json_account, "ENTITLED", json_object_new_string(get_entitled(tabAccount[cmpt])));
             json_object_object_add(json_account, "TYPE", json_object_new_string(get_type(tabAccount[cmpt])));
             json_object_object_add(json_account, "BALANCE", json_object_new_double(get_balance(tabAccount[cmpt])));
@@ -203,6 +206,7 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     struct json_object *phon_json;
     struct json_object *account_list_json;
     struct json_object *account;
+    struct json_object *ida_json;
     struct json_object *type_json;
     struct json_object *entitled_json; 
     struct json_object *balance_json;
@@ -241,6 +245,8 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
         for(j=0; j<=n_accounts-1; j++){
             j1=(int)j;
             account = json_object_array_get_idx(account_list_json,j);
+            //json_object_object_get_ex(account, "IDA" , &ida_json);
+            //set_id_account(tabAccount[j1],(long long int)json_object_get_int64(ida_json));
             json_object_object_get_ex(account, "TYPE" , &type_json);
             set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
             json_object_object_get_ex(account, "ENTITLED" , &entitled_json);
@@ -254,6 +260,8 @@ void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){
     {
         nbAcc[0]=-1;
         char * voidchar = "@@@@@@@@@@ void @@@@@@@@@@";
+        //long long int voidida = 0;
+        //set_id_account(get_account(client_imported),voidida);
         set_type(get_account(client_imported),voidchar);
         set_entitled(get_account(client_imported),voidchar);
     }
@@ -280,6 +288,7 @@ void import_Account_from_Json(int *idx, Account* tabAccount){
     struct json_object *id_json;
     struct json_object *account_list_json;
     struct json_object *account;
+    struct json_object *ida_json;
     struct json_object *type_json;
     struct json_object *entitled_json; 
     struct json_object *balance_json;
@@ -302,6 +311,8 @@ void import_Account_from_Json(int *idx, Account* tabAccount){
     for(j=0; j<=n_accounts-1; j++){
         j1=(int)j;
         account = json_object_array_get_idx(account_list_json,j);
+        //json_object_object_get_ex(account, "IDA" , &ida_json);
+        //set_id_account(tabAccount[j1],(long long int)json_object_get_int64(ida_json));
         json_object_object_get_ex(account, "TYPE" , &type_json);
         set_type(tabAccount[j1],(char*)json_object_get_string(type_json));
         json_object_object_get_ex(account, "ENTITLED" , &entitled_json);

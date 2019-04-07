@@ -67,6 +67,8 @@ Client input_perso_info(Client client);
  * Ask to the administrator de to enter a new balance
  */
 void input_new_balance(Account a);
+/*
+void input_id_account(Account a);
 
 
 /* input the account type chosen*/

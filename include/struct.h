@@ -176,9 +176,10 @@ typedef struct account *Account;
  */
 Account new_account(void);
 
-int account_is_empty(Account a);
 
 /*---------------Getters--------------*/
+/*
+long long int get_id_account(Account a);
 
 /*
  * Get the type of account from the structure
@@ -208,6 +209,8 @@ Account get_ith_account_Account(Account a, int *i);
 void copy(Account* account,int *i,int *nb_accounts, Account* myaccount);
 
 /*---------------Setters--------------*/
+/*
+void set_id_account(Account a, long long int ida);
 
 /*
  * Set the type of account into the structure

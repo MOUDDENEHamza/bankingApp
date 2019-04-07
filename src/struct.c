@@ -242,6 +242,7 @@ void set_coordinates(Perso_info p, Coordinates c) {
  * Introduce a simple structure handling account client
  */
 struct account {
+    //long long int id_account;
     char *type;
     char *entitled;
     float balance;
@@ -255,6 +256,7 @@ struct account {
  */
 Account new_account(void) {
     Account a = malloc(sizeof(Account));
+    //a->id_account = 0;
     a->type = malloc(sizeof(char *));
     a->entitled = malloc(sizeof(char *));
     a->balance = 0;
@@ -262,19 +264,12 @@ Account new_account(void) {
     return a;
 }
 
-Account mallocA(int n){
-    Account a = malloc(sizeof(Account));
-    a->type = malloc(sizeof(char *));
-    a->entitled = malloc(sizeof(char *));
-    a->balance = 0;
-    a->nextAccount = NULL;
-}
-
-int account_is_empty(Account a){
-    return a==new_account();
-}
-
 /*---------------Getters--------------*/
+/*
+long long int get_id_account(Account a){
+    return a->id_account;
+}
+
 
 /*
  * Get the type of account from the structure
@@ -351,6 +346,11 @@ void copy(Account* account,int *i,int *nb_accounts, Account* myaccount){
 }
 
 /*---------------Setters--------------*/
+/*
+void set_id_account(Account a, long long int ida){
+    a->id_account = ida;
+}
+
 
 /*
  * Set the type of account into the structure

@@ -8,12 +8,14 @@
 #include "admin.h"
 #include "client.h"
 #include "json.h"
+#include <time.h>
 
 #define SIZE 255
 
 
 /*Main function*/
 int main(int argc, char *argv[]) {
+    srand(time(NULL));
     /*Initialize variables*/
     Symbol s = new_symbol();
     Client client = new_client();

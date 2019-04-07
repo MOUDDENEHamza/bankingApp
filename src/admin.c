@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "admin.h"
 #include "struct.h"
 #include "displayShell.h"
@@ -14,6 +15,20 @@ enum boolean {
     true, false
 };
 
+int nbchiffre(long long int n){
+    int nb=0;
+    if(n==0){
+        nb = 1;
+    }
+    else{
+        while(n!=0){
+            n=n/10;
+            nb++;
+        }
+    }
+    return nb;
+}
+
 int absolut_value(int *i){
     if(i[0]>0){
         return i[0];
@@ -23,6 +38,13 @@ int absolut_value(int *i){
         return -i[0];
     }
     
+}
+
+void lldTochar(char *s){
+    long long int t=(long long int)time(NULL)*100+rand()%100;
+    char *tri=malloc(sizeof(long long int));
+    sprintf(tri,"%lld",t);
+    strcpy(s,tri);
 }
 
 char* concatenate(char* str1,char* str2){
@@ -343,7 +365,8 @@ Json_object edit_account(Client client, Json_object json_clients) {
             }
             json_object_object_add(json_temp_client, "ACCOUNT LIST", json_temp_account_list);
             json_object_array_add(json_temp_clients, json_temp_client);
-        } else {
+        }
+        else {
             json_object_array_add(json_temp_clients, json_client);
         }
     }
