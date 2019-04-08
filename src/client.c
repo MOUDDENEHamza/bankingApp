@@ -94,7 +94,7 @@ void transaction_list(Client client) {
 void transfer_money(Client client, Json_object json_clients) {
     FILE *fp, *FP;
     int i, j;
-    int done = 0;
+    int done = 0, check = 0;
     float amount_transfer, recipient_balance, new_balance;
     char *id = (char *) malloc(SIZE), *sender_type = (char *) malloc(SIZE), *sender_entitled = (char *) malloc(
             SIZE), *recipient_type = (char *) malloc(SIZE), *recipient_entitled = (char *) malloc(SIZE),
@@ -131,6 +131,25 @@ void transfer_money(Client client, Json_object json_clients) {
     for (i = 0; i < n_clients; i++) {
         json_client = json_object_array_get_idx(json_clients, i);
         json_object_object_get_ex(json_client, "ID", &json_id);
+
+        if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
+            check++;
+        }
+
+        if (strcmp(id, json_object_get_string(json_id)) == 0) {
+            check++;
+        }
+    }
+
+    if (check < 2) {
+        printf("\n"RED"ERROR : "RESET"Wrong input. Please try later\n");
+        printf("\nCome back the client menu\n");
+        return;
+    }
+
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
         json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
         n_accounts = json_object_array_length(json_account_list);
 
@@ -144,9 +163,9 @@ void transfer_money(Client client, Json_object json_clients) {
 
                 while (temp != NULL) {
                     if (strcmp(sender_type, get_type(temp)) == 0 &&
-                        strcmp(sender_entitled, get_entitled(temp)) == 0) {
+                        strcmp(sender_entitled, get_entitled(temp)) == 0 && done == 0) {
 
-                        if (json_object_get_double(json_balance) < amount_transfer && done == 0) {
+                        if (json_object_get_double(json_balance) < amount_transfer) {
                             printf("\n"RED"FAILED : "RESET"your balance is insufficient to perform this operation\n");
                             printf("\nCome back the client menu\n");
                             return;
