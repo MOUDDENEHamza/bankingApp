@@ -18,12 +18,15 @@
  */
 void admin_create_account(Client client, Json_object json_clients) {
     int i, j;
+    int check = 0;
     Account temp = get_account(client);
     Account new_node = new_account();
     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
     json_account = json_object_new_object();
+    Json_object temp_entitled = json_object_new_array();
     size_t n_clients, n_accounts;
     char *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
+    char *joint_id = (char *) malloc(SIZE), *joint_type = (char *) malloc(SIZE), *joint_entitled = (char *) malloc(SIZE);
     int choice;
     float init_balance = 0;
 
@@ -45,6 +48,10 @@ void admin_create_account(Client client, Json_object json_clients) {
             strcpy(type, "SAVINGS");
             set_type(new_node, type);
             break;
+        case 3 :
+            strcpy(type, "JOINT");
+            set_type(new_node, type);
+            break;
         default :
             printf("\n"RED"ERROR : "RESET"Wrong choice. Please try again\n");
             goto back;
@@ -53,6 +60,85 @@ void admin_create_account(Client client, Json_object json_clients) {
     printf("\nEnter the entitled : ");
     scanf("%s", entitled);
     set_entitled(new_node, entitled);
+
+    if (choice == 3) {
+        printf("\nEnter the ID of the joint client : ");
+        scanf("%s", joint_id);
+        printf("\nEnter the entitled of the joint client : ");
+        scanf("%s", joint_entitled);
+
+        json_object_array_add(temp_entitled, json_object_new_string(joint_entitled));
+        json_object_array_add(temp_entitled, json_object_new_string(entitled));
+        n_clients = json_object_array_length(json_clients);
+
+        for (i = 0; i < n_clients; i++) {
+            json_client = json_object_array_get_idx(json_clients, i);
+            json_object_object_get_ex(json_client, "ID", &json_id);
+
+            if (strcmp(joint_id, json_object_get_string(json_id)) == 0) {
+                check++;
+            }
+
+            if (strcmp(id, json_object_get_string(json_id)) == 0) {
+                check++;
+            }
+        }
+
+        if (check < 2) {
+            printf("\n"RED"ERROR : "RESET"Wrong input, please try again\n");
+            printf("\nCome back the administrator menu\n");
+            return;
+        }
+
+        for (i = 0; i < n_clients; i++) {
+            json_client = json_object_array_get_idx(json_clients, i);
+            json_object_object_get_ex(json_client, "ID", &json_id);
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            n_accounts = json_object_array_length(json_account_list);
+
+            if (strcmp(id , json_object_get_string(json_id)) == 0) {
+                json_object_object_add(json_account, "TYPE", json_object_new_string(type));
+                json_object_object_add(json_account, "ENTITLED", temp_entitled);
+                json_object_object_add(json_account, "BALANCE", json_object_new_double(0));
+                json_object_array_add(json_account_list, json_account);
+            }
+        }
+
+        for (i = 0; i < n_clients; i++) {
+            json_client = json_object_array_get_idx(json_clients, i);
+            json_object_object_get_ex(json_client, "ID", &json_id);
+            json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+            if (strcmp(joint_id, json_object_get_string(json_id)) == 0) {
+                n_accounts = json_object_array_length(json_account_list);
+
+                for (j = 0; j < n_accounts; j++) {
+                    json_account = json_object_array_get_idx(json_account_list, j);
+                    json_object_object_get_ex(json_account, "TYPE", &json_type);
+                    json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                    json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+
+                    if (strcmp("CURRENT", json_object_get_string(json_type)) == 0 &&
+                        strcmp(joint_entitled, json_object_get_string(json_entitled)) == 0) {
+                        json_object_object_foreach(json_account, key, val)
+                        {
+                            if (strcmp(key, "TYPE") == 0) {
+                                json_object_object_add(json_account, key, json_object_new_string(type));
+                            }
+
+                            if (strcmp(key, "ENTITLED") == 0) {
+                                json_object_object_add(json_account, key, temp_entitled);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+        printf("\n"GREEN"DONE : "RESET"The account has been created with success\n");
+        printf("\nCome back the administrator menu\n");
+        return;
+    }
 
     set_balance(new_node, &init_balance);
 
@@ -163,9 +249,7 @@ Json_object admin_delete_account(Json_object json_clients) {
             }
             json_object_object_add(json_temp_client, "ACCOUNT LIST", json_temp_account_list);
             json_object_array_add(json_temp_clients, json_temp_client);
-        }
-
-        else {
+        } else {
             json_object_array_add(json_temp_clients, json_client);
         }
     }
@@ -235,11 +319,11 @@ void add_client(Client client) {
 /**
  * Edit the coordinates of the client
  */
- void edit_coordinates(Json_object json_clients) {
+void edit_coordinates(Json_object json_clients) {
     int i;
     Json_object json_client, json_id, json_last_name, json_first_name, json_birthday, json_mail, json_phone;
     size_t n_clients;
-    char  *id = (char *) malloc(SIZE), *mail = (char *) malloc(SIZE), *phone = (char *) malloc(SIZE);
+    char *id = (char *) malloc(SIZE), *mail = (char *) malloc(SIZE), *phone = (char *) malloc(SIZE);
 
     printf("\nEdit account\n");
     printf("\nEnter the ID of the client : ");
@@ -274,43 +358,43 @@ void add_client(Client client) {
             printf("\nCome back the administrator menu\n");
         }
     }
- }
+}
 
- /**
-  * Display the list of entitled of a given account
-  */
-  void display_entitled_list_account(Json_object json_clients) {
-     int i, j;
-     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled;
-     size_t n_clients, n_accounts;
-     char  *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE);
+/**
+ * Display the list of entitled of a given account
+ */
+void display_entitled_list_account(Json_object json_clients) {
+    int i, j;
+    Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled;
+    size_t n_clients, n_accounts;
+    char *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE);
 
-     printf("\nDisplay the entitled list of an account\n");
-     printf("\nEnter the ID of the client : ");
-     scanf("%s", id);
-     printf("\nEnter the type : ");
-     scanf("%s", type);
-     printf("\nID,\t\tTYPE,\t\tENTITLED\n");
+    printf("\nDisplay the entitled list of an account\n");
+    printf("\nEnter the ID of the client : ");
+    scanf("%s", id);
+    printf("\nEnter the type : ");
+    scanf("%s", type);
+    printf("\nID,\t\tTYPE,\t\tENTITLED\n");
 
-     n_clients = json_object_array_length(json_clients);
+    n_clients = json_object_array_length(json_clients);
 
-     for (i = 0; i < n_clients; i++) {
-         json_client = json_object_array_get_idx(json_clients, i);
-         json_object_object_get_ex(json_client, "ID", &json_id);
-         json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
-         n_accounts = json_object_array_length(json_account_list);
+    for (i = 0; i < n_clients; i++) {
+        json_client = json_object_array_get_idx(json_clients, i);
+        json_object_object_get_ex(json_client, "ID", &json_id);
+        json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
+        n_accounts = json_object_array_length(json_account_list);
 
-         for (j = 0; j < n_accounts; j++) {
-             json_account = json_object_array_get_idx(json_account_list, j);
-             json_object_object_get_ex(json_account, "TYPE", &json_type);
-             json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+        for (j = 0; j < n_accounts; j++) {
+            json_account = json_object_array_get_idx(json_account_list, j);
+            json_object_object_get_ex(json_account, "TYPE", &json_type);
+            json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
 
-             if (strcmp(id, json_object_get_string(json_id)) == 0 &&
-                 strcmp(type, json_object_get_string(json_type)) == 0) {
+            if (strcmp(id, json_object_get_string(json_id)) == 0 &&
+                strcmp(type, json_object_get_string(json_type)) == 0) {
 
-                 printf("\n%s,\t%s,\t%s\n", id, type, json_object_get_string(json_entitled));
-                 printf("\nCome back the administrator menu\n");
-             }
-         }
-     }
-  }
+                printf("\n%s,\t%s,\t%s\n", id, type, json_object_get_string(json_entitled));
+                printf("\nCome back the administrator menu\n");
+            }
+        }
+    }
+}

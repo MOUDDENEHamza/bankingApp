@@ -11,7 +11,23 @@
       "ACCOUNT LIST": [
         {
           "TYPE": "CURRENT",
-          "ENTITLED": "MOUDDENE",
+          "ENTITLED": [
+            "MOUDDENE",
+            "TEST18"
+          ],
+          "BALANCE": 50
+        },
+        {
+          "TYPE": "CURRENT",
+          "ENTITLED": "TOTO",
+          "BALANCE": 25
+        },
+        {
+          "TYPE": "JOINT",
+          "ENTITLED": [
+            "KANE",
+            "TEST20"
+          ],
           "BALANCE": 0
         }
       ]
@@ -26,8 +42,11 @@
       "PHONE": "06-13-50-41-20",
       "ACCOUNT LIST": [
         {
-          "TYPE": "CURRENT",
-          "ENTITLED": "KANE",
+          "TYPE": "JOINT",
+          "ENTITLED": [
+            "KANE",
+            "TEST20"
+          ],
           "BALANCE": 0
         }
       ]
@@ -44,6 +63,14 @@
         {
           "TYPE": "CURRENT",
           "ENTITLED": "SANZ--SOUHAIT",
+          "BALANCE": 0
+        },
+        {
+          "TYPE": "JOINT",
+          "ENTITLED": [
+            "MOUDDENE",
+            "TEST18"
+          ],
           "BALANCE": 0
         }
       ]
