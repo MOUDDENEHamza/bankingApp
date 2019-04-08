@@ -23,7 +23,7 @@ void init_bar(void) {
 void display_menu(int *exit) {
     *exit = 3;
     printf("\n\t\t\t\tMAIN MENU\n");
-    printf(BLUE"\n1)-Client area\n2)-Adminstrator area\n"RESET""RED"%d)-Exit"RESET"\n\nIf you are a client type 1, If you are an administrator type 2, if you want to exit type %d.\n",
+    printf(BLUE"\n1)-Client area\n2)-Administrator area\n"RESET""RED"%d)-Exit"RESET"\n\nIf you are a client type 1, If you are an administrator type 2, if you want to exit type %d.\n",
            *exit, *exit);
 }
 
@@ -82,7 +82,7 @@ void display_admin_client_management(void) {
  * Display the client account management submenu
  */
 void display_admin_administration(void) {
-    printf("\n\t\t\t\tAdministration\n\n"BLUE"1)-Change password\n"RESET);
+    printf("\n\t\t\t\tAdministration\n\n"BLUE"Change password :"RESET" Loading...\n");
 }
 
 /*------------------------------------------------------------------------------------------------*/
@@ -112,7 +112,7 @@ void display_error_connexion_admin(void) {
  * Display a message while deleting account
  */
 void display_account_type(void) {
-    printf("\nBefore creating the new account you should specify what kind of account you want to create\n\n\t1)-CURRENT\n\t2)-SAVINGS\n\t3)-JOINT\n");
+    printf("\nBefore creating the new account you should specify what kind of account you want to create\n\n\t1)-CURRENT\n\t2)-SAVINGS\n");
 }
 
 /*

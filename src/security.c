@@ -162,7 +162,6 @@ int change_administrator_passwd(void) {
     char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
     Json_object parsed_json;
 
-    printf("\nChange password : Loading...\n");
     write(STDOUT_FILENO, "\nEnter your new password : ", 27);
     hide_passwd(new_passwd1);
     write(STDOUT_FILENO, "\nConfirm your new password : ", 29);

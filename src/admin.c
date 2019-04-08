@@ -45,10 +45,6 @@ void admin_create_account(Client client, Json_object json_clients) {
             strcpy(type, "SAVINGS");
             set_type(new_node, type);
             break;
-        case 3 :
-            strcpy(type, "JOINT");
-            set_type(new_node, type);
-            break;
         default :
             printf("\n"RED"ERROR : "RESET"Wrong choice. Please try again\n");
             goto back;
@@ -76,7 +72,7 @@ void admin_create_account(Client client, Json_object json_clients) {
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
 
-            for (j = 0; j <57D247B2 n_accounts; j++) {
+            for (j = 0; j < n_accounts; j++) {
                 json_account = json_object_array_get_idx(json_account_list, j);
                 json_object_object_get_ex(json_account, "TYPE", &json_type);
                 json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
@@ -209,10 +205,11 @@ void display_account_list_by_type(Json_object json_clients) {
             if (strcmp(type, json_object_get_string(json_type)) == 0) {
                 printf("\n%s,\t%s,\t%s,\t\t%f\n", json_object_get_string(json_id), json_object_get_string(json_type),
                        json_object_get_string(json_entitled), json_object_get_double(json_balance));
-                printf("\nCome back the administrator menu\n");
+
             }
         }
     }
+    printf("\nCome back the administrator menu\n");
 }
 
 /**
@@ -231,7 +228,7 @@ void add_client(Client client) {
     fprintf(fp, "DATE,\t\tOPERATION,\t\tACCOUNT,\t\tAMOUNT,\t\tBALANCE\n");
     fclose(fp);
 
-    printf("\n"RED"DONE : "RESET"Client has been added\n");
+    printf("\n"GREEN"DONE : "RESET"Client has been added\n");
     printf("\nCome back the administrator menu\n");
 }
 

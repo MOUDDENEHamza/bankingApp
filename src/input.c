@@ -180,10 +180,6 @@ void input_type(Client client, int *choice) {
             strcpy(type, "SAVINGS");
             set_type(get_account(client), type);
             break;
-        case 3 :
-            strcpy(type, "JOINT");
-            set_type(get_account(client), type);
-            break;
         default :
             printf("\nWrong choice. Please try again\n");
             goto back;
@@ -200,7 +196,7 @@ void input_entitled(Client client) {
     set_entitled(get_account(client), entitled);
 }
 
-/*
+/**
  * input all personal information
  */
 Client input_perso_info(Client client) {
