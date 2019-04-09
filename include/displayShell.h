@@ -110,4 +110,6 @@ void display_delet_successfoul(void);
 void display_no_account(void);
 
 void display_wrong(void);
+
+void display_unexistant_ID(void);
 #endif

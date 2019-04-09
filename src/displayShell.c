@@ -209,3 +209,7 @@ void display_no_account(void){
 void display_wrong(void){
     printf(CAYAN"\nWrong choice !\nretry again !\n"RESET);
 }
+
+void display_unexistant_ID(void){
+    printf(CAYAN"Sorry , THAT ID DOESN'T EXIST !\n"RESET);
+}
