@@ -184,7 +184,7 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
     int *nb_accounts=malloc(sizeof(int));
     int i, j;
     Account temp = get_account(client);
-    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
+    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_ida, *json_type, *json_entitled, *json_balance;
     Json_object json_temp_clients = json_object_new_array();
     Json_object json_temp_client = json_object_new_object();
     Json_object json_temp_account_list = json_object_new_array();
@@ -242,12 +242,14 @@ Json_object admin_delete_account(Client client, Json_object json_clients) {
             if(n_accounts>0){
                 for (j = 0; j < n_accounts; j++) {
                     json_account = json_object_array_get_idx(json_account_list, j);
-                    json_object_object_get_ex(json_account, "TYPE", &json_type);
+                    json_object_object_get_ex(json_account, "IDA", &json_ida);
                     json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                    json_object_object_get_ex(json_account, "TYPE", &json_type);
                     json_object_object_get_ex(json_account, "BALANCE", &json_balance);
                     if (indextab!=(int)j) {
-                        json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[j])));
+                        json_object_object_add(json_temp_account, "IDA",json_object_new_string(get_ida(tabAccount[j])));
                         json_object_object_add(json_temp_account, "ENTITLED",json_object_new_string(get_entitled(tabAccount[j])));
+                        json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[j])));
                         json_object_object_add(json_temp_account, "BALANCE",json_object_new_double(get_balance(tabAccount[j])));
                         json_object_array_add(json_temp_account_list, json_temp_account);
                         Json_object json_temp_account = json_object_new_object();
@@ -283,7 +285,7 @@ Json_object edit_account(Client client, Json_object json_clients) {
     char * new_entitled=malloc(sizeof(char*));
     char * voidchar = "@@@@@@@@@@ void @@@@@@@@@@";
     int i, j;
-    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_type, *json_entitled, *json_balance;
+    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_ida, *json_type, *json_entitled, *json_balance;
     Json_object json_temp_clients = json_object_new_array();
     Json_object json_temp_client = json_object_new_object();
     Json_object json_temp_account_list = json_object_new_array();
@@ -350,20 +352,16 @@ Json_object edit_account(Client client, Json_object json_clients) {
             json_object_object_add(json_temp_client, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client)))));
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
-            for (j = 0; j < nb_accounts[0]; j++) {
-                json_account = json_object_array_get_idx(json_account_list, j);
-                json_object_object_get_ex(json_account, "TYPE", &json_type);
-                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
-                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
-                if (n_accounts>0) {
-                    json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[j])));
-                    json_object_object_add(json_temp_account, "ENTITLED",json_object_new_string(get_entitled(tabAccount[j])));
-                    json_object_object_add(json_temp_account, "BALANCE",json_object_new_double(get_balance(tabAccount[j])));
-                    json_object_array_add(json_temp_account_list, json_temp_account);
-                    Json_object json_temp_account = json_object_new_object();
-                }
+            if (n_accounts>0) {
+                json_object_object_add(json_temp_account, "IDA",json_object_new_string(get_ida(tabAccount[choice_type-1])));
+                json_object_object_add(json_temp_account, "ENTITLED",json_object_new_string(get_entitled(tabAccount[choice_type-1])));
+                json_object_object_add(json_temp_account, "TYPE",json_object_new_string(get_type(tabAccount[choice_type-1])));
+                json_object_object_add(json_temp_account, "BALANCE",json_object_new_double(get_balance(tabAccount[choice_type-1])));
+                json_object_array_add(json_temp_account_list, json_temp_account);
+                json_object_array_put_idx(json_account_list,choice_type-1,json_temp_account);
+                Json_object json_temp_account = json_object_new_object();
             }
-            json_object_object_add(json_temp_client, "ACCOUNT LIST", json_temp_account_list);
+            json_object_object_add(json_temp_client, "ACCOUNT LIST", json_account_list);
             json_object_array_add(json_temp_clients, json_temp_client);
         }
         else {

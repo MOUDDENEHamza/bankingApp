@@ -186,10 +186,12 @@ void input_new_balance(Account a) {
     scanf("%f", &balance);
     set_balance(a, &balance);
 }
-/*
-void input_id_account(Account a){
-    long long int t = (long long int)time(NULL)*100+rand()%100;
-    set_id_account(a,t);
+
+void input_ida(Account a) {
+    char*ida=malloc(sizeof(char*));
+    long long int t= (long long int)time(NULL)*100+rand()%100;
+    sprintf(ida,"%lld",ida);
+    set_ida(a,ida);
 }
 
 /* input the account type choosen*/
@@ -231,7 +233,7 @@ void input_entitled(Client client, Account a) {
     int choice;
     char *civility = malloc(sizeof(char*));
     back:
-    printf("\nPlease specify, e.g.\n\t1 : Dr.\n\t2 : Mr.\n\t3 : Ms.\n\t4 : Mrs.\n\t5 : other\n");
+    printf("\n\nPlease specify, e.g.\n\t1 : Dr.\n\t2 : Mr.\n\t3 : Ms.\n\t4 : Mrs.\n\t5 : other\n");
     scanf("%d", &choice);
     switch (choice)
     {
@@ -276,6 +278,7 @@ void input_create_account(Client client) {
     n[0]=0;
     scanf("%d",&choice_type);
     input_type(get_account(client), &choice_type);
+    input_ida(get_account(client));
     input_entitled(client,get_account(client));
     input_new_balance(get_account(client));
     //input_id_account(get_account(client));
@@ -291,8 +294,8 @@ Client input_add_account(Client client,int *nb_accounts) {
     set_passwd(temp,get_passwd(client));
     set_perso_info(temp,get_perso_info(client));
     Account a=new_account();
-  //  input_id_account(a);
-  //  printf("idAcc = %s\n",get_id_account(a));
+    input_ida(a);
+    printf("idAcc = %s\n",get_ida(a));
     input_entitled(client,a);
     scanf("%d",&choice);
     input_type(a,&choice);
@@ -301,5 +304,6 @@ Client input_add_account(Client client,int *nb_accounts) {
     set_nextAccount(get_account(temp),get_account(client));
     return temp;
 }
+
 
 //void set_entitled_joint(Client client){}

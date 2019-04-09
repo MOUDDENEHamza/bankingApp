@@ -4,6 +4,7 @@
 #include "struct.h"
 #include "admin.h"
 
+
 /*-----------------------------------Structure--------------------------------*/
 
 /*
@@ -237,14 +238,42 @@ void set_coordinates(Perso_info p, Coordinates c) {
 /*----------------------------------------------------------------------------*/
 
 /*-----------------------------------Structure--------------------------------*/
+struct entit {
+    char *id_account;
+    char *entit;
+};
+
+Entitled new_intitled(void){
+    Entitled i=malloc(sizeof(Entitled));
+    i->id_account=malloc(sizeof(char*));
+    i->entit=malloc(sizeof(char*));
+    return i;
+}
+
+char* get_ida_in_entit(Entitled i){
+    return i->id_account;
+}
+
+char* get_entitled_in_entit(Entitled i){
+    return i->entit;
+}
+
+void set_ida_in_entit(Entitled i, char *n){
+    strcpy(i->id_account, n);
+}
+
+void set_entitled_in_entit(Entitled i, char* entitled){
+    strcpy(i->entit,entitled);
+}
+
+
 
 /*
  * Introduce a simple structure handling account client
  */
 struct account {
-    //long long int id_account;
     char *type;
-    char *entitled;
+    Entitled entitled;
     float balance;
     Account nextAccount;
 };
@@ -256,18 +285,17 @@ struct account {
  */
 Account new_account(void) {
     Account a = malloc(sizeof(Account));
-    //a->id_account = 0;
     a->type = malloc(sizeof(char *));
-    a->entitled = malloc(sizeof(char *));
+    a->entitled = new_intitled();
     a->balance = 0;
     a->nextAccount = NULL;
     return a;
 }
 
 /*---------------Getters--------------*/
-/*
-long long int get_id_account(Account a){
-    return a->id_account;
+
+char* get_ida(Account a){
+    return a->entitled->id_account;
 }
 
 
@@ -282,7 +310,7 @@ char *get_type(Account a) {
  * Get the entitled of account from the structure
  */
 char *get_entitled(Account a) {
-    return a->entitled;
+    return a->entitled->entit;
 }
 
 /*
@@ -346,9 +374,9 @@ void copy(Account* account,int *i,int *nb_accounts, Account* myaccount){
 }
 
 /*---------------Setters--------------*/
-/*
-void set_id_account(Account a, long long int ida){
-    a->id_account = ida;
+
+void set_ida(Account a, char *ida){
+    strcpy(a->entitled->id_account,ida);
 }
 
 
@@ -363,7 +391,7 @@ void set_type(Account a, char *type) {
  * Set the entitled of account from the structure
  */
 void set_entitled(Account a, char *entitled) {
-    strcpy(a->entitled, entitled);
+    strcpy(a->entitled->entit, entitled);
 }
 
 /*
@@ -407,6 +435,7 @@ void set_ith_account_Account(Account myaccount,Account account, int* i){
         tabAccount[i[0]-1]->nextAccount=account;
     }
 }
+
 
 /*----------------------------------------------------------------------------*/
 

@@ -160,11 +160,25 @@ void display_typeAccounts(Client client,int *nbacc) {
     Account *tabAccount=malloc(nbacc[0]*sizeof(Account));
     tabAccount[0]=new_account();
     tabAccount[0]=get_account(client);
-    printf("\n\t1 : %s  %s ACCOUNT solde : %f\n",get_entitled(tabAccount[0]),get_type(tabAccount[0]),get_balance(tabAccount[0]));
+    if (get_balance(tabAccount[0])>=0) {
+        printf("\n\t1 : %s  %s ACCOUNT [solde : "GREEN"%.2f"RESET"]\n",get_entitled(tabAccount[0]),get_type(tabAccount[0]),get_balance(tabAccount[0]));
+    }
+    else
+    {
+        printf("\n\t1 : %s  %s ACCOUNT [solde : "RED"%.2f"RESET"]\n",get_entitled(tabAccount[0]),get_type(tabAccount[0]),get_balance(tabAccount[0]));
+    }
+    
     for(int cmpt=1; cmpt<nbacc[0]; cmpt++){
         tabAccount[cmpt]=new_account();
         tabAccount[cmpt]=get_nextAccount(tabAccount[cmpt-1]);
-        printf("\n\t%d : %s  %s ACCOUNT solde : %f\n",cmpt+1,get_entitled(tabAccount[cmpt]),get_type(tabAccount[cmpt]),get_balance(tabAccount[cmpt]));
+        if(get_balance(tabAccount[cmpt])>=0){
+            printf("\n\t%d : %s  %s ACCOUNT [solde : "GREEN"%.2f"RESET"]\n",cmpt+1,get_entitled(tabAccount[cmpt]),get_type(tabAccount[cmpt]),get_balance(tabAccount[cmpt]));
+        }
+        else
+        {
+            printf("\n\t%d : %s  %s ACCOUNT [solde : "RED"%.2f"RESET"]\n",cmpt+1,get_entitled(tabAccount[cmpt]),get_type(tabAccount[cmpt]),get_balance(tabAccount[cmpt]));
+        }
+        
     }
 }
 

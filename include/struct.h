@@ -163,6 +163,19 @@ void set_coordinates(Perso_info p, Coordinates c);
 
 /*-----------------------------------Structure--------------------------------*/
 
+typedef struct entit *Entitled;
+
+Entitled new_intitled(void);
+
+char* get_ida_in_entit(Entitled i);
+
+char* get_entitled_in_entit(Entitled i);
+
+void set_ida_in_entit(Entitled i, char *n);
+
+void set_entitled_in_entit(Entitled i, char* entitled);
+
+
 /*
  * Introduce a simple structure handling account client
  */
@@ -178,8 +191,8 @@ Account new_account(void);
 
 
 /*---------------Getters--------------*/
-/*
-long long int get_id_account(Account a);
+
+char* get_ida(Account a);
 
 /*
  * Get the type of account from the structure
@@ -209,8 +222,8 @@ Account get_ith_account_Account(Account a, int *i);
 void copy(Account* account,int *i,int *nb_accounts, Account* myaccount);
 
 /*---------------Setters--------------*/
-/*
-void set_id_account(Account a, long long int ida);
+
+void set_ida(Account a, char *ida);
 
 /*
  * Set the type of account into the structure
