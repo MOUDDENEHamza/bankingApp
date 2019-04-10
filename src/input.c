@@ -231,10 +231,13 @@ void input_type(Account a, int *choice) {
 /*input the entitled of the account*/
 void input_entitled(Client client, Account a) {
     int choice;
+    char *choice_char;
     char *civility = malloc(sizeof(char*));
     back:
+    choice_char = malloc(sizeof(char*));
     printf("\n\nPlease specify, e.g.\n\t1 : Dr.\n\t2 : Mr.\n\t3 : Ms.\n\t4 : Mrs.\n\t5 : other\n");
-    scanf("%d", &choice);
+    scanf("%d", choice_char);
+    choice = atoi(choice_char);
     switch (choice)
     {
         case 1 :
@@ -295,8 +298,7 @@ Client input_add_account(Client client,int *nb_accounts) {
     set_perso_info(temp,get_perso_info(client));
     Account a=new_account();
     input_ida(a);
-    printf("idAcc = %s\n",get_ida(a));
-    input_entitled(client,a);
+    set_entitled(a,get_entitled(get_account(client)));
     scanf("%d",&choice);
     input_type(a,&choice);
     input_new_balance(a);
