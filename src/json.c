@@ -158,7 +158,7 @@ Json_object parse_json(void) {
 }
 
 
-void import_Client_idx_from_Json(char* id, int* idx){
+int import_Client_idx_from_Json(char* id, int* idx){
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER);
     struct json_object *parsed_json;
@@ -192,6 +192,7 @@ void import_Client_idx_from_Json(char* id, int* idx){
         cmpt++;
         i++;
     }
+    return (int)n_clients;
 }
 
 

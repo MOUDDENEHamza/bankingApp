@@ -148,32 +148,36 @@ Client edit_perso_info_client(void) {
 
 Client edit_client_coordonates(int *nb_accounts){
     char *id=malloc(sizeof(char*));
+    int *idx=malloc(sizeof(int));
+    int choice,nb_clients;
+    char* choice_char=malloc(sizeof(char*));
+    Client client=new_client();
+    back0:
     printf("\nEnter the client ID\n");
     scanf("%s",id);
-    int *idx=malloc(sizeof(int));
-    import_Client_idx_from_Json(id,idx);
-    Client client=new_client();
-    import_Client_from_Json(idx,client,nb_accounts);
-    back:
-    display_choose_coordonatesToEdit();
-    int *choice=malloc(sizeof(int));
-    int valid = scanf("%d",choice);
-    int *t;
-    while(valid =0){
-        display_wrong();
-        choice=choice+1;
-        valid=scanf("%d",choice);
+    nb_clients=import_Client_idx_from_Json(id,idx);
+    if (idx[0]<nb_clients) {
+        import_Client_from_Json(idx,client,nb_accounts);
+        back1:
+        display_choose_coordonatesToEdit();
+        scanf("%s",choice_char);
+        choice = atoi(choice_char);
+        switch (choice)
+        {
+            case 1 :
+                input_mail(client);break;
+            case 2 :
+                input_phone(client);
+                break;
+            default:
+                display_wrong();
+                goto back1;
+        }
     }
-    switch (*choice)
+    else
     {
-        case 1 :
-            input_mail(client);break;
-        case 2 :
-            input_phone(client);
-            break;
-        default:
-            display_wrong();
-            goto back;
+        display_unexistant_ID();
+        goto back0;
     }
     return client;
 }

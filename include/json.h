@@ -23,7 +23,7 @@ void delete_client(Client client, Json_object json_clients,int *nb_acc);
  */
 Json_object parse_json(void);
 
-void import_Client_idx_from_Json(char* ID, int* idx);
+int import_Client_idx_from_Json(char* id, int* idx);
 
 void get_idFromJson(int idx);
 
