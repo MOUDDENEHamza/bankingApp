@@ -15,18 +15,25 @@ enum boolean {
     true, false
 };
 
-int nbchiffre(long long int n){
-    int nb=0;
-    if(n==0){
-        nb = 1;
+int format_birthday(char* birthday){
+    int size = strlen(birthday);
+    if(size!=10 || birthday[2]!='/' || birthday[5]!='/'){
+        return 1;
     }
-    else{
-        while(n!=0){
-            n=n/10;
-            nb++;
+    else
+    {
+        int good_format = 0;
+        int cmpt = 0;
+        while(cmpt<10 && good_format == 0){
+            if(cmpt!=2 && cmpt!=5){
+                if(birthday[cmpt]-'0'<0 || birthday[cmpt]-'0'>9){
+                    good_format = 1;
+                }
+            }
+            cmpt++;
         }
+        return good_format;
     }
-    return nb;
 }
 
 int absolut_value(int *i){

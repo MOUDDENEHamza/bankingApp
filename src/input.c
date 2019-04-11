@@ -156,10 +156,15 @@ void input_phone(Client client) {
  */
 void input_birthday(Client client) {
     char *birthday = (char *) malloc(SIZE);
-    printf("\nEnter the client birthday : ");
+    printf("\nEnter the client birthday at format DD/MM/YYYY : ");
+    back:
     scanf("%s", birthday);
+    if(format_birthday(birthday)!=0){
+        printf("\nYou need to enter the birthday at format DD/MM/YYYY !\n");
+        printf("\nTry again : ");
+        goto back;
+    }
     set_birthday(get_perso_info(client), birthday);
-
 }
 
 /*
@@ -236,7 +241,7 @@ void input_entitled(Client client, Account a) {
     back:
     choice_char = malloc(sizeof(char*));
     printf("\n\nPlease specify, e.g.\n\t1 : Dr.\n\t2 : Mr.\n\t3 : Ms.\n\t4 : Mrs.\n\t5 : other\n");
-    scanf("%d", choice_char);
+    scanf("%s", choice_char);
     choice = atoi(choice_char);
     switch (choice)
     {

@@ -7,7 +7,9 @@ typedef enum boolean bool;
 
 int absolut_value(int *i);
 
-int nbchiffre(long long int n);
+
+int format_birthday(char* birthday);
+
 
 char* concatenate(char* str1,char* str2);
 
