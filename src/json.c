@@ -195,6 +195,58 @@ int import_Client_idx_from_Json(char* id, int* idx){
     return (int)n_clients;
 }
 
+int import_idx_from_json_with_IDA(char* ida,int*idx){
+    FILE *fp;
+    char *buffer = (char *) malloc(BUFFER);
+    struct json_object *parsed_json;
+    struct json_object *clients;
+    struct json_object *client;
+    struct json_object *account_list_json;
+    struct json_object *account_json;
+    struct json_object *id_json;
+    struct json_object *ida_json;
+    size_t n_clients,n_accounts;
+    size_t i,j;
+
+    fp = fopen("data/account_list.json", "r");
+    fread(buffer, BUFFER, 1, fp);
+    fclose(fp);
+    parsed_json = json_tokener_parse(buffer);
+    json_object_object_get_ex(parsed_json, "CLIENTS", &clients);
+    n_clients = json_object_array_length(clients);
+
+    int cmpt=0;
+    int cmpt2;
+    int mybool=1;
+    
+    i=0;
+    idx[0]=0;
+    while(cmpt < n_clients && mybool==1){
+        client = json_object_array_get_idx(clients, i);
+        json_object_object_get_ex(client, "ACCOUNT LIST", &account_list_json);
+        n_accounts = json_object_array_length(account_list_json);
+        cmpt2=0;
+        int mybool2=1;
+        j=0;
+        while(cmpt2 < n_accounts && mybool2==1){
+            account_json = json_object_array_get_idx(account_list_json,j);
+            json_object_object_get_ex(account_json,"IDA",&ida_json);
+            if(strcmp(json_object_get_string(ida_json),ida)==0){
+                mybool2=0;
+            }
+            cmpt2++;
+        }
+        mybool=mybool2;
+        if(mybool!=0)
+        {
+            idx[0]++;
+        }
+        cmpt++;
+        i++;
+    }
+    return (int)n_clients;
+}
+
 
 
 void import_Client_from_Json(int *idx, Client client_imported, int *nbAcc){

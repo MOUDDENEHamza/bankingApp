@@ -78,11 +78,15 @@ void input_type(Account a, int *choice);
 /*input the entitled of the account*/
 void input_entitled(Client client,Account a);
 
+void input_entitled_joint(Client client, Client client_joint);
+
 /*input all account information*/
 void input_create_account(Client client);
 
 /*input a new account*/
-Client input_add_account(Client client, int* nb_accounts);
+Client input_add_account(Client client);
+
+Client input_add_account_joint(Client client,Client client_joint);
 
 
 #endif

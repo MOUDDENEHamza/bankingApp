@@ -171,7 +171,6 @@ void input_birthday(Client client) {
  * input all personnal information
  */
 Client input_perso_info(Client client) {
-
     generate_unique_id(client);
     input_last_name(client);
     input_first_name(client);
@@ -279,24 +278,27 @@ void input_entitled(Client client, Account a) {
 }
 
 
+void input_entitled_joint(Client client, Client client_joint){
+    char* entitled_joint = concatenate(concatenate(get_entitled(get_account(client))," and "),get_entitled(get_account(client_joint)));
+    set_entitled(get_account(client),entitled_joint);
+    set_entitled(get_account(client_joint),entitled_joint);
+}
+
+
 /*input all account information*/
 void input_create_account(Client client) {
     int choice_type;
-    int *n=malloc(sizeof(int));
-    n[0]=0;
     scanf("%d",&choice_type);
     input_type(get_account(client), &choice_type);
     input_ida(get_account(client));
     input_entitled(client,get_account(client));
     input_new_balance(get_account(client));
-    //input_id_account(get_account(client));
     set_account(client, get_account(client));
 }
 
 /*input a new account*/
-Client input_add_account(Client client,int *nb_accounts) {
+Client input_add_account(Client client) {
     int choice;;
-    int n[1]={0};
     Client temp=new_client();
     set_id(temp,get_id(client));
     set_passwd(temp,get_passwd(client));
@@ -309,6 +311,24 @@ Client input_add_account(Client client,int *nb_accounts) {
     input_new_balance(a);
     set_account(temp,a);
     set_nextAccount(get_account(temp),get_account(client));
+    return temp;
+}
+
+Client input_add_account_joint(Client client,Client client_joint){
+    Client temp=new_client();
+    set_id(temp,get_id(client_joint));
+    set_passwd(temp,get_passwd(client_joint));
+    set_perso_info(temp,get_perso_info(client_joint));
+    char* entitled_joint = concatenate(concatenate(get_entitled(get_account(client))," and "),get_entitled(get_account(client_joint)));
+    set_entitled(get_account(client),entitled_joint);
+    Account a=new_account();
+    set_ida(a,get_ida(get_account(client)));
+    set_entitled(a,entitled_joint);
+    set_type(a,"JOINT");
+    float balance=get_balance(get_account(client));
+    set_balance(a,&balance);
+    set_account(temp,a);
+    set_nextAccount(get_account(temp),get_account(client_joint));
     return temp;
 }
 

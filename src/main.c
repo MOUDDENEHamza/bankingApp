@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
     /*Initialize variables*/
     Symbol s = new_symbol();
     Client client = new_client();
+    Client client_joint = new_client();
     Json_object json_object = json_object_new_object();
     Json_object json_clients = json_object_new_array();
     int log_in;
@@ -31,6 +32,7 @@ int main(int argc, char *argv[]) {
     int *idx=malloc(sizeof(int));
     int *nb_acc1=malloc(sizeof(int));
     int *nb_acc2=malloc(sizeof(int));
+    int choice_add;
 
     /*Start program*/
     init_bar(); //Display the init bar.
@@ -162,10 +164,29 @@ int main(int argc, char *argv[]) {
                             restart:
                             switch (sub_index) {
                                 case 1 :
-                                    add_client(client);//Add new client
-                                    add_client_json(client, json_clients);
-                                    write_file(json_object, json_clients);
-                                    client = new_client();
+                                    //add_client(client);//Add new client
+                                    //add_client_json(client, json_clients);
+                                    //write_file(json_object, json_clients);
+                                    //client = new_client();
+                                    client_joint=add_client_and_joint(client,client_joint,nb_acc2);
+                                    printf("\nok...\n");
+                                    printf("\nentitled1=%s\nentitled2=%s\n",get_entitled(get_account(client_joint)),get_entitled(get_nextAccount(get_account(client_joint))));
+                                    printf("\nok...\n");
+                                    printf("\nok...\n");
+                                    switch (nb_acc2[0])
+                                    {
+                                        case 1 :
+                                            add_client_json(client,json_clients);
+                                            add_client_json(client_joint,json_clients);
+                                            write_file(json_object,json_clients);
+                                            break;
+
+                                        default:
+                                            modify_client(client_joint,json_clients,nb_acc2);
+                                            add_client_json(client,json_clients);
+                                            write_file(json_object,json_clients);
+                                            break;
+                                    } 
                                     break;
                                 case 2 :
                                     client = edit_client_coordonates(nb_acc1);

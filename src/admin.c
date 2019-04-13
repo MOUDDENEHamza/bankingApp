@@ -79,7 +79,7 @@ Client create_new_account(int *nb_accounts) {
     printf("\n\nchoose the type of account you want to create\n");
     printf("you have just to enter the number referenced! \n");
     display_choose_type();
-    Client updated=input_add_account(client,nb_accounts);
+    Client updated=input_add_account(client);
     nb_accounts[0]++;
     return updated;
 }
@@ -126,13 +126,55 @@ void add_client(Client client) {
     char *str = (char *) malloc(SIZE);
     input_perso_info(client);
     create_account(client);
-    strcpy(str, "data/");
+    /*strcpy(str, "data/");
     strcat(get_id(client), ".csv");
     strcat(str, get_id(client));
     fp = fopen(str, "w");
     fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE");
     fclose(fp);
-    printf("\nClient has been added. Come back to the administrator menu.\n");
+    printf("\nClient has been added. Come back to the administrator menu.\n");*/
+}
+
+Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts){
+    add_client(client);
+    Client temp=new_client();
+    Client client_joint1=new_client();
+    int choice,nb_clients;
+        int *idx_joint = malloc(sizeof(int));
+        char*id_joint = malloc(sizeof(char*));
+    if (strcmp(get_type(get_account(client)),"JOINT")==0) {
+        back:
+        printf("\nEnter :\n1 if the client partner has already an account\n2 if he doesn't\nEnter your choice :");
+        scanf("%d",&choice);
+        switch (choice)
+        {
+            case 1 :
+                printf("\nEnter the client partner id : ");
+                scanf("%s",id_joint);
+                nb_clients=import_Client_idx_from_Json(id_joint,idx_joint);
+                printf("pk\n ");
+                import_Client_from_Json(idx_joint,temp,nb_accounts);
+                client_joint1 = input_add_account_joint(client,temp);
+                nb_accounts[0]++;
+                break;
+            case 2 :
+            printf("\nnow we are adding the client partber ...\n");
+                input_perso_info(client_joint1);
+                set_account(client_joint1,get_account(client));
+                input_entitled_joint(client,client_joint1);
+                nb_accounts[0]=1;
+                break;
+        
+            default:
+                goto back;
+                break;
+        }
+        client_joint = client_joint1;
+        printf("\n%s",get_entitled(get_account(client_joint1)));
+        printf("\n%s",get_entitled(get_nextAccount(get_account(client_joint1))));
+    }
+    
+    return client_joint;
 }
 
 /*

@@ -40,6 +40,8 @@ void display_accounts_list();
  */
 void add_client(Client client);
 
+Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts);
+
 /*
  *Edit the personal information of the client
  */
