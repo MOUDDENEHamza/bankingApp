@@ -25,7 +25,7 @@ Json_object parse_json(void);
 
 int import_Client_idx_from_Json(char* id, int* idx);
 
-int import_idx_from_json_with_IDA(char* ida,int*idx);
+int import_idx_from_json_with_IDA(char* id_client,char* ida,int*idx,int *idx_ida);
 
 void get_idFromJson(int idx);
 

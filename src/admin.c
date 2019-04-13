@@ -355,11 +355,15 @@ Json_object edit_account(Client client, Json_object json_clients) {
     char * new_entitled=malloc(sizeof(char*));
     char * voidchar = "@@@@@@@@@@ void @@@@@@@@@@";
     int i, j;
-    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account, *json_ida, *json_type, *json_entitled, *json_balance;
+    struct json_object *json_client, *json_id, *json_passwd, *last_name, *fist_name, *first_name, *birthday, *mail, *phone, *json_account_list, *json_account_list_joint, *json_account, *json_ida, *json_type, *json_entitled, *json_balance;
     Json_object json_temp_clients = json_object_new_array();
     Json_object json_temp_client = json_object_new_object();
+    Json_object json_temp_client_joint = json_object_new_object();
     Json_object json_temp_account_list = json_object_new_array();
+    Json_object json_temp_account_list_joint = json_object_new_array();
     Json_object json_temp_account = json_object_new_object();
+    Json_object json_temp_account_joint = json_object_new_object();
+
     size_t n_clients, n_accounts;
     n_clients = json_object_array_length(json_clients);
     char  *type = malloc(sizeof(char*)) , *entitled = malloc(sizeof(char*));
@@ -368,7 +372,9 @@ Json_object edit_account(Client client, Json_object json_clients) {
     back0:
     printf("\nEnter the client ID  :");
     scanf("%s",id);
+    printf("\nok...\n");
     import_Client_idx_from_Json(id,idx);
+    printf("\nok...\n");
     if (idx[0]<n_clients) {
         import_Client_from_Json(idx,client,nb_accounts);
         tabAccount[0]=new_account();
@@ -396,7 +402,6 @@ Json_object edit_account(Client client, Json_object json_clients) {
                 display_wrong();
                 goto back1;
             }
-            
 
             back2:
             choice_char = malloc(sizeof(char*));
@@ -428,6 +433,25 @@ Json_object edit_account(Client client, Json_object json_clients) {
         goto  back0;
     }
 
+    Client client_joint=new_client();
+    char* id_joint=malloc(sizeof(char*));
+    int* idx_joint=malloc(sizeof(int));
+    int* idx_ida_joint=malloc(sizeof(int));
+    int *nb_accounts_joint=malloc(sizeof(int));
+
+    if(strcmp(get_type(tabAccount[choice_type-1]),"JOINT")==0){
+        import_idx_from_json_with_IDA(get_id(client),get_ida(tabAccount[choice_type-1]),idx_joint,idx_ida_joint);
+        printf("\nidx_joint=%d\nidx_ida_joint=%d\n",idx_joint[0],idx_ida_joint[0]);
+        import_Client_from_Json(idx_joint,client_joint,nb_accounts_joint);
+        printf("\ntype = %s\n",get_type(get_account(client_joint)));
+    }
+    else
+    {
+        set_id(client_joint,voidchar);
+        idx_joint[0]=-1;
+        idx_ida_joint[0]=-1;
+    }
+
 
     for (i = 0; i < n_clients; i++) {
         json_client = json_object_array_get_idx(json_clients, i);
@@ -455,11 +479,39 @@ Json_object edit_account(Client client, Json_object json_clients) {
             json_object_array_add(json_temp_clients, json_temp_client);
         }
         else {
-            json_object_array_add(json_temp_clients, json_client);
+            if (strcmp(get_id(client_joint),json_object_get_string(json_id))==0) {
+                json_object_object_add(json_temp_client_joint, "ID", json_object_new_string(get_id(client_joint)));
+                json_object_object_add(json_temp_client_joint, "PASSWD", json_object_new_string(get_passwd(client_joint)));
+                json_object_object_add(json_temp_client_joint, "LAST NAME",json_object_new_string(get_last_name(get_perso_info(client_joint))));
+                json_object_object_add(json_temp_client_joint, "FIRST NAME",json_object_new_string(get_first_name(get_perso_info(client_joint))));
+                json_object_object_add(json_temp_client_joint, "BIRTHDAY",json_object_new_string(get_birthday(get_perso_info(client_joint))));
+                json_object_object_add(json_temp_client_joint, "EMAIL",json_object_new_string(get_mail(get_coordinates(get_perso_info(client_joint)))));
+                json_object_object_add(json_temp_client_joint, "PHONE",json_object_new_string(get_phone(get_coordinates(get_perso_info(client_joint)))));
+                json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list_joint);
+                n_accounts = json_object_array_length(json_account_list_joint);
+                if (n_accounts>0) {
+                    json_object_object_add(json_temp_account_joint, "IDA",json_object_new_string(get_ida(tabAccount[choice_type-1])));
+                    json_object_object_add(json_temp_account_joint, "ENTITLED",json_object_new_string(get_entitled(tabAccount[choice_type-1])));
+                    json_object_object_add(json_temp_account_joint, "TYPE",json_object_new_string(get_type(tabAccount[choice_type-1])));
+                    json_object_object_add(json_temp_account_joint, "BALANCE",json_object_new_double(get_balance(tabAccount[choice_type-1])));
+                    json_object_array_add(json_temp_account_list_joint, json_temp_account_joint);
+                    json_object_array_put_idx(json_account_list_joint,*idx_ida_joint,json_temp_account_joint);
+                    Json_object json_temp_account_joint = json_object_new_object();
+                }
+                json_object_object_add(json_temp_client_joint, "ACCOUNT LIST", json_account_list_joint);
+                json_object_array_add(json_temp_clients, json_temp_client_joint);
+            }
+            else{
+                json_object_array_add(json_temp_clients, json_client);
+            }   
         }
     }
     if (n_accounts>0) {
         display_edit_succesfoul();
     }
     return  json_temp_clients;
+}
+
+Json_object edit_account_and_joint(Client client,Json_object json_clients){
+    json_clients = edit_account(client,json_clients);
 }
