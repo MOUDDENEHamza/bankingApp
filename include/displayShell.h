@@ -158,6 +158,11 @@ void display_success_editing_client(void);
  */
 void display_entitled_list(void);
 
+/**
+ * Display a message while changing passwd
+ */
+void display_success_changing_passwd(void);
+
 /**------------------------------------------------------------------------------------------------**/
 
 /**

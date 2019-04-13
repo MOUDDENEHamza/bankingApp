@@ -438,7 +438,28 @@ void traverse(Account head) {
     Account temp = head;
 
     while (temp != NULL) {
-        printf("\n%s && %s\n", get_type(temp), get_entitled(temp));
         temp = get_next_account(temp);
     }
+}
+
+/**
+ * Delete a node from the linked list
+ */
+void delete_node(Account head, Account node) {
+    Account temp = head, prev;
+
+    if (temp != NULL && temp == node) {
+        head = get_next_account(temp);
+        free(temp);
+        return;
+    }
+    while (temp != NULL && temp != node) {
+        prev = temp;
+        temp = get_next_account(temp);
+    }
+    if (temp == NULL) {
+        return;
+    }
+    set_next_account(prev, get_next_account(temp));
+    free(temp);
 }

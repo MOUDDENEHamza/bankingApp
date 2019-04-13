@@ -262,6 +262,14 @@ void display_entitled_list(void) {
     printf("\nDisplay the entitled list of an account : LOADING...\n");
 }
 
+/**
+ * Display a message while changing passwd
+ */
+void display_success_changing_passwd(void) {
+    printf("\n"GREEN"DONE : "RESET"Changing password done with success\n");
+    printf("\nSign out\n");
+}
+
 /**------------------------------------------------------------------------------------------------**/
 
 /**

@@ -286,7 +286,7 @@ void set_account(Client client, Account a);
  */
 typedef struct json_object *Json_object;
 
-/*----------------------------------------------------------------------------*/
+/**----------------------------------------------------------------------------**/
 
 /**
  * Add a new account to the account client structure
@@ -297,5 +297,10 @@ typedef struct json_object *Json_object;
   * Traverse the linked list of account
   */
  void traverse(Account head);
+
+ /**
+  * Delete a node from the linked list
+  */
+void delete_node(Account head, Account node);
 
 #endif

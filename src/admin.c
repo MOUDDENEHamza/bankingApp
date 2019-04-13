@@ -17,8 +17,7 @@ void admin_create_account(Json_object json_clients) {
     float init_balance = 0;
     char *id = (char *) malloc(SIZE), *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
-    Json_object temp_json_account = json_object_new_object();
-    Json_object temp_entitled = json_object_new_array();
+    Json_object temp_json_account = json_object_new_object(), temp_entitled = json_object_new_array();
     size_t n_clients, n_accounts;
 
     display_creation_account();
