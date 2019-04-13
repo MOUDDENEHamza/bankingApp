@@ -29,9 +29,13 @@ int main(int argc, char *argv[]) {
     int sub_index = get_sub_index(s);
     char id[SIZE], passwd[SIZE];
 
+    char* id_joint = malloc(sizeof(char*));
     int *idx=malloc(sizeof(int));
     int *nb_acc1=malloc(sizeof(int));
     int *nb_acc2=malloc(sizeof(int));
+    Client* tabClient = malloc(2*sizeof(Client));
+    tabClient[0]=new_client();
+    tabClient[1]=new_client();
     int choice_add;
 
     /*Start program*/
@@ -129,8 +133,14 @@ int main(int argc, char *argv[]) {
                             restart0:
                             switch (sub_index) {
                                 case 1 :
-                                    client=create_new_account(nb_acc1);
+                                    //client=create_new_account(nb_acc1);
+                                    tabClient = create_new_account_joint(nb_acc1,nb_acc2);
+                                    client = tabClient[0];
                                     modify_client(client,json_clients,nb_acc1);
+                                    if (tabClient[1]!=NULL) {
+                                        client_joint = tabClient[1];
+                                        modify_client(client_joint,json_clients,nb_acc2);
+                                    }
                                     write_file(json_object, json_clients);
                                     break;
                                 case 2 :
@@ -170,7 +180,7 @@ int main(int argc, char *argv[]) {
                                     //client = new_client();
                                     client_joint=add_client_and_joint(client,client_joint,nb_acc2);
                                     printf("\nok...\n");
-                                    printf("\nentitled1=%s\nentitled2=%s\n",get_entitled(get_account(client_joint)),get_entitled(get_nextAccount(get_account(client_joint))));
+                                    //printf("\nentitled1=%s\nentitled2=%s\n",get_entitled(get_account(client_joint)),get_entitled(get_nextAccount(get_account(client_joint))));
                                     printf("\nok...\n");
                                     printf("\nok...\n");
                                     switch (nb_acc2[0])
