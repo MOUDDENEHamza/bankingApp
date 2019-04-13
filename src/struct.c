@@ -437,7 +437,8 @@ Account add_node(Account head, Account new_node) {
 void traverse(Account head) {
     Account temp = head;
 
-    while (get_next_account(temp) != NULL) {
+    while (temp != NULL) {
+        printf("\n%s && %s\n", get_type(temp), get_entitled(temp));
         temp = get_next_account(temp);
     }
 }

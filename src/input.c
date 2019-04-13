@@ -242,3 +242,11 @@ Client input_perso_info(Client client) {
 
     return client;
 }
+
+/**
+ * Input the period you want consult the transfer list
+ */
+void input_period(char *period) {
+    printf("\nEnter the period you want to consult your operations list (for example : 5/2019) : ");
+    scanf("%s", period);
+}

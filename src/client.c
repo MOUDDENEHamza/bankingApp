@@ -5,6 +5,7 @@
 #include <time.h>
 #include "struct.h"
 #include "displayShell.h"
+#include "input.h"
 
 #define BUFFER 4096
 #define SIZE 64
@@ -17,45 +18,46 @@
  * To consult the balance of the client
  */
 void consult_balance(Client client, Json_object json_clients) {
-    int i, j;
+    int i, j, choice;
+    float balance;
     char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE);
     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
+    Json_object temp_entitled = json_object_new_array();
     size_t n_clients, n_accounts;
 
-    printf("\nLoading...\n");
-    printf("\nEnter the type of the account you want consult the balance : ");
-    scanf("%s", type);
-    printf("\nEnter the entitled of the account you want consult the balance : ");
-    scanf("%s", entitled);
-
+    display_consulting_balance();
+    display_account_type();
+    choice = input_choice();
+    strcpy(type, input_type(&choice));
+    if (choice == 3) {
+        json_object_array_add(temp_entitled, json_object_new_string(input_entitled()));
+        json_object_array_add(temp_entitled, json_object_new_string(input_joint_entitled()));
+        strcpy(entitled, json_object_get_string(temp_entitled));
+    } else {
+        strcpy(entitled, input_entitled());
+    }
     n_clients = json_object_array_length(json_clients);
-
     for (i = 0; i < n_clients; i++) {
         json_client = json_object_array_get_idx(json_clients, i);
         json_object_object_get_ex(json_client, "ID", &json_id);
-
         if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
             json_object_object_get_ex(json_client, "ACCOUNT LIST", &json_account_list);
             n_accounts = json_object_array_length(json_account_list);
-
             for (j = 0; j < n_accounts; j++) {
                 json_account = json_object_array_get_idx(json_account_list, j);
                 json_object_object_get_ex(json_account, "TYPE", &json_type);
                 json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
                 json_object_object_get_ex(json_account, "BALANCE", &json_balance);
-
                 if (strcmp(type, json_object_get_string(json_type)) == 0 &&
                     strcmp(entitled, json_object_get_string(json_entitled)) == 0) {
-                    printf("\nThe balance of your %s account is : %f\n", json_object_get_string(json_type),
-                           json_object_get_double(json_balance));
+                    balance = json_object_get_double(json_balance);
+                    display_balance(type, &balance);
                     return;
                 }
             }
         }
     }
-
-    printf("\n"RED"ERROR : "RESET"Wrong input, please try later\n");
-    printf("\n\nCome back the client menu\n");
+    display_wrong_input();
 }
 
 /**
@@ -65,15 +67,12 @@ void transaction_list(Client client) {
     FILE *fp;
     char *buffer = (char *) malloc(BUFFER), *str = (char *) malloc(SIZE), *period = (char *) malloc(SIZE);
 
-    printf("\nEnter the period you want to consult your operations list (for example : 5/2019) : ");
-    scanf("%s", period);
+    input_period(period);
     strcpy(str, "data/");
     strcat(str, get_id(client));
     strcat(str, ".csv");
     fp = fopen(str, "r");
-    printf("\nDownload transaction file : Loading...\n");
-
-    printf("\nDATE,\t\tOPERATION,\t\tACCOUNT,\t\tAMOUNT,\t\tBALANCE\n");
+    display_transfer_list();
     fread(buffer, 1, BUFFER, fp);
     while (buffer) {
         char *nextLine = strchr(buffer, '\n');
@@ -84,8 +83,7 @@ void transaction_list(Client client) {
         if (nextLine) *nextLine = '\n';
         buffer = nextLine ? (nextLine + 1) : NULL;
     }
-
-    printf("\nCome back the client menu\n");
+    display_quit_client_menu();
 }
 
 /**
@@ -101,6 +99,8 @@ void transfer_money(Client client, Json_object json_clients) {
             *str_type = (char *) malloc(SIZE), *str_entitled = (char *) malloc(SIZE), *str1 = (char *) malloc(
             SIZE), *str2 = (char *) malloc(SIZE);
     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
+    Json_object temp_sender_entitled = json_object_new_array();
+    Json_object temp_recipient_entitled = json_object_new_array();
     size_t n_clients, n_accounts;
     Account temp = get_account(client);
     time_t t = time(NULL);
@@ -109,14 +109,30 @@ void transfer_money(Client client, Json_object json_clients) {
     printf("\nSecure transfer\n");
     printf("\nPlease, enter the type of the transmitter account : ");
     scanf("%s", sender_type);
-    printf("\nPlease, enter the entitled of the transmitter account : ");
-    scanf("%s", sender_entitled);
+    if (strcmp(sender_type, "JOINT") == 0) {
+        printf("\nPlease, enter the entitled of the transmitter account : ");
+        scanf("%s", sender_entitled);
+        json_object_array_add(temp_sender_entitled, json_object_new_string(sender_entitled));
+        json_object_array_add(temp_sender_entitled, json_object_new_string(input_joint_entitled()));
+        strcpy(sender_entitled, json_object_get_string(temp_sender_entitled));
+    } else {
+        printf("\nPlease, enter the entitled of the transmitter account : ");
+        scanf("%s", sender_entitled);
+    }
     printf("\nPlease, enter the id of your recipient : ");
     scanf("%s", id);
     printf("\nPlease, enter the type of account of your recipient : ");
     scanf("%s", recipient_type);
-    printf("\nPlease, enter the entitled of your recipient : ");
-    scanf("%s", recipient_entitled);
+    if (strcmp(recipient_type, "JOINT") == 0) {
+        printf("\nPlease, enter the entitled of the transmitter account : ");
+        scanf("%s", recipient_entitled);
+        json_object_array_add(temp_recipient_entitled, json_object_new_string(recipient_entitled));
+        json_object_array_add(temp_recipient_entitled, json_object_new_string(input_joint_entitled()));
+        strcpy(recipient_entitled, json_object_get_string(temp_recipient_entitled));
+    } else {
+        printf("\nPlease, enter the entitled of the recipient account : ");
+        scanf("%s", recipient_entitled);
+    }
     printf("\nPlease, enter the amount of your transaction : ");
     scanf("%f", &amount_transfer);
 
@@ -125,6 +141,8 @@ void transfer_money(Client client, Json_object json_clients) {
         printf("\nCome back the client menu\n");
         return;
     }
+
+    traverse(temp);
 
     n_clients = json_object_array_length(json_clients);
 
@@ -155,15 +173,18 @@ void transfer_money(Client client, Json_object json_clients) {
 
         if (strcmp(get_id(client), json_object_get_string(json_id)) == 0) {
 
-            for (j = 0; j < n_accounts; j++) {
-                json_account = json_object_array_get_idx(json_account_list, j);
-                json_object_object_get_ex(json_account, "TYPE", &json_type);
-                json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
-                json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+            while (temp != NULL) {
 
-                while (temp != NULL) {
+                for (j = 0; j < n_accounts; j++) {
+                    json_account = json_object_array_get_idx(json_account_list, j);
+                    json_object_object_get_ex(json_account, "TYPE", &json_type);
+                    json_object_object_get_ex(json_account, "ENTITLED", &json_entitled);
+                    json_object_object_get_ex(json_account, "BALANCE", &json_balance);
+
                     if (strcmp(sender_type, get_type(temp)) == 0 &&
-                        strcmp(sender_entitled, get_entitled(temp)) == 0 && done == 0) {
+                        strcmp(sender_entitled, get_entitled(temp)) == 0 &&
+                        strcmp(json_object_get_string(json_type), get_type(temp)) == 0 &&
+                        strcmp(json_object_get_string(json_entitled), get_entitled(temp)) == 0 && done == 0) {
 
                         if (json_object_get_double(json_balance) < amount_transfer) {
                             printf("\n"RED"FAILED : "RESET"your balance is insufficient to perform this operation\n");
@@ -191,8 +212,8 @@ void transfer_money(Client client, Json_object json_clients) {
                             }
                         }
                     }
-                    temp = get_next_account(temp);
                 }
+                temp = get_next_account(temp);
             }
         }
     }
@@ -251,18 +272,28 @@ void transfer_money(Client client, Json_object json_clients) {
  */
 void pay_by_card(Client client, Json_object json_clients) {
     FILE *fp;
-    int i, j;
+    int i, j, choice;
     float product_price, new_balance;
     char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE), *str = (char *) malloc(SIZE);
     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
+    Json_object temp_entitled = json_object_new_array();
     size_t n_clients, n_accounts;
     Account temp = get_account(client);
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
     printf("\nSecure payment\n");
-    printf("\nPlease, enter the type of the account with what you want to pay : ");
-    scanf("%s", type);
+    display_consulting_balance();
+    display_account_type();
+    choice = input_choice();
+    strcpy(type, input_type(&choice));
+    if (choice == 3) {
+        json_object_array_add(temp_entitled, json_object_new_string(input_entitled()));
+        json_object_array_add(temp_entitled, json_object_new_string(input_joint_entitled()));
+        strcpy(entitled, json_object_get_string(temp_entitled));
+    } else {
+        strcpy(entitled, input_entitled());
+    }
 
     if (strcmp(type, "SAVINGS") == 0) {
         printf("\n"RED"FAILED : "RESET"Sorry, you can not pay with your savings account\n");
@@ -270,8 +301,6 @@ void pay_by_card(Client client, Json_object json_clients) {
         return;
     }
 
-    printf("\nPlease, enter the entitled of the account with what you want to pay : ");
-    scanf("%s", entitled);
     printf("\nEnter the price of the product : ");
     scanf("%f", &product_price);
 
@@ -344,10 +373,11 @@ void pay_by_card(Client client, Json_object json_clients) {
  */
 void make_deposit(Client client, Json_object json_clients) {
     FILE *fp;
-    int i, j;
+    int i, j, choice;
     char *type = (char *) malloc(SIZE), *entitled = (char *) malloc(SIZE), *str = (char *) malloc(SIZE);
     float deposit, new_balance;
     Json_object json_client, json_id, json_account_list, json_account, json_type, json_entitled, json_balance;
+    Json_object temp_entitled = json_object_new_array();
     size_t n_clients, n_accounts;
     Account temp = get_account(client);
     time_t t = time(NULL);
@@ -355,10 +385,16 @@ void make_deposit(Client client, Json_object json_clients) {
 
     printf("\nMake the deposit to your account\n");
     printf("\nYou want to make the deposit on which account\n");
-    printf("\nEnter the type of the account where you want make the deposit : ");
-    scanf("%s", type);
-    printf("\nEnter the entitled of the account where you want make the deposit : ");
-    scanf("%s", entitled);
+    display_account_type();
+    choice = input_choice();
+    strcpy(type, input_type(&choice));
+    if (choice == 3) {
+        json_object_array_add(temp_entitled, json_object_new_string(input_entitled()));
+        json_object_array_add(temp_entitled, json_object_new_string(input_joint_entitled()));
+        strcpy(entitled, json_object_get_string(temp_entitled));
+    } else {
+        strcpy(entitled, input_entitled());
+    }
     printf("\nPlease, enter the amount of your deposit : ");
     scanf("%f", &deposit);
 

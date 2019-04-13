@@ -56,6 +56,8 @@ void display_admin_administration(void);
 
 /**------------------------------------------------------------------------------------------------**/
 
+/**--------------------------------DISPLAY CLIENT&ADMIN MESSAGE------------------------------------**/
+
 /**
  *Display an error message if the user input an incorrect flag
  */
@@ -75,6 +77,21 @@ void display_error_connexion_admin(void);
  * Display a message while deleting account
  */
 void display_account_type(void);
+
+/**
+ * Display a message while editing consulting the balance of the client
+ */
+void display_consulting_balance(void);
+
+/**
+ * Display a the balance of a given account
+ */
+void display_balance(char *type, float *balance);
+
+/**
+ * Display a message while consulting the transfer list of the client in a given period
+ */
+void display_transfer_list(void);
 
 /**
  * Display a message of creating account
@@ -112,6 +129,11 @@ void display_success_deletion_account(void);
 void display_quit_administrator_menu(void);
 
 /**
+ * Display a message while quiting client menu
+ */
+void display_quit_client_menu(void);
+
+/**
  * Display a message of adding client
  */
 void display_adding_client(void);
@@ -135,6 +157,8 @@ void display_success_editing_client(void);
  * Display entitled list of a given account
  */
 void display_entitled_list(void);
+
+/**------------------------------------------------------------------------------------------------**/
 
 /**
  * Display the end bar

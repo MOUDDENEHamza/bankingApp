@@ -17,12 +17,12 @@
         {
           "TYPE": "JOINT",
           "ENTITLED": "[ \"A\", \"Z\" ]",
-          "BALANCE": 0
+          "BALANCE": 300
         },
         {
           "TYPE": "SAVINGS",
           "ENTITLED": "E",
-          "BALANCE": 0
+          "BALANCE": 200
         }
       ]
     },
@@ -38,7 +38,12 @@
         {
           "TYPE": "CURRENT",
           "ENTITLED": "KANE",
-          "BALANCE": 0
+          "BALANCE": 50
+        },
+        {
+          "TYPE": "JOINT",
+          "ENTITLED": "[ \"A\", \"E\" ]",
+          "BALANCE": 811
         }
       ]
     },
@@ -54,7 +59,7 @@
         {
           "TYPE": "CURRENT",
           "ENTITLED": "SANZ--SOUHAIT",
-          "BALANCE": 0
+          "BALANCE": 10
         }
       ]
     }

@@ -110,6 +110,8 @@ void display_admin_administration(void) {
 
 /**------------------------------------------------------------------------------------------------**/
 
+/**--------------------------------DISPLAY CLIENT&ADMIN MESSAGE------------------------------------**/
+
 /**
  *Display an error message if the user input an incorrect flag
  */
@@ -142,6 +144,28 @@ void display_account_type(void) {
 }
 
 /**
+ * Display a message while editing consulting the balance of the client
+ */
+void display_consulting_balance(void) {
+    printf("\nConsult the balance : LOADING...\n");
+}
+
+/**
+ * Display a message while consulting the transfer list of the client in a given period
+ */
+void display_transfer_list(void) {
+    printf("\nDownload transaction file : LOADING...\n");
+    printf("\nDATE,\t\t\tOPERATION,\t\tACCOUNT,\t\tAMOUNT,\t\t\tBALANCE\n");
+}
+
+/**
+ * Display a the balance of a given account
+ */
+void display_balance(char *type, float *balance) {
+    printf("\nThe balance of your %s account is : "GREEN"+%f€"RESET"\n", type, *balance);
+}
+
+/**
  * Display a message of creating account
  */
 void display_creation_account(void) {
@@ -153,7 +177,7 @@ void display_creation_account(void) {
  */
 void display_success_creation_account(void) {
     printf("\n"GREEN"DONE : "RESET"The account has been created with success\n");
-    printf("\nCome back the administrator menu\n");
+    printf("\nCome back the precedent menu\n");
 }
 
 /**
@@ -161,7 +185,7 @@ void display_success_creation_account(void) {
  */
 void display_failed_creation_account(void) {
     printf("\n"RED"FAILED : "RESET"You can not create an account with the same entitled of an existent account\n");
-    printf("\nCome back the administrator menu\n");
+    printf("\nCome back the precedent menu\n");
 }
 
 /**
@@ -169,7 +193,7 @@ void display_failed_creation_account(void) {
  */
 void display_wrong_input(void) {
     printf("\n"RED"ERROR : "RESET"Wrong input, please try again\n");
-    printf("\nCome back the administrator menu\n");
+    printf("\nCome back the precedent menu\n");
 }
 
 /**
@@ -192,6 +216,13 @@ void display_success_deletion_account(void) {
  */
 void display_quit_administrator_menu(void) {
     printf("\nCome back the administrator menu\n");
+}
+
+/**
+ * Display a message while quiting client menu
+ */
+void display_quit_client_menu(void) {
+    printf("\nCome back the client menu\n");
 }
 
 /**
@@ -230,6 +261,8 @@ void display_success_editing_client(void) {
 void display_entitled_list(void) {
     printf("\nDisplay the entitled list of an account : LOADING...\n");
 }
+
+/**------------------------------------------------------------------------------------------------**/
 
 /**
  * Display the end bar

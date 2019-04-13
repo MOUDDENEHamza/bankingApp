@@ -83,4 +83,9 @@ char *input_joint_entitled(void);
  */
 Client input_perso_info(Client client);
 
+/**
+ * Input the period you want consult the transfer list
+ */
+void input_period(char *period);
+
 #endif
