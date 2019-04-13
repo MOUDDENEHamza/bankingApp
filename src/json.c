@@ -17,6 +17,7 @@ void write_file(Json_object json_object, Json_object json_clients) {
     if (json_clients == NULL) {
         return;
     }
+
     json_object_object_add(json_object, "CLIENTS", json_clients);
 
     fp = fopen("data/account_list.json", "w");

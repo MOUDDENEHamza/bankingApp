@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <termios.h>
 #include "input.h"
+#include "displayShell.h"
 #include "admin.h"
 #include "json.h"
 
@@ -53,7 +54,7 @@ void hide_passwd(char *passwd) {
 /**
  * Generate unique id for the client
  */
-void generate_unique_id(Client client) {
+char *generate_unique_id(void) {
     srand(clock());
     char *id = (char *) malloc(SIZE);
     int t = 0;
@@ -85,14 +86,14 @@ void generate_unique_id(Client client) {
     }
     write(STDOUT_FILENO, "\nAdd client : loading...\n", 25);
     printf("\ngenerate ID : %s\n", id);
-    set_id(client, id);
+    return id;
 }
 
 /**
  * Ask to client to input his id
  */
 void input_id(char *id) {
-    printf("\nEnter your id : ");
+    printf("\nEnter the ID of the client : ");
     scanf("%s", id);
 }
 
@@ -107,81 +108,92 @@ void input_passwd(char *passwd) {
 /**
  * Ask to user to create his own password
  */
-void create_passwd(Client client) {
+char *create_passwd(void) {
     char *passwd = (char *) malloc(SIZE);
     write(STDOUT_FILENO, "\nEnter your password : ", 24);
     hide_passwd(passwd);
-    set_passwd(client, passwd);
+    return passwd;
 }
 
 /**
  * Ask to user or administrator to input her last name
  */
-void input_last_name(Client client) {
+char *input_last_name(void) {
     char *last_name = (char *) malloc(SIZE);
     printf("\nEnter your last name : ");
     scanf("%s", last_name);
-    set_last_name(get_perso_info(client), last_name);
+    return last_name;
 }
 
 /**
  * Ask to user or administrator to input her first name
  */
-void input_first_name(Client client) {
+char *input_first_name(void) {
     char *first_name = (char *) malloc(SIZE);
     printf("\nEnter your first name : ");
     scanf("%s", first_name);
-    set_first_name(get_perso_info(client), first_name);
+    return first_name;
 }
 
 /**
  * Ask to user or administrator to input his birthday
  */
-void input_birthday(Client client) {
+char *input_birthday(void) {
     char *birthday = (char *) malloc(SIZE);
     printf("\nEnter your birthday : ");
     scanf("%s", birthday);
-    set_birthday(get_perso_info(client), birthday);
-
+    return birthday;
 }
 
 /**
  * Ask to user or administrator to input his Email address
  */
-void input_mail(Client client) {
+char *input_mail(void) {
     char *mail = (char *) malloc(SIZE);
     printf("\nEnter your E-mail : ");
     scanf("%s", mail);
-    set_mail(get_coordinates(get_perso_info(client)), mail);
+    return mail;
 }
 
 /**
  * Ask to user or administrator to input her phone number
  */
-void input_phone(Client client) {
+char *input_phone(void) {
     char *phone = (char *) malloc(SIZE);
     printf("\nEnter your phone : ");
     scanf("%s", phone);
-    set_phone(get_coordinates(get_perso_info(client)), phone);
+    return phone;
+}
+
+/**
+ * Ask the user to input an integer
+ */
+int input_choice(void) {
+    int choice;
+
+    printf("\nEnter your choice : ");
+    scanf("%d", &choice);
+    return choice;
 }
 
 /**
  * Ask to user to input the account type
  */
-void input_type(Client client, int *choice) {
+char *input_type(int *choice) {
     char *type = (char *) malloc(SIZE);
     back:
     switch (*choice) {
         case 1 :
             strcpy(type, "CURRENT");
-            set_type(get_account(client), type);
-            break;
+            return type;
         case 2 :
             strcpy(type, "SAVINGS");
-            set_type(get_account(client), type);
-            break;
+            return type;
+        case 3 :
+            strcpy(type, "JOINT");
+            return type;
         default :
-            printf("\nWrong choice. Please try again\n");
+            display_error_flag();
             goto back;
     }
 }
@@ -189,30 +201,44 @@ void input_type(Client client, int *choice) {
 /**
  * Ask user to input the entitled of the account
  */
-void input_entitled(Client client) {
+char *input_entitled(void) {
     char *entitled = (char *) malloc(SIZE);
     printf("\nEnter the entitled : ");
     scanf("%s", entitled);
-    set_entitled(get_account(client), entitled);
+    return entitled;
+}
+
+/**
+ * Ask user to input the joint entitled of the account
+ */
+char *input_joint_entitled(void) {
+    char *joint_entitled = (char *) malloc(SIZE);
+    printf("\nEnter the joint entitled : ");
+    scanf("%s", joint_entitled);
+    return joint_entitled;
 }
 
 /**
  * input all personal information
  */
 Client input_perso_info(Client client) {
+    Account a = get_account(client);
+    Perso_info p = get_perso_info(client);
     int by_default = 1;
     float init_balance = 0;
-    generate_unique_id(client);
-    create_passwd(client);
-    input_last_name(client);
-    input_first_name(client);
-    input_birthday(client);
-    input_mail(client);
-    input_phone(client);
+
+    set_id(client, generate_unique_id());
+    set_passwd(client, create_passwd());
+    set_last_name(p, input_last_name());
+    set_first_name(p, input_first_name());
+    set_birthday(p, input_birthday());
+    set_mail(get_coordinates(p), input_mail());
+    set_phone(get_coordinates(p), input_phone());
     printf("\nAutomatic creation of a current account\n");
-    input_type(client, &by_default);
+    set_type(a, input_type(&by_default));
     printf("\nYour balance is initialized to 0\n");
-    set_balance(get_account(client), &init_balance);
-    input_entitled(client);
+    set_balance(a, &init_balance);
+    set_entitled(a, input_entitled());
+
     return client;
 }

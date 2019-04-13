@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     init_bar();///Display the init bar.
     back:
     log_in = 0;
-    display_menu(&exit);///Display the main menu.
+    display_menu();///Display the main menu.
     json_clients = parse_json();///Parse the json file containing the client data
     choose_feature(s, &flag);///Choose the feature you want to run
 
@@ -85,8 +85,8 @@ int main(int argc, char *argv[]) {
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;
 
-                                default :///Display an error message if the user input an incorrect flag
-                                    display_error_flag(s, &sub_index);
+                                default :
+                                    display_error_flag();///Display an error message if the user input an incorrect flag
                                     choose_feature(s, &sub_index);///Choose the feature you want to run
                                     break;
                             }
@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 default :///Display an error message if the user input an incorrect flag
-                                    display_error_flag(s, &sub_index);///Display the error message
+                                    display_error_flag();///Display the error message
                                     break;
                             }
 
@@ -132,8 +132,8 @@ int main(int argc, char *argv[]) {
                             exit = 0;
                             break;
 
-                        default :///Display an error message if the user input an incorrect flag
-                            display_error_flag(s, &flag);
+                        default :
+                            display_error_flag();///Display an error message if the user input an incorrect flag
                             break;
                     }
                     break;
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
                             switch (sub_index) {
 
                                 case 1 :
-                                    admin_create_account(client, json_clients); ///Create an account
+                                    admin_create_account(json_clients); ///Create an account
                                     write_file(json_object, json_clients);///Update the JSON file
                                     json_clients = parse_json();///Parse the json file containing the client data
                                     break;
@@ -178,7 +178,7 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 default :
-                                    display_error_flag(s, &sub_index);///Display an error message if the user input an incorrect flag
+                                    display_error_flag();///Display an error message if the user input an incorrect flag
                                     choose_feature(s, &sub_index);///Choose the feature you want to run
                                     goto restart_admin_account_management;
                             }
@@ -210,7 +210,7 @@ int main(int argc, char *argv[]) {
                                     break;
 
                                 default :
-                                    display_error_flag(s, &flag);///Display an error message if the user input an incorrect flag
+                                    display_error_flag();///Display an error message if the user input an incorrect flag
                                     choose_feature(s, &flag);///Choose the feature you want to run
                                     goto restart_admin_client_management;
                             }
@@ -234,7 +234,7 @@ int main(int argc, char *argv[]) {
                             break;
 
                         default :
-                            display_error_flag(s, &flag);///Display an error message if the user input an incorrect flag
+                            display_error_flag();///Display an error message if the user input an incorrect flag
                             break;
                     }
                     log_in = 1;
@@ -249,7 +249,7 @@ int main(int argc, char *argv[]) {
                 exit = 0;
                 break;
             default :
-                display_error_flag(s, &flag);///Display an error message if the user input an incorrect flag
+                display_error_flag();///Display an error message if the user input an incorrect flag
                 choose_feature(s, &flag);///Choose the feature you want to run
                 break;
         }

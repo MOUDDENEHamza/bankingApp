@@ -16,7 +16,7 @@ void hide_passwd(char *passwd);
 /**
  * Generate unique id for the client
  */
-void generate_unique_id(Client client);
+char *generate_unique_id(void);
 
 /**
  * Ask to client to input his id
@@ -31,42 +31,52 @@ void input_passwd(char *passwd);
 /**
  * Ask to user to create his own password
  */
-void create_passwd(Client client);
+char *create_passwd(void);
 
 /**
  * Ask to user or administrator to input her last name
  */
-void input_last_name(Client client);
+char *input_last_name(void);
 
 /**
  * Ask to user or administrator to input her first name
  */
-void input_first_name(Client client);
+char *input_first_name(void);
 
 /**
  * Ask to user or administrator to input his birthday
  */
-void input_birthday(Client client);
+char *input_birthday(void);
 
 /**
  * Ask to user or administrator to input his Email address
  */
-void input_mail(Client client);
+char *input_mail(void);
 
 /**
  * Ask to user or administrator to input her phone number
  */
-void input_phone(Client client);
+char *input_phone(void);
+
+/**
+ * Ask the user to input an integer
+ */
+int input_choice(void);
 
 /**
  * Ask the user to input the account type
  */
-void input_type(Client client, int *choice);
+char *input_type(int *choice);
 
 /**
  * Ask the user to input the entitled of the account
  */
-void input_entitled(Client client);
+char *input_entitled(void);
+
+/**
+ * Ask the user to input the joint entitled of the account
+ */
+char *input_joint_entitled(void);
 
 /**
  * input all personal information

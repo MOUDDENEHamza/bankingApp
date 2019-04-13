@@ -6,7 +6,7 @@
 /**
  * Create a new account to a given client
  */
-void admin_create_account(Client client, Json_object json_clients);
+void admin_create_account(Json_object json_clients);
 
 /**
  * Create a new account to a given client
