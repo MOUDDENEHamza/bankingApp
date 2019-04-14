@@ -140,11 +140,16 @@ char* concatenate(char* str1,char* str2){
 Client* create_new_account(int *nb_accounts,int* nb_accounts_joint) {
     char *id=malloc(sizeof(char*));
     char *id_joint=malloc(sizeof(char*));
+    back:
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
     int *idx_joint=malloc(sizeof(int));
-    import_Client_idx_from_Json(id,idx);
+    int n_clients=import_Client_idx_from_Json(id,idx);
+    if (idx[0]>=n_clients) {
+        display_unexistant_ID();
+        goto back;
+    }
     Client client=new_client();
     Client client_joint=new_client();
     Client temp_joint = new_client();
@@ -156,12 +161,16 @@ Client* create_new_account(int *nb_accounts,int* nb_accounts_joint) {
     nb_accounts[0]++;
     
     if(strcmp(get_type(get_account(updated)),"JOINT")==0){
+        back1:
         printf("\nyou are trying to create a new JOINT ACCOUNT for a client\nYou need to enter the client partner ID : ");
         scanf("%s",id_joint);
         printf("ok...");
-        import_Client_idx_from_Json(id_joint,idx_joint);
+        int nb_clents=import_Client_idx_from_Json(id_joint,idx_joint);
+        if (idx_joint[0]>=nb_clents) {
+            display_unexistant_ID();
+            goto back1;
+        }
         import_Client_from_Json(idx_joint,temp_joint,nb_accounts_joint);
-        //client_joint = input_add_account(temp_joint);
         client_joint = input_add_account_joint(updated,temp_joint);
         nb_accounts_joint[0]++;
     }
@@ -193,10 +202,15 @@ void display_accounts_list(void){
     char *id=malloc(sizeof(char*));
     int *idx=malloc(sizeof(int));
     int *nb_accounts=malloc(sizeof(int));
+    back:
     printf("\nEnter the client ID  :");
     scanf("%s",id);
     Client client=new_client();
-    import_Client_idx_from_Json(id,idx);
+    int nb_clients=import_Client_idx_from_Json(id,idx);
+    if (idx[0]>=nb_clients) {
+        display_unexistant_ID();
+        goto back;
+    }
     import_Client_from_Json(idx,client,nb_accounts);
     display_typeAccounts(client,nb_accounts);
 }
@@ -205,10 +219,15 @@ void display_entiled(void) {
     char *id=malloc(sizeof(char*));
     int *idx=malloc(sizeof(int));
     int *nb_accounts=malloc(sizeof(int));
+    back:
     printf("\nEnter the client ID  :");
     scanf("%s",id);
     Client client=new_client();
-    import_Client_idx_from_Json(id,idx);
+    int nb_clients=import_Client_idx_from_Json(id,idx);
+    if (idx[0]>=nb_clients) {
+        display_unexistant_ID();
+        goto back;
+    }
     import_Client_from_Json(idx,client,nb_accounts);
     display_entitled(client,nb_accounts);
 }
@@ -235,25 +254,32 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
     Client temp=new_client();
     Client client_joint1=new_client();
     int choice,nb_clients;
+    char* choice_char = malloc(sizeof(char*));
     int *idx_joint = malloc(sizeof(int));
     char*id_joint = malloc(sizeof(char*));
     if (strcmp(get_type(get_account(client)),"JOINT")==0) {
         back:
         printf("\nEnter :\n1 if the client partner has already an account\n2 if he doesn't\nEnter your choice :");
-        scanf("%d",&choice);
+        scanf("%s",&choice_char);
+        choice = atoi(choice_char);
         switch (choice)
         {
             case 1 :
+                back1:
                 printf("\nEnter the client partner id : ");
                 scanf("%s",id_joint);
                 nb_clients=import_Client_idx_from_Json(id_joint,idx_joint);
-                printf("pk\n ");
+                if (idx_joint[0]>=nb_clients) {
+                    display_unexistant_ID();
+                    goto back1;
+                }
+                
                 import_Client_from_Json(idx_joint,temp,nb_accounts);
                 client_joint1 = input_add_account_joint(client,temp);
                 nb_accounts[0]++;
                 break;
             case 2 :
-            printf("\nnow we are adding the client partber ...\n");
+                printf("\nnow we are adding the client partber ...\n");
                 input_perso_info(client_joint1);
                 set_account(client_joint1,get_account(client));
                 input_entitled_joint(client,client_joint1);
@@ -261,6 +287,7 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
                 break;
         
             default:
+                display_wrong();
                 goto back;
                 break;
         }
@@ -277,20 +304,26 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
 /*
  *Edit the personal information of the client
  */
+/*
 Client edit_perso_info_client(void) {
     char *id=malloc(SIZE);
-    printf("\nEnter the client ID");
+    back1:
+    printf("\nEnter the client ID : ");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
     int *nb_accounts=malloc(sizeof(int));
-    import_Client_idx_from_Json(id,idx);
+    int n_clients=import_Client_idx_from_Json(id,idx);
+    if (idx[0]>=n_clients) {
+        display_unexistant_ID();
+    }
+    
     Client client=new_client();
     import_Client_from_Json(idx,client,nb_accounts);
     printf("\nChange the coordinates : loading...\n");
     free(get_perso_info(client));
     printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
     return client;
-}
+}*/
 
 Client edit_client_coordonates(int *nb_accounts){
     char *id=malloc(sizeof(char*));
