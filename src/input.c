@@ -341,6 +341,3 @@ Client input_add_account_joint(Client client,Client client_joint){
     printf("\nok+++");
     return temp;
 }
-
-
-//void set_entitled_joint(Client client){}

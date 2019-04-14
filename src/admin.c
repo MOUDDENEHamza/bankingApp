@@ -301,29 +301,6 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
     }
 }
 
-/*
- *Edit the personal information of the client
- */
-/*
-Client edit_perso_info_client(void) {
-    char *id=malloc(SIZE);
-    back1:
-    printf("\nEnter the client ID : ");
-    scanf("%s",id);
-    int *idx=malloc(sizeof(int));
-    int *nb_accounts=malloc(sizeof(int));
-    int n_clients=import_Client_idx_from_Json(id,idx);
-    if (idx[0]>=n_clients) {
-        display_unexistant_ID();
-    }
-    
-    Client client=new_client();
-    import_Client_from_Json(idx,client,nb_accounts);
-    printf("\nChange the coordinates : loading...\n");
-    free(get_perso_info(client));
-    printf("\nthe coordinates has been edited. Come back to the administrator menu.\n");
-    return client;
-}*/
 
 Client edit_client_coordonates(int *nb_accounts){
     char *id=malloc(sizeof(char*));

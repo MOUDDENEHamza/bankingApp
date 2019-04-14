@@ -16,8 +16,6 @@ void add_client_json(Client client, Json_object json_clients);
 
 void modify_client(Client client, Json_object json_clients, int* nb_acc);
 
-void delete_client(Client client, Json_object json_clients,int *nb_acc);
-
 /*
  * Parse the json file containing the client data
  */
