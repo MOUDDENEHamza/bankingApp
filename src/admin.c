@@ -68,51 +68,47 @@ char* concatenate(char* str1,char* str2){
 }
 
 
-Client create_new_account(int *nb_accounts) {
+Client* create_new_account(int *nb_accounts,int* nb_accounts_joint) {
     char *id=malloc(sizeof(char*));
+    char *id_joint=malloc(sizeof(char*));
     printf("\nEnter the client ID\n");
     scanf("%s",id);
     int *idx=malloc(sizeof(int));
+    int *idx_joint=malloc(sizeof(int));
     import_Client_idx_from_Json(id,idx);
     Client client=new_client();
+    Client client_joint=new_client();
+    Client temp_joint = new_client();
     import_Client_from_Json(idx,client,nb_accounts);
     printf("\n\nchoose the type of account you want to create\n");
     printf("you have just to enter the number referenced! \n");
     display_choose_type();
     Client updated=input_add_account(client);
     nb_accounts[0]++;
-    return updated;
-}
-
-Client* create_new_account_joint(int *nb_accounts,int *nb_accounts_joint){
-    char *id_joint= "***********";
-    int* idx_joint=malloc(sizeof(int));
-    Client* tabClient = malloc(2*sizeof(Client));
-    tabClient[0] = create_new_account(nb_accounts);
-    tabClient[1] = new_client();
-    printf("type client= %s",get_type(get_account(tabClient[0])));
-    if (strcmp(get_type(get_account(tabClient[0])),"JOINT")==0) {
+    
+    if(strcmp(get_type(get_account(updated)),"JOINT")==0){
         printf("\nyou are trying to create a new JOINT ACCOUNT for a client\nYou need to enter the client partner ID : ");
-        printf("ok...");
-        printf("ok...");
         scanf("%s",id_joint);
         printf("ok...");
         import_Client_idx_from_Json(id_joint,idx_joint);
-        printf("ok...");
-        import_Client_from_Json(idx_joint,tabClient[1],nb_accounts_joint);
-        printf("ok...");
-        tabClient[1]=input_add_account_joint(tabClient[0],tabClient[1]);
-        printf("ok...");
-        nb_accounts_joint[0]++;
-        printf("ok...");
+        import_Client_from_Json(idx_joint,temp_joint,nb_accounts_joint);
+        display_choose_type();
+        //client_joint = input_add_account(temp_joint);
+        client_joint = input_add_account_joint(updated,temp_joint);
     }
     else
     {
-        tabClient[1]=NULL;
+        client_joint = NULL;
     }
-    printf("ok...");
-    return tabClient; 
+    
+    Client* tabClient = malloc(2*sizeof(Client));
+    tabClient[0] = new_client();
+    tabClient[1] = new_client();
+    tabClient[0] = updated;
+    tabClient[1] = client_joint;
+    return tabClient;
 }
+
 
 /*
  *Create account to the client

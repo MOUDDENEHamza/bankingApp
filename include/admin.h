@@ -20,9 +20,9 @@ int nb_accounts(Client client);
 bool in_1__nb_accounts(int choice, int nb);
 
 
-Client create_new_account(int *nb_accounts);
+Client* create_new_account(int *nb_accounts,int* nb_accounts_joint);
 
-Client* create_new_account_joint(int *nb_accounts,int *nb_accounts_joint);
+
 
 
 /*

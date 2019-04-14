@@ -296,6 +296,7 @@ void input_create_account(Client client) {
     set_account(client, get_account(client));
 }
 
+
 /*input a new account*/
 Client input_add_account(Client client) {
     int choice;;
@@ -313,6 +314,18 @@ Client input_add_account(Client client) {
     set_nextAccount(get_account(temp),get_account(client));
     return temp;
 }
+/*
+Client input_add_account000joint(Client client) {
+    Client temp=new_client();
+    set_id(temp,get_id(client));
+    set_passwd(temp,get_passwd(client));
+    set_perso_info(temp,get_perso_info(client));
+    Account a=new_account();
+    input_new_balance(a);
+    set_account(temp,a);
+    set_nextAccount(get_account(temp),get_account(client));
+    return temp;
+}*/
 
 Client input_add_account_joint(Client client,Client client_joint){
     Client temp=new_client();

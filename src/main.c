@@ -133,14 +133,13 @@ int main(int argc, char *argv[]) {
                             restart0:
                             switch (sub_index) {
                                 case 1 :
-                                    //client=create_new_account(nb_acc1);
-                                    tabClient = create_new_account_joint(nb_acc1,nb_acc2);
+                                    tabClient=create_new_account(nb_acc1,nb_acc2);
                                     client = tabClient[0];
+                                    client_joint = tabClient[1];
+                                    //admin_create_new_account(nb_acc1,nb_acc2,client);
+                                    //client = tabClient[0];
                                     modify_client(client,json_clients,nb_acc1);
-                                    if (tabClient[1]!=NULL) {
-                                        client_joint = tabClient[1];
-                                        modify_client(client_joint,json_clients,nb_acc2);
-                                    }
+                                    modify_client(client_joint,json_clients,nb_acc2);
                                     write_file(json_object, json_clients);
                                     break;
                                 case 2 :
@@ -174,15 +173,7 @@ int main(int argc, char *argv[]) {
                             restart:
                             switch (sub_index) {
                                 case 1 :
-                                    //add_client(client);//Add new client
-                                    //add_client_json(client, json_clients);
-                                    //write_file(json_object, json_clients);
-                                    //client = new_client();
                                     client_joint=add_client_and_joint(client,client_joint,nb_acc2);
-                                    printf("\nok...\n");
-                                    //printf("\nentitled1=%s\nentitled2=%s\n",get_entitled(get_account(client_joint)),get_entitled(get_nextAccount(get_account(client_joint))));
-                                    printf("\nok...\n");
-                                    printf("\nok...\n");
                                     switch (nb_acc2[0])
                                     {
                                         case 1 :
