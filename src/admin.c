@@ -37,6 +37,9 @@ int format_birthday(char* birthday){
 }
 
 
+/*
+*return the substring of a string between idexes "strart" and "end"
+*/
 char *str_sub (const char *s, unsigned int start, unsigned int end){
    char *new_s = NULL;
 
@@ -65,7 +68,9 @@ char *str_sub (const char *s, unsigned int start, unsigned int end){
    return new_s;
 }
 
-
+/*
+*return the idexe of the substring ct in the string cs
+*/
 int str_istr (char *cs, char *ct){
    int index = -1;
 
@@ -94,6 +99,9 @@ int absolut_value(int *i){
     
 }
 
+/*
+*return the civility with the entitled of account of a client "ex : Mr. philippe truillet"
+*/
 char * get_civility_entitled(Client client){
     char* civility = malloc(sizeof(char*));
     char* entitled = get_entitled(get_account(client));
@@ -115,7 +123,9 @@ char * get_civility_entitled(Client client){
     return civility_entitled;
 }
 
-
+/*
+*convert a long long int to a char*
+*/
 void lldTochar(char *s){
     long long int t=(long long int)time(NULL)*100+rand()%100;
     char *tri=malloc(sizeof(long long int));
@@ -123,6 +133,9 @@ void lldTochar(char *s){
     strcpy(s,tri);
 }
 
+/*
+*concatenate two strings on one string and return the string
+*/
 char* concatenate(char* str1,char* str2){
     char* str=malloc((strlen(str1)+strlen(str2))*sizeof(char));
     for(int i=0; i<strlen(str1)+strlen(str2); i++){
@@ -137,6 +150,9 @@ char* concatenate(char* str1,char* str2){
 }
 
 
+/*
+*create a new account for a client (including joint account)
+*/
 Client* create_new_account(int *nb_accounts,int* nb_accounts_joint) {
     char *id=malloc(sizeof(char*));
     char *id_joint=malloc(sizeof(char*));
@@ -216,6 +232,9 @@ void display_accounts_list(void){
     display_typeAccounts(client,nb_accounts);
 }
 
+/*
+*display all entileds of all accounts
+*/
 void display_entiled(void) {
     char *id=malloc(sizeof(char*));
     int *idx=malloc(sizeof(int));
@@ -234,7 +253,7 @@ void display_entiled(void) {
 }
 
 /*
- *Add client
+ *Add client (and create at the same time an account for the client)
  */
 void add_client(Client client) {
     FILE *fp;
@@ -249,6 +268,8 @@ void add_client(Client client) {
     fclose(fp);
     printf("\nClient has been added. Come back to the administrator menu.\n");*/
 }
+
+
 
 Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts){
     add_client(client);
@@ -305,6 +326,9 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
 }
 
 
+/*
+*edit mail or phone
+*/
 Client edit_client_coordonates(int *nb_accounts){
     char *id=malloc(sizeof(char*));
     int *idx=malloc(sizeof(int));
@@ -342,7 +366,9 @@ Client edit_client_coordonates(int *nb_accounts){
     return client;
 }
 
-
+/*
+*delete an account
+*/
 Json_object admin_delete_account(Client client, Json_object json_clients) {
     int *idx=malloc(sizeof(int));
     int *nb_accounts=malloc(sizeof(int));
@@ -690,6 +716,3 @@ Json_object edit_account(Client client, Json_object json_clients) {
     return  json_temp_clients;
 }
 
-Json_object edit_account_and_joint(Client client,Json_object json_clients){
-    json_clients = edit_account(client,json_clients);
-}
