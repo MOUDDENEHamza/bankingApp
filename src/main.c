@@ -136,8 +136,6 @@ int main(int argc, char *argv[]) {
                                     tabClient=create_new_account(nb_acc1,nb_acc2);
                                     client = tabClient[0];
                                     client_joint = tabClient[1];
-                                    //admin_create_new_account(nb_acc1,nb_acc2,client);
-                                    //client = tabClient[0];
                                     modify_client(client,json_clients,nb_acc1);
                                     modify_client(client_joint,json_clients,nb_acc2);
                                     write_file(json_object, json_clients);

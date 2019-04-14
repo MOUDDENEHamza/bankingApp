@@ -107,6 +107,10 @@ void display_edit_succesfoul(void);
 
 void display_delet_successfoul(void);
 
+void display_add_successfoul(void);
+
+void display_add_client_successfoul(void);
+
 void display_no_account(void);
 
 void display_wrong(void);

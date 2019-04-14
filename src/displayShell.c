@@ -202,6 +202,15 @@ void display_delet_successfoul(void){
     printf(GREEN"\nok\naccount deleted successfoully !\n"RESET);
 }
 
+void display_add_successfoul(void){
+    printf(GREEN"\nok\naccount created successfoully !\n"RESET);
+}
+
+void display_add_client_successfoul(void){
+    printf(GREEN"\nok\nclient added successfoully !\n"RESET);
+}
+
+
 void display_no_account(void){
     printf(MAGENTA"\nOoup's !!!\nTHAT CLIENT HAS NOT AN ACCOUNT !\n"RESET);
 }

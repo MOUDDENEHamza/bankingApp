@@ -184,6 +184,7 @@ Client* create_new_account(int *nb_accounts,int* nb_accounts_joint) {
     tabClient[1] = new_client();
     tabClient[0] = updated;
     tabClient[1] = client_joint;
+    display_add_successfoul();
     return tabClient;
 }
 
@@ -260,7 +261,7 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
     if (strcmp(get_type(get_account(client)),"JOINT")==0) {
         back:
         printf("\nEnter :\n1 if the client partner has already an account\n2 if he doesn't\nEnter your choice :");
-        scanf("%s",&choice_char);
+        scanf("%s",choice_char);
         choice = atoi(choice_char);
         switch (choice)
         {
@@ -292,11 +293,13 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
                 break;
         }
         client_joint = client_joint1;
+        display_add_client_successfoul();
         return client_joint;
     }
     else
     {
         free(client_joint);
+        display_add_client_successfoul();
         return NULL;
     }
 }
@@ -335,6 +338,7 @@ Client edit_client_coordonates(int *nb_accounts){
         display_unexistant_ID();
         goto back0;
     }
+    display_edit_succesfoul();
     return client;
 }
 

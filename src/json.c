@@ -21,6 +21,8 @@ void write_file(Json_object json_object, Json_object json_clients) {
     fclose(fp);
 }
 
+
+
 /*
  * Add data client to json file
  */
