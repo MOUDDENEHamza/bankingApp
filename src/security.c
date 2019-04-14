@@ -109,18 +109,23 @@ int connect_admin(char *passwd) {
 /**
  * Change the client password
  */
-void change_client_passwd(Client client, Json_object json_clients) {
+int change_client_passwd(Client client) {
+    FILE *fp;
     int i;
-    char *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
-    Json_object json_client, json_id, json_passwd;
+    char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
+    Json_object parsed_json, json_clients, json_client, json_id, json_passwd;
     size_t n_clients;
 
-    printf("\nChange password : Loading...\n");
     write(STDOUT_FILENO, "\nEnter your new password : ", 27);
     hide_passwd(new_passwd1);
     write(STDOUT_FILENO, "\nConfirm your new password : ", 29);
     hide_passwd(new_passwd2);
     if (strcmp(new_passwd1, new_passwd2) == 0) {
+        fp = fopen("data/account_list.json", "r");
+        fread(buffer, BUFFER, 1, fp);
+        fclose(fp);
+        parsed_json = json_tokener_parse(buffer);
+        json_object_object_get_ex(parsed_json, "CLIENTS", &json_clients);
         n_clients = json_object_array_length(json_clients);
         for (i = 0; i < n_clients; i++) {
             json_client = json_object_array_get_idx(json_clients, i);
@@ -131,18 +136,20 @@ void change_client_passwd(Client client, Json_object json_clients) {
                 json_object_object_foreach(json_client, key, val)
                 {
                     if (strcmp(key, "PASSWD") == 0) {
-                        set_passwd(client, new_passwd1);
-                        printf("\ntest : %s\n", json_object_get_string(json_client));
-                        printf("\ntest : %s\n", json_object_get_string(json_passwd));
                         json_object_object_add(json_client, key, json_object_new_string(encrypt_passwd(new_passwd1)));
+                        fp = fopen("data/account_list.json", "w");
+                        fwrite(json_object_get_string(parsed_json), strlen(json_object_get_string(parsed_json)), 1, fp);
+                        fclose(fp);
                         display_success_changing_passwd();
-                        return;
+                        return 1;
                     }
                 }
             }
         }
+    } else {
+        display_wrong_input();
+        return 0;
     }
-    display_wrong_input();
 }
 
 /**
@@ -150,7 +157,8 @@ void change_client_passwd(Client client, Json_object json_clients) {
  */
 int change_administrator_passwd(void) {
     FILE *fp;
-    char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(SIZE);
+    char *buffer = (char *) malloc(BUFFER), *new_passwd1 = (char *) malloc(SIZE), *new_passwd2 = (char *) malloc(
+            SIZE);
     Json_object parsed_json;
 
     write(STDOUT_FILENO, "\nEnter your new password : ", 27);

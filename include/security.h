@@ -21,7 +21,7 @@ int connect_admin(char *passwd);
 /**
  * Change the client password
  */
-void change_client_passwd(Client client, Json_object json_clients);
+int change_client_passwd(Client client);
 
 /**
  * Change the administrator password
