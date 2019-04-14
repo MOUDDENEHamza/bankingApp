@@ -260,18 +260,19 @@ void add_client(Client client) {
     char *str = (char *) malloc(SIZE);
     input_perso_info(client);
     create_account(client);
-    /*strcpy(str, "data/");
-    strcat(get_id(client), ".csv");
+    strcpy(str, "data/");
     strcat(str, get_id(client));
+    strcat(str, ".csv");
     fp = fopen(str, "w");
     fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE");
     fclose(fp);
-    printf("\nClient has been added. Come back to the administrator menu.\n");*/
+    /*printf("\nClient has been added. Come back to the administrator menu.\n");*/
 }
 
 
 
 Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts){
+    FILE *fp;
     add_client(client);
     Client temp=new_client();
     Client client_joint1=new_client();
@@ -279,6 +280,7 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
     char* choice_char = malloc(sizeof(char*));
     int *idx_joint = malloc(sizeof(int));
     char*id_joint = malloc(sizeof(char*));
+    char *str = (char *) malloc(SIZE);
     if (strcmp(get_type(get_account(client)),"JOINT")==0) {
         back:
         printf("\nEnter :\n1 if the client partner has already an account\n2 if he doesn't\nEnter your choice :");
@@ -303,9 +305,19 @@ Client add_client_and_joint(Client client, Client client_joint,int* nb_accounts)
             case 2 :
                 printf("\nnow we are adding the client partber ...\n");
                 input_perso_info(client_joint1);
-                set_account(client_joint1,get_account(client));
+                input_entitled(client_joint1,get_account(client_joint1));
+                set_ida(get_account(client_joint1),get_ida(get_account(client)));
+                set_type(get_account(client_joint1),get_type(get_account(client)));
+                float balance = get_balance(get_account(client));
+                set_balance(get_account(client_joint1),&balance);
                 input_entitled_joint(client,client_joint1);
                 nb_accounts[0]=1;
+                strcpy(str, "data/");
+                strcat(str, get_id(client_joint1));
+                strcat(str, ".csv");
+                fp = fopen(str, "w");
+                fprintf(fp, "DATE, OPERATION, AMOUNT, BALANCE");
+                fclose(fp);
                 break;
         
             default:

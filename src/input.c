@@ -279,7 +279,7 @@ void input_entitled(Client client, Account a) {
 
 
 void input_entitled_joint(Client client, Client client_joint){
-    char* entitled_joint = concatenate(concatenate(get_entitled(get_account(client))," and "),get_entitled(get_account(client_joint)));
+    char* entitled_joint = concatenate(concatenate(get_civility_entitled(client)," and "),get_civility_entitled(client_joint));
     set_entitled(get_account(client),entitled_joint);
     set_entitled(get_account(client_joint),entitled_joint);
 }
