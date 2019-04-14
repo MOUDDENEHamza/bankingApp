@@ -2,7 +2,7 @@
 
 -This project is about creating a program able to handle a system
 (Administration, configuration, update, etc...) of bank accounts 
-(current account, Passbook, PEL, etc...) in C language.
+(current account, Passbook, etc...) in C language.
 
 # COMPILE & RUN
 
