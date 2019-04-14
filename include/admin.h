@@ -10,6 +10,12 @@ int absolut_value(int *i);
 
 int format_birthday(char* birthday);
 
+char *str_sub (const char *s, unsigned int start, unsigned int end);
+
+int str_istr (char *cs, char *ct);
+
+char * get_civility_entitled(Client client);
+
 
 char* concatenate(char* str1,char* str2);
 

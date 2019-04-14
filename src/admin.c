@@ -36,6 +36,53 @@ int format_birthday(char* birthday){
     }
 }
 
+
+char *str_sub (const char *s, unsigned int start, unsigned int end){
+   char *new_s = NULL;
+
+   if (s != NULL && start < end)
+   {
+/* (1)*/
+      new_s = malloc (sizeof (*new_s) * (end - start + 2));
+      if (new_s != NULL)
+      {
+         int i;
+
+/* (2) */
+         for (i = start; i <= end; i++)
+         {
+/* (3) */
+            new_s[i-start] = s[i];
+         }
+         new_s[i-start] = '\0';
+      }
+      else
+      {
+         fprintf (stderr, "Memoire insuffisante\n");
+         exit (EXIT_FAILURE);
+      }
+   }
+   return new_s;
+}
+
+
+int str_istr (char *cs, char *ct){
+   int index = -1;
+
+   if (cs != NULL && ct != NULL)
+   {
+      char *ptr_pos = malloc(sizeof(char*));
+
+      ptr_pos = strstr (cs, ct);
+      if (ptr_pos != NULL)
+      {
+        index = ptr_pos - cs;
+      }
+   }
+   return index;
+}
+
+
 int absolut_value(int *i){
     if(i[0]>0){
         return i[0];
@@ -46,6 +93,28 @@ int absolut_value(int *i){
     }
     
 }
+
+char * get_civility_entitled(Client client){
+    char* civility = malloc(sizeof(char*));
+    char* entitled = get_entitled(get_account(client));
+    char* sub_entitled = concatenate(concatenate(get_first_name(get_perso_info(client))," "),get_last_name(get_perso_info(client)));
+    int idex = str_istr(entitled,sub_entitled);
+    if (idex-5>=0) {
+        if (entitled[idex-5]==0 || entitled[idex-5]=='M') {
+            strcpy(civility,"Mrs.");
+        }
+        else{
+            strcpy(civility,str_sub(entitled,idex-4,idex-1));       
+        }
+    }
+    else
+    {
+        strcpy(civility,str_sub(entitled,idex-4,idex-1)); 
+    }
+    char* civility_entitled = concatenate(civility,sub_entitled);
+    return civility_entitled;
+}
+
 
 void lldTochar(char *s){
     long long int t=(long long int)time(NULL)*100+rand()%100;
@@ -92,9 +161,9 @@ Client* create_new_account(int *nb_accounts,int* nb_accounts_joint) {
         printf("ok...");
         import_Client_idx_from_Json(id_joint,idx_joint);
         import_Client_from_Json(idx_joint,temp_joint,nb_accounts_joint);
-        display_choose_type();
         //client_joint = input_add_account(temp_joint);
         client_joint = input_add_account_joint(updated,temp_joint);
+        nb_accounts_joint[0]++;
     }
     else
     {

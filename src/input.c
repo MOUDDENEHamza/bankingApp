@@ -262,7 +262,7 @@ void input_entitled(Client client, Account a) {
             break;
 
         case 5 :
-            strcpy(civility , ". ");
+            strcpy(civility , ".    ");
             break;
     
         default:
@@ -306,7 +306,7 @@ Client input_add_account(Client client) {
     set_perso_info(temp,get_perso_info(client));
     Account a=new_account();
     input_ida(a);
-    set_entitled(a,get_entitled(get_account(client)));
+    set_entitled(a,get_civility_entitled(client));
     scanf("%d",&choice);
     input_type(a,&choice);
     input_new_balance(a);
@@ -314,34 +314,31 @@ Client input_add_account(Client client) {
     set_nextAccount(get_account(temp),get_account(client));
     return temp;
 }
-/*
-Client input_add_account000joint(Client client) {
-    Client temp=new_client();
-    set_id(temp,get_id(client));
-    set_passwd(temp,get_passwd(client));
-    set_perso_info(temp,get_perso_info(client));
-    Account a=new_account();
-    input_new_balance(a);
-    set_account(temp,a);
-    set_nextAccount(get_account(temp),get_account(client));
-    return temp;
-}*/
+
 
 Client input_add_account_joint(Client client,Client client_joint){
     Client temp=new_client();
     set_id(temp,get_id(client_joint));
     set_passwd(temp,get_passwd(client_joint));
     set_perso_info(temp,get_perso_info(client_joint));
-    char* entitled_joint = concatenate(concatenate(get_entitled(get_account(client))," and "),get_entitled(get_account(client_joint)));
-    set_entitled(get_account(client),entitled_joint);
     Account a=new_account();
-    set_ida(a,get_ida(get_account(client)));
-    set_entitled(a,entitled_joint);
-    set_type(a,"JOINT");
+    printf("\nok+++");
+    set_type(a,get_type(get_account(client)));
+    printf("\nok++");
     float balance=get_balance(get_account(client));
     set_balance(a,&balance);
+    printf("\nok++");
+    set_ida(a,get_ida(get_account(client)));
+    printf("\nok++");
+    char* entitled_joint = concatenate(concatenate(get_civility_entitled(client)," and "),get_civility_entitled(client_joint));
+    set_entitled(get_account(client),entitled_joint);
+    printf("\nok++");
+    set_entitled(a,entitled_joint);
+    printf("\nok++");
     set_account(temp,a);
+    printf("\nok+++");
     set_nextAccount(get_account(temp),get_account(client_joint));
+    printf("\nok+++");
     return temp;
 }
 
